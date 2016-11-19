@@ -1,0 +1,98 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.squareup.sqldelight'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
+
+    defaultConfig {
+        applicationId "com.github.xtorrent.dailytopic"
+        minSdkVersion 14
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+
+        multiDexEnabled true
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url "http://repository.jetbrains.com/all" }
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+}
+
+buildscript {
+    ext.support_version = '25.0.1'
+    ext.okhttp_version = '3.4.1'
+    ext.retrofit_version = '2.1.0'
+    ext.rxlifecycle_version = '0.6.1'
+    ext.rxbinding_version = '0.4.0'
+    ext.kotlin_version = '1.0.5'
+    ext.dagger_version = '2.2'
+    ext.autovalue_version = '1.2'
+
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.squareup.sqldelight:gradle-plugin:0.5.1'
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile "com.android.support:appcompat-v7:$support_version"
+    compile "com.android.support:design:$support_version"
+    compile 'com.android.support:multidex:1.0.1'
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    compile 'com.jakewharton.timber:timber:3.1.0'
+    compile 'com.jakewharton:kotterknife:0.1.0-SNAPSHOT'
+    compile "com.jakewharton.rxbinding:rxbinding:$rxbinding_version"
+    compile "com.jakewharton.rxbinding:rxbinding-kotlin:$rxbinding_version"
+    compile "com.jakewharton.rxbinding:rxbinding-support-v4:$rxbinding_version"
+    compile "com.jakewharton.rxbinding:rxbinding-support-v4-kotlin:$rxbinding_version"
+
+    compile 'io.reactivex:rxjava:1.1.8'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxkotlin:0.60.0'
+    compile "com.trello:rxlifecycle:$rxlifecycle_version"
+    compile "com.trello:rxlifecycle-components:$rxlifecycle_version"
+
+    compile "com.google.dagger:dagger:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    provided 'org.glassfish:javax.annotation:10.0-b28'
+
+    kapt "com.google.auto.value:auto-value:$autovalue_version"
+    provided "com.google.auto.value:auto-value:$autovalue_version"
+
+    compile 'com.squareup.sqlbrite:sqlbrite:0.8.0'
+
+    compile 'org.jsoup:jsoup:1.9.2'
+
+    compile 'me.zhanghai.android.materialprogressbar:library:1.1.7'
+
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile 'junit:junit:4.12'
+}

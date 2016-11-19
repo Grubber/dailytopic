@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/mainGroup"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/article"
+            android:icon="@drawable/ic_import_contacts_black_24dp"
+            android:title="@string/drawer_menu_article"/>
+
+        <item
+            android:id="@+id/voice"
+            android:icon="@drawable/ic_record_voice_over_black_24dp"
+            android:title="@string/drawer_menu_voice"/>
+
+        <item
+            android:id="@+id/book"
+            android:icon="@drawable/ic_book_black_24dp"
+            android:title="@string/drawer_menu_book"/>
+
+        <item
+            android:id="@+id/favourite"
+            android:icon="@drawable/ic_favorite_black_24dp"
+            android:title="@string/drawer_menu_favourite"/>
+    </group>
+
+    <group
+        android:id="@+id/settingsGroup"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/settings"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="@string/drawer_menu_settings"/>
+
+        <item
+            android:id="@+id/feedback"
+            android:icon="@drawable/ic_feedback_black_24dp"
+            android:title="@string/drawer_menu_feedback"/>
+    </group>
+</menu>

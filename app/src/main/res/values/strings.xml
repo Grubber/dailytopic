@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">文音悦读</string>
+
+    <string name="drawer_open">打开</string>
+    <string name="drawer_close">关闭</string>
+
+    <string name="drawer_menu_article">文章</string>
+    <string name="drawer_menu_voice">声音</string>
+    <string name="drawer_menu_book">书架</string>
+    <string name="drawer_menu_favourite">收藏</string>
+    <string name="drawer_menu_settings">设置</string>
+    <string name="drawer_menu_feedback">反馈</string>
+</resources>
