@@ -5,7 +5,7 @@ apply plugin: 'com.squareup.sqldelight'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    buildToolsVersion "25.0.1"
 
     defaultConfig {
         applicationId "com.github.xtorrent.dailytopic"
@@ -43,7 +43,7 @@ buildscript {
     ext.retrofit_version = '2.1.0'
     ext.rxlifecycle_version = '0.6.1'
     ext.rxbinding_version = '0.4.0'
-    ext.kotlin_version = '1.0.5'
+    ext.kotlin_version = '1.0.5-2'
     ext.dagger_version = '2.2'
     ext.autovalue_version = '1.2'
 
