@@ -1,0 +1,12 @@
+CREATE TABLE article (
+    _id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    author TEXT NOT NULL,
+    content TEXT NOT NULL
+);
+
+select_row:
+SELECT * FROM article WHERE _id = ?;
+
+insert_row:
+INSERT INTO article (title, author, content) VALUES (?, ?, ?);

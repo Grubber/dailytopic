@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">文音悦读</string>
 
+    <string name="text_empty">空空如也</string>
+    <string name="text_error_tips">网络错误</string>
+    <string name="button_retry">点击重试</string>
+
     <string name="drawer_open">打开</string>
     <string name="drawer_close">关闭</string>
 

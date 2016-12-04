@@ -3,7 +3,6 @@ package com.github.xtorrent.dailytopic.main
 import android.content.res.Configuration
 import android.os.Bundle
 import android.support.design.widget.NavigationView
-import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
@@ -13,14 +12,18 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import butterknife.bindView
+import com.github.xtorrent.dailytopic.DTApplication
 import com.github.xtorrent.dailytopic.R
 import com.github.xtorrent.dailytopic.article.ArticleFragment
+import com.github.xtorrent.dailytopic.article.ArticlePresenter
+import com.github.xtorrent.dailytopic.article.ArticlePresenterModule
 import com.github.xtorrent.dailytopic.base.BaseFragment
 import com.github.xtorrent.dailytopic.book.BookFragment
 import com.github.xtorrent.dailytopic.favourite.FavouriteFragment
 import com.github.xtorrent.dailytopic.feedback.FeedbackActivity
 import com.github.xtorrent.dailytopic.settings.SettingsActivity
 import com.github.xtorrent.dailytopic.voice.VoiceFragment
+import javax.inject.Inject
 
 /**
  * @author Grubber
@@ -43,14 +46,44 @@ class MainFragment : BaseFragment() {
     private var _drawerToggle: ActionBarDrawerToggle? = null
     private var _checkItemId: Int = R.id.article
 
+    @Inject
+    lateinit var articlePresenter: ArticlePresenter
+
+    private val _articleFragment by lazy {
+        ArticleFragment.newInstance()
+    }
+    private val _voiceFragment by lazy {
+        VoiceFragment.newInstance()
+    }
+    private val _bookFragment by  lazy {
+        BookFragment.newInstance()
+    }
+    private val _favouriteFragment by lazy {
+        FavouriteFragment.newInstance()
+    }
+    private val _fragments by lazy {
+        arrayListOf(
+                _articleFragment,
+                _voiceFragment,
+                _bookFragment,
+                _favouriteFragment
+        )
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        DTApplication.from(context)
+                .articleRepositoryComponent
+                .plus(ArticlePresenterModule(_articleFragment))
+                .inject(this)
 
         _setDrawer()
         _setNavigationView()
 
         _toolbar.setTitle(R.string.drawer_menu_article)
-        _replaceContentFrame(ArticleFragment.newInstance())
+        _initFragments()
+        _showContentFrame(0)
     }
 
     override fun onResume() {
@@ -61,27 +94,27 @@ class MainFragment : BaseFragment() {
 
     private fun _setNavigationView() {
         _navigationView.setNavigationItemSelectedListener {
-            var content: Fragment? = null
+            var index: Int = 0
 
             when (it.itemId) {
                 R.id.article -> {
                     _toolbar.setTitle(R.string.drawer_menu_article)
-                    content = ArticleFragment.newInstance()
+                    index = 0
                 }
 
                 R.id.voice -> {
                     _toolbar.setTitle(R.string.drawer_menu_voice)
-                    content = VoiceFragment.newInstance()
+                    index = 1
                 }
 
                 R.id.book -> {
                     _toolbar.setTitle(R.string.drawer_menu_book)
-                    content = BookFragment.newInstance()
+                    index = 2
                 }
 
                 R.id.favourite -> {
                     _toolbar.setTitle(R.string.drawer_menu_favourite)
-                    content = FavouriteFragment.newInstance()
+                    index = 3
                 }
 
                 R.id.settings -> SettingsActivity.start(context)
@@ -90,9 +123,7 @@ class MainFragment : BaseFragment() {
             }
 
             if (it.itemId != R.id.settings && it.itemId != R.id.feedback && !it.isChecked) {
-                content?.let {
-                    _replaceContentFrame(it)
-                }
+                _showContentFrame(index)
                 it.isChecked = true
                 _checkItemId = it.itemId
             }
@@ -101,10 +132,24 @@ class MainFragment : BaseFragment() {
         }
     }
 
-    private fun _replaceContentFrame(content: Fragment) {
-        childFragmentManager.beginTransaction()
-                .replace(R.id.content, content)
-                .commit()
+    private fun _initFragments() {
+        val transaction = childFragmentManager.beginTransaction()
+        _fragments.forEach {
+            transaction.add(R.id.content, it)
+        }
+        transaction.commit()
+    }
+
+    private fun _showContentFrame(index: Int) {
+        val transaction = childFragmentManager.beginTransaction()
+        _fragments.forEachIndexed { i, fragment ->
+            if (i == index) {
+                transaction.show(fragment)
+            } else {
+                transaction.hide(fragment)
+            }
+        }
+        transaction.commit()
     }
 
     private fun _setDrawer() {
