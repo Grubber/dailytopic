@@ -6,6 +6,8 @@ import com.github.xtorrent.dailytopic.article.source.ArticleRepositoryComponent
 import com.github.xtorrent.dailytopic.article.source.ArticleRepositoryModule
 import com.github.xtorrent.dailytopic.core.di.*
 import com.github.xtorrent.dailytopic.db.DatabaseManager
+import com.github.xtorrent.dailytopic.utils.ToastHelper
+import com.squareup.picasso.Picasso
 import timber.log.Timber
 import javax.inject.Inject
 import kotlin.properties.Delegates
@@ -25,6 +27,10 @@ class DTApplication : MultiDexApplication() {
 
     @Inject
     lateinit var databaseManager: DatabaseManager
+    @Inject
+    lateinit var picasso: Picasso
+    @Inject
+    lateinit var toastHelper: ToastHelper
 
     override fun onCreate() {
         super.onCreate()

@@ -65,6 +65,11 @@ dependencies {
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile "com.squareup.okhttp3:okhttp:$okhttp_version"
+    compile "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+    compile 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.0.2'
+
     compile 'com.jakewharton.timber:timber:3.1.0'
     compile 'com.jakewharton:kotterknife:0.1.0-SNAPSHOT'
     compile "com.jakewharton.rxbinding:rxbinding:$rxbinding_version"
