@@ -175,6 +175,11 @@ class MainFragment : BaseFragment() {
     fun onBackPressed() {
         if (_drawerLayout.isDrawerOpen(GravityCompat.START)) {
             _drawerLayout.closeDrawer(GravityCompat.START)
+        } else if (_checkItemId != R.id.article) {
+            _showContentFrame(0)
+            _toolbar.setTitle(R.string.drawer_menu_article)
+            _checkItemId = R.id.article
+            _navigationView.setCheckedItem(_checkItemId)
         } else {
             (activity as MainActivity).exit()
         }
