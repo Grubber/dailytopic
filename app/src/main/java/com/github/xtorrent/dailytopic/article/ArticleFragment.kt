@@ -8,7 +8,6 @@ import android.widget.TextView
 import butterknife.bindView
 import com.github.xtorrent.dailytopic.R
 import com.github.xtorrent.dailytopic.article.model.Article
-import com.github.xtorrent.dailytopic.article.random.RandomArticleActivity
 import com.github.xtorrent.dailytopic.base.BaseActivity
 import com.github.xtorrent.dailytopic.base.ContentFragment
 
@@ -92,7 +91,7 @@ class ArticleFragment : ContentFragment(), ArticleContract.View {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.random -> {
-                RandomArticleActivity.start(context)
+                ArticleActivity.start(context)
                 return true
             }
         }
