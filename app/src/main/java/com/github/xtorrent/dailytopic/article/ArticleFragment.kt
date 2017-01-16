@@ -5,6 +5,7 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import butterknife.bindView
 import com.github.xtorrent.dailytopic.R
@@ -31,6 +32,7 @@ class ArticleFragment : ContentFragment(), ArticleContract.View {
         _presenter = presenter
     }
 
+    private val _backgroundView by bindView<ImageView>(R.id.backgroundView)
     private val _titleView by bindView<TextView>(R.id.titleView)
     private val _authorView by bindView<TextView>(R.id.authorView)
     private val _contentView by bindView<TextView>(R.id.contentView)
@@ -46,7 +48,9 @@ class ArticleFragment : ContentFragment(), ArticleContract.View {
     }
 
     override fun setContentView(article: Article) {
-        // TODO UI 优化
+        picasso().load(article.backgroundImage())
+                .fit()
+                .into(_backgroundView)
         _titleView.text = article.title()
         _authorView.text = article.author()
         _contentView.text = Html.fromHtml(article.content())
