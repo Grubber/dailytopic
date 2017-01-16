@@ -22,6 +22,6 @@ class FavouriteFragment : BaseFragment() {
     }
 
     override fun getTitle(): String? {
-        return getString(R.string.drawer_menu_favourite)
+        return null
     }
 }

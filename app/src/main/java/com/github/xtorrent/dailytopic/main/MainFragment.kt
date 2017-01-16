@@ -17,6 +17,7 @@ import com.github.xtorrent.dailytopic.R
 import com.github.xtorrent.dailytopic.article.ArticleFragment
 import com.github.xtorrent.dailytopic.article.ArticlePresenter
 import com.github.xtorrent.dailytopic.article.ArticlePresenterModule
+import com.github.xtorrent.dailytopic.base.BaseActivity
 import com.github.xtorrent.dailytopic.base.BaseFragment
 import com.github.xtorrent.dailytopic.book.BookFragment
 import com.github.xtorrent.dailytopic.favourite.FavouriteFragment
@@ -72,6 +73,7 @@ class MainFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        (activity as BaseActivity).setSupportActionBar(_toolbar)
 
         DTApplication.from(context)
                 .articleRepositoryComponent

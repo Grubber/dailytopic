@@ -9,6 +9,7 @@ import butterknife.bindView
 import com.github.xtorrent.dailytopic.R
 import com.github.xtorrent.dailytopic.article.model.Article
 import com.github.xtorrent.dailytopic.article.random.RandomArticleActivity
+import com.github.xtorrent.dailytopic.base.BaseActivity
 import com.github.xtorrent.dailytopic.base.ContentFragment
 
 /**
@@ -77,8 +78,15 @@ class ArticleFragment : ContentFragment(), ArticleContract.View {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.menu_article, menu)
         super.onCreateOptionsMenu(menu, inflater)
+        inflater?.inflate(R.menu.menu_article, menu)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?) {
+        super.onPrepareOptionsMenu(menu)
+        if (_isRandom) {
+            menu?.findItem(R.id.random)?.isVisible = false
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -97,6 +105,6 @@ class ArticleFragment : ContentFragment(), ArticleContract.View {
     }
 
     override fun getTitle(): String? {
-        return if (_isRandom) getString(R.string.title_random_article) else ""
+        return if (_isRandom) getString(R.string.title_random_article) else (activity as BaseActivity).supportActionBar?.title as String?
     }
 }

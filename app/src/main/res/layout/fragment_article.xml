@@ -23,7 +23,9 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/bg_article"
             android:orientation="vertical"
-            android:padding="24dp">
+            android:paddingLeft="24dp"
+            android:paddingRight="20dp"
+            android:paddingTop="24dp">
 
             <TextView
                 android:id="@+id/titleView"
