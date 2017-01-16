@@ -42,7 +42,7 @@ class ArticleLocalDataSource(private val databaseManager: DatabaseManager) : Art
 
     override fun saveArticle(article: Article) {
         val insert = ArticleModel.Insert_row(_db)
-        insert.bind(article.title(), article.author(), article.content())
+        insert.bind(article.title(), article.author(), article.content(), article.backgroundImage())
         insert.program.execute()
     }
 }

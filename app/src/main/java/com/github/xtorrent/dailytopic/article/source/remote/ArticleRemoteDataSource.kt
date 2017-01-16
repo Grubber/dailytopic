@@ -7,6 +7,7 @@ import com.github.xtorrent.dailytopic.utils.newJsoupConnection
 import rx.Observable
 import rx.lang.kotlin.emptyObservable
 import rx.lang.kotlin.observable
+import java.util.*
 
 /**
  * @author Grubber
@@ -21,7 +22,11 @@ class ArticleRemoteDataSource : ArticleDataSource {
                     val title = container.getElementsByTag("h1").first().text()
                     val author = container.getElementsByClass("article_author").text()
                     val content = container.getElementsByClass("article_text").html()
-                    val article = Article.create(title, author, content)
+
+                    val random = Random()
+                    val backgroundImage = "http://meiriyiwen.com/images/new_feed/bg_${random.nextInt(99)}.jpg"
+
+                    val article = Article.create(title, author, content, backgroundImage)
                     it.onNext(article)
                     it.onCompleted()
                 } catch (e: Exception) {

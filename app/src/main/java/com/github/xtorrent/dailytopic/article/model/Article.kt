@@ -16,8 +16,8 @@ abstract class Article : ArticleModel {
         val FACTORY = ArticleModel.Factory<Article>(_creator)
         val MAPPER = FACTORY.select_rowMapper()
 
-        fun create(title: String, author: String, content: String): Article {
-            return _creator.create(0, title, author, content)
+        fun create(title: String, author: String, content: String, backgroundImage: String): Article {
+            return _creator.create(0, title, author, content, backgroundImage)
         }
     }
 }
