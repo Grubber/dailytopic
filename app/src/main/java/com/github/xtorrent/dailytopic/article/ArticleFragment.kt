@@ -1,6 +1,7 @@
 package com.github.xtorrent.dailytopic.article
 
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,7 +49,7 @@ class ArticleFragment : ContentFragment(), ArticleContract.View {
         // TODO UI 优化
         _titleView.text = article.title()
         _authorView.text = article.author()
-        _contentView.text = article.content()
+        _contentView.text = Html.fromHtml(article.content())
         displayContentView()
     }
 
