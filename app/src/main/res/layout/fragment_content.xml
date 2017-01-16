@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.github.xtorrent.dailytopic.widget.BetterViewAnimator
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.github.xtorrent.dailytopic.widget.BetterViewAnimator xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <include
         android:id="@+id/loadingView"
-        layout="@layout/layout_loading"/>
+        layout="@layout/layout_loading" />
 
     <FrameLayout
         android:id="@+id/contentContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-    <include
-        android:id="@+id/emptyView"
-        layout="@layout/layout_empty"/>
+        android:layout_height="match_parent" />
 
     <include
         android:id="@+id/errorView"
-        layout="@layout/layout_error"/>
+        layout="@layout/layout_error" />
 </com.github.xtorrent.dailytopic.widget.BetterViewAnimator>

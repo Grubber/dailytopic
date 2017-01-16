@@ -55,10 +55,6 @@ abstract class ContentFragment : BaseFragment() {
         _parentView.setDisplayedChildId(R.id.contentContainer)
     }
 
-    protected fun displayEmptyView() {
-        _parentView.setDisplayedChildId(R.id.emptyView)
-    }
-
     protected fun displayErrorView() {
         _parentView.setDisplayedChildId(R.id.errorView)
     }
