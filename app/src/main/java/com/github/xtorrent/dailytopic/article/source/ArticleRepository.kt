@@ -10,8 +10,8 @@ import javax.inject.Inject
 @ArticleScope
 class ArticleRepository @Inject constructor(private @LocalArticle val localDataSource: ArticleDataSource,
                                             private @RemoteArticle val remoteDataSource: ArticleDataSource) : ArticleDataSource {
-    override fun getCurrentArticle(): Observable<Article> {
-        return remoteDataSource.getCurrentArticle()
+    override fun getArticle(isRandom: Boolean): Observable<Article> {
+        return remoteDataSource.getArticle(isRandom)
     }
 
     override fun getArticle(id: Long): Observable<Article> {

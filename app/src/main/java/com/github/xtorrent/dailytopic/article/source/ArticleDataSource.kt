@@ -7,7 +7,7 @@ import rx.Observable
  * @author Grubber
  */
 interface ArticleDataSource {
-    fun getCurrentArticle(): Observable<Article>
+    fun getArticle(isRandom: Boolean): Observable<Article>
     fun getArticle(id: Long): Observable<Article>
     fun saveArticle(article: Article)
 }

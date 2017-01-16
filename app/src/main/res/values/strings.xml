@@ -14,4 +14,6 @@
     <string name="drawer_menu_favourite">收藏</string>
     <string name="drawer_menu_settings">设置</string>
     <string name="drawer_menu_feedback">反馈</string>
+
+    <string name="title_random_article">随机文章</string>
 </resources>

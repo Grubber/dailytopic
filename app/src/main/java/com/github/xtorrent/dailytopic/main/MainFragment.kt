@@ -50,7 +50,7 @@ class MainFragment : BaseFragment() {
     lateinit var articlePresenter: ArticlePresenter
 
     private val _articleFragment by lazy {
-        ArticleFragment.newInstance()
+        ArticleFragment.newInstance(false)
     }
     private val _voiceFragment by lazy {
         VoiceFragment.newInstance()

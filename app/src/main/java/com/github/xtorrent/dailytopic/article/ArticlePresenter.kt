@@ -20,10 +20,16 @@ class ArticlePresenter @Inject constructor(private val repository: ArticleReposi
         view.setPresenter(this)
     }
 
+    private var _isRandom: Boolean = false
+
+    override fun isRandom(isRandom: Boolean) {
+        _isRandom = isRandom
+    }
+
     override fun subscribe() {
         _binder.clear()
 
-        repository.getCurrentArticle()
+        repository.getArticle(_isRandom)
                 .applySchedulers()
                 .bind {
                     next {

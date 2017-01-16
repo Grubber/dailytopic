@@ -16,7 +16,7 @@ class ArticleLocalDataSource(private val databaseManager: DatabaseManager) : Art
         databaseManager.database
     }
 
-    override fun getCurrentArticle(): Observable<Article> {
+    override fun getArticle(isRandom: Boolean): Observable<Article> {
         return emptyObservable()
     }
 

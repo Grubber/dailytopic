@@ -13,18 +13,19 @@ import java.util.*
  * @author Grubber
  */
 class ArticleRemoteDataSource : ArticleDataSource {
-    override fun getCurrentArticle(): Observable<Article> {
+    override fun getArticle(isRandom: Boolean): Observable<Article> {
         return observable {
             if (!it.isUnsubscribed) {
                 try {
-                    val document = newJsoupConnection(BASE_URL).get()
+                    val url = if (isRandom) "$BASE_URL/random" else BASE_URL
+                    val document = newJsoupConnection(url).get()
                     val container = document.getElementById("article_show")
                     val title = container.getElementsByTag("h1").first().text()
                     val author = container.getElementsByClass("article_author").text()
                     val content = container.getElementsByClass("article_text").html()
 
                     val random = Random()
-                    val backgroundImage = "http://meiriyiwen.com/images/new_feed/bg_${random.nextInt(99)}.jpg"
+                    val backgroundImage = "$BASE_URL/images/new_feed/bg_${random.nextInt(99)}.jpg"
 
                     val article = Article.create(title, author, content, backgroundImage)
                     it.onNext(article)

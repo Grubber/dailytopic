@@ -14,5 +14,7 @@ interface ArticleContract {
         fun setContentView(article: Article)
     }
 
-    interface Presenter : BasePresenter
+    interface Presenter : BasePresenter {
+        fun isRandom(isRandom: Boolean)
+    }
 }

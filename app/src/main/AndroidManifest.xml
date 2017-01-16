@@ -28,6 +28,11 @@
         </activity>
 
         <activity
+            android:name=".article.random.RandomArticleActivity"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".settings.SettingsActivity"
             android:screenOrientation="portrait" />
 

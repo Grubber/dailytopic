@@ -2,14 +2,13 @@ package com.github.xtorrent.dailytopic.article
 
 import android.os.Bundle
 import android.text.Html
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.bindView
 import com.github.xtorrent.dailytopic.R
 import com.github.xtorrent.dailytopic.article.model.Article
+import com.github.xtorrent.dailytopic.article.random.RandomArticleActivity
 import com.github.xtorrent.dailytopic.base.ContentFragment
 
 /**
@@ -17,8 +16,14 @@ import com.github.xtorrent.dailytopic.base.ContentFragment
  */
 class ArticleFragment : ContentFragment(), ArticleContract.View {
     companion object {
-        fun newInstance(): ArticleFragment {
-            return ArticleFragment()
+        private const val EXTRA_IS_RANDOM = "isRandom"
+
+        fun newInstance(isRandom: Boolean): ArticleFragment {
+            val fragment = ArticleFragment()
+            val args = Bundle()
+            args.putBoolean(EXTRA_IS_RANDOM, isRandom)
+            fragment.arguments = args
+            return fragment
         }
     }
 
@@ -37,10 +42,16 @@ class ArticleFragment : ContentFragment(), ArticleContract.View {
     private val _authorView by bindView<TextView>(R.id.authorView)
     private val _contentView by bindView<TextView>(R.id.contentView)
 
+    private val _isRandom by lazy {
+        arguments.getBoolean(EXTRA_IS_RANDOM)
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        setHasOptionsMenu(true)
 
         _presenter.subscribe()
+        _presenter.isRandom(_isRandom)
     }
 
     override fun setLoadingView() {
@@ -65,12 +76,27 @@ class ArticleFragment : ContentFragment(), ArticleContract.View {
         _presenter.subscribe()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater?.inflate(R.menu.menu_article, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.random -> {
+                RandomArticleActivity.start(context)
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onDestroy() {
         _presenter.unsubscribe()
         super.onDestroy()
     }
 
     override fun getTitle(): String? {
-        return null
+        return if (_isRandom) getString(R.string.title_random_article) else ""
     }
 }
