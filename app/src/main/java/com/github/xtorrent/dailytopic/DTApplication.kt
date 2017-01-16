@@ -6,6 +6,7 @@ import com.github.xtorrent.dailytopic.article.source.ArticleRepositoryComponent
 import com.github.xtorrent.dailytopic.article.source.ArticleRepositoryModule
 import com.github.xtorrent.dailytopic.core.di.*
 import com.github.xtorrent.dailytopic.db.DatabaseManager
+import com.github.xtorrent.dailytopic.utils.DeviceUtils
 import com.github.xtorrent.dailytopic.utils.ToastHelper
 import com.squareup.picasso.Picasso
 import timber.log.Timber
@@ -31,6 +32,8 @@ class DTApplication : MultiDexApplication() {
     lateinit var picasso: Picasso
     @Inject
     lateinit var toastHelper: ToastHelper
+    @Inject
+    lateinit var deviceUtils: DeviceUtils
 
     override fun onCreate() {
         super.onCreate()

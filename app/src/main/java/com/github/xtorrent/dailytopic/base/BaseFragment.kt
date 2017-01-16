@@ -22,6 +22,8 @@ abstract class BaseFragment : RxFragment() {
 
     protected fun picasso() = DTApplication.from(context).picasso
 
+    protected fun deviceUtils() = DTApplication.from(context).deviceUtils
+
     fun getToolbar(): Toolbar {
         return (activity as BaseActivity).toolbar
     }

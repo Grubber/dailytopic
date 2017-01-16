@@ -5,14 +5,14 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/backgroundView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="@null"
-            android:scaleType="matrix" />
+            android:scaleType="centerCrop" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,6 +34,7 @@
                 android:layout_marginBottom="12dp"
                 android:gravity="center_horizontal"
                 android:textColor="@color/colorBlack"
+                android:textIsSelectable="true"
                 android:textSize="23sp" />
 
             <TextView
@@ -43,6 +44,7 @@
                 android:layout_marginBottom="12dp"
                 android:gravity="center_horizontal"
                 android:textColor="#999999"
+                android:textIsSelectable="true"
                 android:textSize="16sp" />
 
             <TextView
@@ -51,7 +53,20 @@
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="5dp"
                 android:textColor="#000"
+                android:textIsSelectable="true"
                 android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/randomButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/bg_random_article"
+                android:paddingLeft="48dp"
+                android:paddingRight="48dp"
+                android:text="@string/title_random_article"
+                android:textColor="#8F5A0A" />
         </LinearLayout>
     </FrameLayout>
 </ScrollView>

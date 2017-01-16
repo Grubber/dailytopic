@@ -29,14 +29,7 @@ abstract class ContentFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         displayLoadingView()
-
-        val contentView = createContentView(_contentContainer)
-        contentView.layoutParams = FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT,
-                FrameLayout.LayoutParams.MATCH_PARENT,
-                Gravity.CENTER)
-        _contentContainer.addView(contentView)
-
+        _addContentView()
         _errorView.findViewById(R.id.retryButton).setOnClickListener {
             displayLoadingView()
             onRetry()
@@ -46,6 +39,20 @@ abstract class ContentFragment : BaseFragment() {
     abstract fun createContentView(container: ViewGroup): View
 
     abstract fun onRetry()
+
+    private fun _addContentView() {
+        val contentView = createContentView(_contentContainer)
+        contentView.layoutParams = FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                Gravity.CENTER)
+        _contentContainer.addView(contentView)
+    }
+
+    protected fun invalidateContentView() {
+        _contentContainer.removeAllViews()
+        _addContentView()
+    }
 
     protected fun displayLoadingView() {
         _parentView.setDisplayedChildId(R.id.loadingView)
