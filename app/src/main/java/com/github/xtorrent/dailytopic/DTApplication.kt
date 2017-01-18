@@ -4,6 +4,8 @@ import android.content.Context
 import android.support.multidex.MultiDexApplication
 import com.github.xtorrent.dailytopic.article.source.ArticleRepositoryComponent
 import com.github.xtorrent.dailytopic.article.source.ArticleRepositoryModule
+import com.github.xtorrent.dailytopic.book.source.BookRepositoryComponent
+import com.github.xtorrent.dailytopic.book.source.BookRepositoryModule
 import com.github.xtorrent.dailytopic.core.di.*
 import com.github.xtorrent.dailytopic.db.DatabaseManager
 import com.github.xtorrent.dailytopic.utils.DeviceUtils
@@ -25,6 +27,7 @@ class DTApplication : MultiDexApplication() {
 
     var applicationComponent by Delegates.notNull<ApplicationComponent>()
     var articleRepositoryComponent by Delegates.notNull<ArticleRepositoryComponent>()
+    var bookRepositoryComponent by Delegates.notNull<BookRepositoryComponent>()
 
     @Inject
     lateinit var databaseManager: DatabaseManager
@@ -52,6 +55,7 @@ class DTApplication : MultiDexApplication() {
                 .build()
 
         articleRepositoryComponent = applicationComponent.plus(ArticleRepositoryModule())
+        bookRepositoryComponent = applicationComponent.plus(BookRepositoryModule())
 
         applicationComponent.inject(this)
     }
