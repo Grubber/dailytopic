@@ -27,7 +27,7 @@ class ArticleActivity : BaseActivity() {
 
         val fragment = ArticleFragment.newInstance(true)
         DTApplication.from(this)
-                .articleRepositoryComponent
+                .mainRepositoryComponent
                 .plus(ArticlePresenterModule(fragment))
                 .inject(this)
         supportFragmentManager.beginTransaction()

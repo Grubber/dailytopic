@@ -3,6 +3,7 @@ package com.github.xtorrent.dailytopic.article.source
 import com.github.xtorrent.dailytopic.article.source.local.ArticleLocalDataSource
 import com.github.xtorrent.dailytopic.article.source.remote.ArticleRemoteDataSource
 import com.github.xtorrent.dailytopic.db.DatabaseManager
+import com.github.xtorrent.dailytopic.main.MainRepositoryScope
 import dagger.Module
 import dagger.Provides
 
@@ -11,14 +12,14 @@ import dagger.Provides
  */
 @Module
 class ArticleRepositoryModule {
-    @ArticleScope
+    @MainRepositoryScope
     @Provides
     @LocalArticle
     fun provideArticleLocalDataSource(databaseManager: DatabaseManager): ArticleDataSource {
         return ArticleLocalDataSource(databaseManager)
     }
 
-    @ArticleScope
+    @MainRepositoryScope
     @Provides
     @RemoteArticle
     fun provideArticleRemoteDataSource(): ArticleDataSource {

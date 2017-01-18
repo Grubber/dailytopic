@@ -8,11 +8,7 @@ import com.github.xtorrent.dailytopic.base.BaseView
  * @author Grubber
  */
 interface ArticleContract {
-    interface View : BaseView<Presenter> {
-        fun setLoadingView()
-        fun setErrorView()
-        fun setContentView(article: Article)
-    }
+    interface View : BaseView<Presenter, Article>
 
     interface Presenter : BasePresenter {
         fun isRandom(isRandom: Boolean)

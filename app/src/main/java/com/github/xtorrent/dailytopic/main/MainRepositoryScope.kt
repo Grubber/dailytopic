@@ -1,4 +1,4 @@
-package com.github.xtorrent.dailytopic.book.source
+package com.github.xtorrent.dailytopic.main
 
 import javax.inject.Scope
 
@@ -7,4 +7,4 @@ import javax.inject.Scope
  */
 @Scope
 @Retention(AnnotationRetention.RUNTIME)
-annotation class BookScope
+annotation class MainRepositoryScope

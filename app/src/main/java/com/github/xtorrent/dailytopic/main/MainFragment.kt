@@ -20,6 +20,8 @@ import com.github.xtorrent.dailytopic.article.ArticlePresenterModule
 import com.github.xtorrent.dailytopic.base.BaseActivity
 import com.github.xtorrent.dailytopic.base.BaseFragment
 import com.github.xtorrent.dailytopic.book.BookFragment
+import com.github.xtorrent.dailytopic.book.BookPresenter
+import com.github.xtorrent.dailytopic.book.BookPresenterModule
 import com.github.xtorrent.dailytopic.favourite.FavouriteFragment
 import com.github.xtorrent.dailytopic.feedback.FeedbackActivity
 import com.github.xtorrent.dailytopic.settings.SettingsActivity
@@ -49,6 +51,8 @@ class MainFragment : BaseFragment() {
 
     @Inject
     lateinit var articlePresenter: ArticlePresenter
+    @Inject
+    lateinit var bookPresenter: BookPresenter
 
     private val _articleFragment by lazy {
         ArticleFragment.newInstance(false)
@@ -76,8 +80,8 @@ class MainFragment : BaseFragment() {
         (activity as BaseActivity).setSupportActionBar(_toolbar)
 
         DTApplication.from(context)
-                .articleRepositoryComponent
-                .plus(ArticlePresenterModule(_articleFragment))
+                .mainRepositoryComponent
+                .plus(ArticlePresenterModule(_articleFragment), BookPresenterModule(_bookFragment))
                 .inject(this)
 
         _setDrawer()
