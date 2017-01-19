@@ -21,10 +21,16 @@ class BookPresenter @Inject constructor(private val repository: BookRepository,
         CompositeSubscription()
     }
 
+    private var _pageNumber = 1
+
+    override fun setPageNumber(pageNumber: Int) {
+        _pageNumber = pageNumber
+    }
+
     override fun subscribe() {
         _binder.clear()
 
-        _binder += repository.getBookList()
+        _binder += repository.getBookList(_pageNumber)
                 .applySchedulers()
                 .bind {
                     next {

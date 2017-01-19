@@ -14,7 +14,7 @@ class BookLocalDataSource(private val databaseManager: DatabaseManager) : BookDa
         databaseManager.database
     }
 
-    override fun getBookList(): Observable<List<Book>> {
+    override fun getBookList(pageNumber: Int): Observable<List<Book>> {
         // TODO
         return emptyObservable()
     }

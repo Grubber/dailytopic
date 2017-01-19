@@ -11,7 +11,7 @@ import javax.inject.Inject
 @MainRepositoryScope
 class BookRepository @Inject constructor(private @LocalBook val localDataSource: BookDataSource,
                                          private @RemoteBook val remoteDataSource: BookDataSource) : BookDataSource {
-    override fun getBookList(): Observable<List<Book>> {
-        return remoteDataSource.getBookList()
+    override fun getBookList(pageNumber: Int): Observable<List<Book>> {
+        return remoteDataSource.getBookList(pageNumber)
     }
 }

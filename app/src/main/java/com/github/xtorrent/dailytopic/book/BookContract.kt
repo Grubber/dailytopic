@@ -10,5 +10,7 @@ import com.github.xtorrent.dailytopic.book.model.Book
 interface BookContract {
     interface View : BaseView<Presenter, List<Book>>
 
-    interface Presenter : BasePresenter
+    interface Presenter : BasePresenter {
+        fun setPageNumber(pageNumber: Int)
+    }
 }
