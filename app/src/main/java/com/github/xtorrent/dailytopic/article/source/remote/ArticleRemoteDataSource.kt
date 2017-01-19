@@ -2,7 +2,7 @@ package com.github.xtorrent.dailytopic.article.source.remote
 
 import com.github.xtorrent.dailytopic.article.model.Article
 import com.github.xtorrent.dailytopic.article.source.ArticleDataSource
-import com.github.xtorrent.dailytopic.core.BASE_URL
+import com.github.xtorrent.dailytopic.core.buildBaseUrl
 import com.github.xtorrent.dailytopic.utils.newJsoupConnection
 import rx.Observable
 import rx.lang.kotlin.emptyObservable
@@ -17,7 +17,7 @@ class ArticleRemoteDataSource : ArticleDataSource {
         return observable {
             if (!it.isUnsubscribed) {
                 try {
-                    val url = if (isRandom) "$BASE_URL/random" else BASE_URL
+                    val url = if (isRandom) "${buildBaseUrl("")}/random" else buildBaseUrl("")
                     val document = newJsoupConnection(url).get()
                     val container = document.getElementById("article_show")
                     val title = container.getElementsByTag("h1").first().text()
@@ -25,7 +25,7 @@ class ArticleRemoteDataSource : ArticleDataSource {
                     val content = container.getElementsByClass("article_text").html()
 
                     val random = Random()
-                    val backgroundImage = "$BASE_URL/images/new_feed/bg_${random.nextInt(99)}.jpg"
+                    val backgroundImage = "${buildBaseUrl("")}/images/new_feed/bg_${random.nextInt(99)}.jpg"
 
                     val article = Article.create(title, author, content, backgroundImage)
                     it.onNext(article)
