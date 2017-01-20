@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.squareup.sqldelight'
 
 android {
     compileSdkVersion 25
@@ -52,6 +53,7 @@ buildscript {
 
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.squareup.sqldelight:gradle-plugin:0.5.1'
     }
 }
 
@@ -88,6 +90,8 @@ dependencies {
 
     kapt "com.google.auto.value:auto-value:$autovalue_version"
     provided "com.google.auto.value:auto-value:$autovalue_version"
+
+    compile 'com.squareup.sqlbrite:sqlbrite:0.8.0'
 
     compile 'org.jsoup:jsoup:1.9.2'
 

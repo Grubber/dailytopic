@@ -114,14 +114,14 @@ class BookFragment : ContentFragment(), BookContract.View {
         override fun onBindBasicItemView(holder: RecyclerView.ViewHolder, position: Int) {
             holder as BookItemViewHolder
             val item = getItem(position)
-            picasso.load(item.image)
+            picasso.load(item.image())
                     .placeholder(ColorDrawable(R.color.colorAccent))
                     .error(ColorDrawable(R.color.colorAccent))
                     .fit()
                     .tag(context)
                     .into(holder.coverView)
-            holder.titleView.text = item.title
-            holder.authorView.text = item.author
+            holder.titleView.text = item.title()
+            holder.authorView.text = item.author()
             holder.itemView.setOnClickListener {
                 // TODO
             }

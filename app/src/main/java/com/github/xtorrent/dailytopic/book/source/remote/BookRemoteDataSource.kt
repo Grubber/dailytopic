@@ -24,7 +24,7 @@ class BookRemoteDataSource : BookDataSource {
                                 val url = it.select("a")[1].attr("abs:href")
                                 val author = it.getElementsByClass("book-author").first().text()
                                 val image = it.select("img").first().attr("abs:src")
-                                data += Book(title, author, url, image)
+                                data += Book.create(title, author, url, image)
                             }
                     it.onNext(data)
                     it.onCompleted()
