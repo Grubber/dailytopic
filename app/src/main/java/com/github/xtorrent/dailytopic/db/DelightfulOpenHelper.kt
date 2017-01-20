@@ -21,5 +21,5 @@ class DelightfulOpenHelper @Inject constructor(private @ForApplication val conte
     }
 }
 
-const val DB_NAME = "xtorrent.db"
+const val DB_NAME = "daily_topic.db"
 const val DB_VERSION = 1

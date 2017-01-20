@@ -10,4 +10,5 @@ interface ArticleDataSource {
     fun getArticle(isRandom: Boolean): Observable<Article>
     fun getArticle(id: Long): Observable<Article>
     fun saveArticle(article: Article)
+    fun deleteArticle(type: Article.Type)
 }

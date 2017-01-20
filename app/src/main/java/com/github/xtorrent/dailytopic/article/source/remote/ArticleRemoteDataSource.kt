@@ -27,7 +27,7 @@ class ArticleRemoteDataSource : ArticleDataSource {
                     val random = Random()
                     val backgroundImage = "${buildBaseUrl("")}/images/new_feed/bg_${random.nextInt(99)}.jpg"
 
-                    val article = Article.create(title, author, content, backgroundImage)
+                    val article = Article.create(title, author, content, backgroundImage, if (isRandom) Article.Type.NONE else Article.Type.DAILY)
                     it.onNext(article)
                     it.onCompleted()
                 } catch (e: Exception) {
@@ -42,6 +42,10 @@ class ArticleRemoteDataSource : ArticleDataSource {
     }
 
     override fun saveArticle(article: Article) {
+        // Ignored.
+    }
+
+    override fun deleteArticle(type: Article.Type) {
         // Ignored.
     }
 }

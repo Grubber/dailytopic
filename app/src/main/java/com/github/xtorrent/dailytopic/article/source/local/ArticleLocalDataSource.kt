@@ -5,7 +5,6 @@ import com.github.xtorrent.dailytopic.article.source.ArticleDataSource
 import com.github.xtorrent.dailytopic.db.DatabaseManager
 import com.github.xtorrent.dailytopic.db.model.ArticleModel
 import rx.Observable
-import rx.lang.kotlin.emptyObservable
 import rx.lang.kotlin.observable
 
 /**
@@ -17,18 +16,38 @@ class ArticleLocalDataSource(private val databaseManager: DatabaseManager) : Art
     }
 
     override fun getArticle(isRandom: Boolean): Observable<Article> {
-        return emptyObservable()
+        return observable {
+            if (!it.isUnsubscribed) {
+                try {
+                    var article: Article? = null
+                    if (isRandom) {
+                        it.onNext(article)
+                        it.onCompleted()
+                    } else {
+                        val query = Article.FACTORY.select_row_by_type(if (isRandom) Article.Type.NONE else Article.Type.DAILY)
+                        val cursor = _db.rawQuery(query.statement, query.args)
+                        while (cursor.moveToNext()) {
+                            article = Article.FACTORY.select_row_by_typeMapper().map(cursor)
+                        }
+                        it.onNext(article)
+                        it.onCompleted()
+                    }
+                } catch (e: Exception) {
+                    it.onError(e)
+                }
+            }
+        }
     }
 
     override fun getArticle(id: Long): Observable<Article> {
         return observable {
             if (!it.isUnsubscribed) {
                 try {
-                    val query = Article.FACTORY.select_row(id)
+                    val query = Article.FACTORY.select_row_by_id(id)
                     val cursor = _db.rawQuery(query.statement, query.args)
                     var article: Article? = null
                     while (cursor.moveToNext()) {
-                        article = Article.MAPPER.map(cursor)
+                        article = Article.FACTORY.select_row_by_idMapper().map(cursor)
                     }
                     cursor.close()
                     it.onNext(article)
@@ -41,8 +60,14 @@ class ArticleLocalDataSource(private val databaseManager: DatabaseManager) : Art
     }
 
     override fun saveArticle(article: Article) {
-        val insert = ArticleModel.Insert_row(_db)
-        insert.bind(article.title(), article.author(), article.content(), article.backgroundImage())
+        val insert = ArticleModel.Insert_row(_db, Article.FACTORY)
+        insert.bind(article.title(), article.author(), article.content(), article.backgroundImage(), article.type())
         insert.program.execute()
+    }
+
+    override fun deleteArticle(type: Article.Type) {
+        val delete = ArticleModel.Delete_row_by_type(_db, Article.FACTORY)
+        delete.bind(type)
+        delete.program.execute()
     }
 }
