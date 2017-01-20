@@ -1,5 +1,6 @@
 package com.github.xtorrent.dailytopic.book
 
+import com.github.xtorrent.dailytopic.book.model.Book
 import com.github.xtorrent.dailytopic.book.source.BookRepository
 import com.github.xtorrent.dailytopic.utils.applySchedulers
 import com.github.xtorrent.dailytopic.utils.bind
@@ -22,6 +23,9 @@ class BookPresenter @Inject constructor(private val repository: BookRepository,
     }
 
     private var _pageNumber = 1
+    private val _data by lazy {
+        arrayListOf<Book>()
+    }
 
     override fun setPageNumber(pageNumber: Int) {
         _pageNumber = pageNumber
@@ -35,12 +39,17 @@ class BookPresenter @Inject constructor(private val repository: BookRepository,
                 .bind {
                     next {
                         if (it != null) {
-                            view.setContentView(it)
+                            _data.addAll(it)
+                            view.setContentView(it, false)
                         }
                     }
 
                     error {
-                        view.setErrorView()
+                        if (_data.isEmpty()) {
+                            view.setErrorView()
+                        } else {
+                            view.setContentView(null, true)
+                        }
                     }
                 }
     }

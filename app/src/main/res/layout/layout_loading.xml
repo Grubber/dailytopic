@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<me.zhanghai.android.materialprogressbar.MaterialProgressBar
+<me.zhanghai.android.materialprogressbar.MaterialProgressBar xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/Widget.MaterialProgressBar.ProgressBar"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:indeterminate="true"/>
+    android:indeterminate="true" />
