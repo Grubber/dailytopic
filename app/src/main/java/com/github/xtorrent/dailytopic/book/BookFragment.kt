@@ -44,6 +44,15 @@ class BookFragment : ContentFragment(), BookContract.View {
 
         _recyclerView.layoutManager = GridLayoutManager(context, 2)
         _recyclerView.adapter = _adapter
+        _recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                when (newState) {
+                    RecyclerView.SCROLL_STATE_IDLE -> picasso().resumeTag(context)
+                    else -> picasso().pauseTag(context)
+                }
+            }
+        })
 
         _presenter.subscribe()
     }
@@ -109,6 +118,7 @@ class BookFragment : ContentFragment(), BookContract.View {
                     .placeholder(ColorDrawable(R.color.colorAccent))
                     .error(ColorDrawable(R.color.colorAccent))
                     .fit()
+                    .tag(context)
                     .into(holder.coverView)
             holder.titleView.text = item.title()
             holder.authorView.text = item.author()
