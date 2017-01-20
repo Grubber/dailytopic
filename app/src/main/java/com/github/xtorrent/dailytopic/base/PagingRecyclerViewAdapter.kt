@@ -1,6 +1,6 @@
 package com.github.xtorrent.dailytopic.base
 
-import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -105,14 +105,23 @@ abstract class PagingRecyclerViewAdapter<T> : RecyclerView.Adapter<RecyclerView.
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView?) {
         super.onAttachedToRecyclerView(recyclerView)
-
         recyclerView?.let {
+            val layoutManager = it.layoutManager
+            if (layoutManager is GridLayoutManager) {
+                layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                    override fun getSpanSize(position: Int): Int {
+                        return when (getItemViewType(position)) {
+                            TYPE_NORMAL -> 1
+                            else -> layoutManager.spanCount
+                        }
+                    }
+                }
+            }
             it.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                     super.onScrollStateChanged(recyclerView, newState)
                     if (!_isLoading && _loadingState == STATE_LOADING_SUCCEED && itemCount != 1) {
                         if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                            val layoutManager = it.layoutManager as LinearLayoutManager
                             if (shouldShowLoading()) {
                                 val lastChildView = layoutManager.getChildAt(layoutManager.childCount - 2)
                                 val lastChildBottom = lastChildView.bottom + (lastChildView.layoutParams as RecyclerView.LayoutParams).bottomMargin
