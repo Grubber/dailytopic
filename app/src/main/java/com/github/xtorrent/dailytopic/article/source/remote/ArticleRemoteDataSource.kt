@@ -27,7 +27,7 @@ class ArticleRemoteDataSource : ArticleDataSource {
                     val random = Random()
                     val backgroundImage = "${buildBaseUrl("")}/images/new_feed/bg_${random.nextInt(99)}.jpg"
 
-                    val article = Article.create(title, author, content, backgroundImage)
+                    val article = Article(title, author, content, backgroundImage)
                     it.onNext(article)
                     it.onCompleted()
                 } catch (e: Exception) {

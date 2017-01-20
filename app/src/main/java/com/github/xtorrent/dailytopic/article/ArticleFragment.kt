@@ -91,16 +91,16 @@ class ArticleFragment : ContentFragment(), ArticleContract.View {
     }
 
     override fun setContentView(data: Article) {
-        picasso().load(data.backgroundImage())
+        picasso().load(data.backgroundImage)
                 .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                 .networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
                 .config(Bitmap.Config.RGB_565)
                 .resize(deviceUtils().getScreenSize().x, deviceUtils().getScreenSize().y)
                 .centerCrop()
                 .into(_backgroundView)
-        _titleView.text = data.title()
-        _authorView.text = data.author()
-        _contentView.text = Html.fromHtml(data.content())
+        _titleView.text = data.title
+        _authorView.text = data.author
+        _contentView.text = Html.fromHtml(data.content)
         displayContentView()
     }
 
