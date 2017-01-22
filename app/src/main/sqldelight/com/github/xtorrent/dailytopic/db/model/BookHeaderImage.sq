@@ -1,0 +1,10 @@
+CREATE TABLE book_header_image (
+    url TEXT NOT NULL,
+    image TEXT NOT NULL
+);
+
+select_all:
+SELECT * FROM book_header_image;
+
+insert_row:
+INSERT INTO book_header_image (url, image) VALUES (?, ?);
