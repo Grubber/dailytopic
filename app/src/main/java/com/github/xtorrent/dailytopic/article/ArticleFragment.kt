@@ -12,8 +12,6 @@ import com.github.xtorrent.dailytopic.article.model.Article
 import com.github.xtorrent.dailytopic.base.BaseActivity
 import com.github.xtorrent.dailytopic.base.ContentFragment
 import com.jakewharton.rxbinding.view.clicks
-import com.squareup.picasso.MemoryPolicy
-import com.squareup.picasso.NetworkPolicy
 
 /**
  * @author Grubber
@@ -92,8 +90,6 @@ class ArticleFragment : ContentFragment(), ArticleContract.View {
 
     override fun setContentView(data: Article) {
         picasso().load(data.backgroundImage())
-                .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
-                .networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
                 .config(Bitmap.Config.RGB_565)
                 .resize(deviceUtils().getScreenSize().x, deviceUtils().getScreenSize().y)
                 .centerCrop()
