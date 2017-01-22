@@ -1,7 +1,7 @@
-package com.github.xtorrent.dailytopic.book.source
+package com.github.xtorrent.dailytopic.bookshelf.source
 
-import com.github.xtorrent.dailytopic.book.model.Bookshelf
-import com.github.xtorrent.dailytopic.book.model.BookshelfHeaderImage
+import com.github.xtorrent.dailytopic.bookshelf.model.Bookshelf
+import com.github.xtorrent.dailytopic.bookshelf.model.BookshelfHeaderImage
 import com.github.xtorrent.dailytopic.main.MainRepositoryScope
 import rx.Observable
 import javax.inject.Inject

@@ -3,8 +3,8 @@ package com.github.xtorrent.dailytopic.main
 import com.github.xtorrent.dailytopic.article.ArticlePresenterComponent
 import com.github.xtorrent.dailytopic.article.ArticlePresenterModule
 import com.github.xtorrent.dailytopic.article.source.ArticleRepositoryModule
-import com.github.xtorrent.dailytopic.book.BookshelfPresenterModule
-import com.github.xtorrent.dailytopic.book.source.BookshelfRepositoryModule
+import com.github.xtorrent.dailytopic.bookshelf.BookshelfPresenterModule
+import com.github.xtorrent.dailytopic.bookshelf.source.BookshelfRepositoryModule
 import dagger.Subcomponent
 
 /**

@@ -1,4 +1,4 @@
-package com.github.xtorrent.dailytopic.book
+package com.github.xtorrent.dailytopic.bookshelf
 
 import android.content.Context
 import android.graphics.drawable.ColorDrawable
@@ -19,8 +19,8 @@ import com.github.xtorrent.dailytopic.R
 import com.github.xtorrent.dailytopic.base.BaseFragment
 import com.github.xtorrent.dailytopic.base.ContentFragment
 import com.github.xtorrent.dailytopic.base.PagingRecyclerViewAdapter
-import com.github.xtorrent.dailytopic.book.model.Bookshelf
-import com.github.xtorrent.dailytopic.book.model.BookshelfHeaderImage
+import com.github.xtorrent.dailytopic.bookshelf.model.Bookshelf
+import com.github.xtorrent.dailytopic.bookshelf.model.BookshelfHeaderImage
 import com.github.xtorrent.dailytopic.widget.viewpager.LoopViewPager
 import com.jakewharton.rxbinding.view.clicks
 import com.squareup.picasso.Picasso

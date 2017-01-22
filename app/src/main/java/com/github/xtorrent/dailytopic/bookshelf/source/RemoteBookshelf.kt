@@ -1,4 +1,4 @@
-package com.github.xtorrent.dailytopic.book.source
+package com.github.xtorrent.dailytopic.bookshelf.source
 
 import javax.inject.Qualifier
 
@@ -7,4 +7,4 @@ import javax.inject.Qualifier
  */
 @Qualifier
 @Retention(AnnotationRetention.RUNTIME)
-annotation class LocalBookshelf
+annotation class RemoteBookshelf

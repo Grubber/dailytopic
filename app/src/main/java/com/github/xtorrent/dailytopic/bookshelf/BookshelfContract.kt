@@ -1,9 +1,9 @@
-package com.github.xtorrent.dailytopic.book
+package com.github.xtorrent.dailytopic.bookshelf
 
 import com.github.xtorrent.dailytopic.base.BasePresenter
 import com.github.xtorrent.dailytopic.base.BaseView
-import com.github.xtorrent.dailytopic.book.model.Bookshelf
-import com.github.xtorrent.dailytopic.book.model.BookshelfHeaderImage
+import com.github.xtorrent.dailytopic.bookshelf.model.Bookshelf
+import com.github.xtorrent.dailytopic.bookshelf.model.BookshelfHeaderImage
 
 /**
  * Created by grubber on 2017/1/18.

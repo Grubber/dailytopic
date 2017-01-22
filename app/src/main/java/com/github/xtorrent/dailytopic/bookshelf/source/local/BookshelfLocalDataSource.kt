@@ -1,8 +1,8 @@
-package com.github.xtorrent.dailytopic.book.source.local
+package com.github.xtorrent.dailytopic.bookshelf.source.local
 
-import com.github.xtorrent.dailytopic.book.model.Bookshelf
-import com.github.xtorrent.dailytopic.book.model.BookshelfHeaderImage
-import com.github.xtorrent.dailytopic.book.source.BookshelfDataSource
+import com.github.xtorrent.dailytopic.bookshelf.model.Bookshelf
+import com.github.xtorrent.dailytopic.bookshelf.model.BookshelfHeaderImage
+import com.github.xtorrent.dailytopic.bookshelf.source.BookshelfDataSource
 import com.github.xtorrent.dailytopic.db.DatabaseManager
 import rx.Observable
 import rx.lang.kotlin.emptyObservable

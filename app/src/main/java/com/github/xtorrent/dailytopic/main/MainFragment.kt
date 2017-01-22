@@ -19,9 +19,9 @@ import com.github.xtorrent.dailytopic.article.ArticlePresenter
 import com.github.xtorrent.dailytopic.article.ArticlePresenterModule
 import com.github.xtorrent.dailytopic.base.BaseActivity
 import com.github.xtorrent.dailytopic.base.BaseFragment
-import com.github.xtorrent.dailytopic.book.BookshelfFragment
-import com.github.xtorrent.dailytopic.book.BookshelfPresenter
-import com.github.xtorrent.dailytopic.book.BookshelfPresenterModule
+import com.github.xtorrent.dailytopic.bookshelf.BookshelfFragment
+import com.github.xtorrent.dailytopic.bookshelf.BookshelfPresenter
+import com.github.xtorrent.dailytopic.bookshelf.BookshelfPresenterModule
 import com.github.xtorrent.dailytopic.favourite.FavouriteFragment
 import com.github.xtorrent.dailytopic.feedback.FeedbackActivity
 import com.github.xtorrent.dailytopic.settings.SettingsActivity

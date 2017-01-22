@@ -1,7 +1,7 @@
-package com.github.xtorrent.dailytopic.book
+package com.github.xtorrent.dailytopic.bookshelf
 
-import com.github.xtorrent.dailytopic.book.model.Bookshelf
-import com.github.xtorrent.dailytopic.book.source.BookshelfRepository
+import com.github.xtorrent.dailytopic.bookshelf.model.Bookshelf
+import com.github.xtorrent.dailytopic.bookshelf.source.BookshelfRepository
 import com.github.xtorrent.dailytopic.utils.applySchedulers
 import com.github.xtorrent.dailytopic.utils.bind
 import com.github.xtorrent.dailytopic.utils.plusAssign

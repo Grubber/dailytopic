@@ -1,7 +1,7 @@
-package com.github.xtorrent.dailytopic.book.source
+package com.github.xtorrent.dailytopic.bookshelf.source
 
-import com.github.xtorrent.dailytopic.book.source.local.BookshelfLocalDataSource
-import com.github.xtorrent.dailytopic.book.source.remote.BookshelfRemoteDataSource
+import com.github.xtorrent.dailytopic.bookshelf.source.local.BookshelfLocalDataSource
+import com.github.xtorrent.dailytopic.bookshelf.source.remote.BookshelfRemoteDataSource
 import com.github.xtorrent.dailytopic.db.DatabaseManager
 import com.github.xtorrent.dailytopic.main.MainRepositoryScope
 import dagger.Module

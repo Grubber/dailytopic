@@ -3,7 +3,7 @@ package com.github.xtorrent.dailytopic
 import android.content.Context
 import android.support.multidex.MultiDexApplication
 import com.github.xtorrent.dailytopic.article.source.ArticleRepositoryModule
-import com.github.xtorrent.dailytopic.book.source.BookshelfRepositoryModule
+import com.github.xtorrent.dailytopic.bookshelf.source.BookshelfRepositoryModule
 import com.github.xtorrent.dailytopic.core.di.*
 import com.github.xtorrent.dailytopic.db.DatabaseManager
 import com.github.xtorrent.dailytopic.main.MainRepositoryComponent

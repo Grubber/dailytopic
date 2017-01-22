@@ -1,7 +1,7 @@
 package com.github.xtorrent.dailytopic.main
 
 import com.github.xtorrent.dailytopic.article.ArticlePresenterModule
-import com.github.xtorrent.dailytopic.book.BookshelfPresenterModule
+import com.github.xtorrent.dailytopic.bookshelf.BookshelfPresenterModule
 import com.github.xtorrent.dailytopic.core.di.scope.ViewScope
 import dagger.Subcomponent
 

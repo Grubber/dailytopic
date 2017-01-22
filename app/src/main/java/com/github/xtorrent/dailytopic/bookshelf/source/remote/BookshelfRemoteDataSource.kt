@@ -1,8 +1,8 @@
-package com.github.xtorrent.dailytopic.book.source.remote
+package com.github.xtorrent.dailytopic.bookshelf.source.remote
 
-import com.github.xtorrent.dailytopic.book.model.Bookshelf
-import com.github.xtorrent.dailytopic.book.model.BookshelfHeaderImage
-import com.github.xtorrent.dailytopic.book.source.BookshelfDataSource
+import com.github.xtorrent.dailytopic.bookshelf.model.Bookshelf
+import com.github.xtorrent.dailytopic.bookshelf.model.BookshelfHeaderImage
+import com.github.xtorrent.dailytopic.bookshelf.source.BookshelfDataSource
 import com.github.xtorrent.dailytopic.core.buildBaseUrl
 import com.github.xtorrent.dailytopic.utils.newJsoupConnection
 import rx.Observable

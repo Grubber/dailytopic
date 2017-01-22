@@ -1,4 +1,4 @@
-package com.github.xtorrent.dailytopic.book.model
+package com.github.xtorrent.dailytopic.bookshelf.model
 
 import com.github.xtorrent.dailytopic.db.model.BookshelfModel
 import com.google.auto.value.AutoValue

@@ -1,4 +1,4 @@
-package com.github.xtorrent.dailytopic.book
+package com.github.xtorrent.dailytopic.bookshelf
 
 import dagger.Module
 import dagger.Provides
