@@ -25,7 +25,7 @@ class ArticleRemoteDataSource : ArticleDataSource {
                     val content = container.getElementsByClass("article_text").html()
 
                     val random = Random()
-                    val backgroundImage = "${buildBaseUrl("")}/images/new_feed/bg_${random.nextInt(99)}.jpg"
+                    val backgroundImage = "${buildBaseUrl("")}/images/new_feed/bg_${random.nextInt(98) + 1}.jpg"
 
                     val article = Article.create(title, author, content, backgroundImage, if (isRandom) Article.Type.NONE else Article.Type.DAILY)
                     it.onNext(article)
