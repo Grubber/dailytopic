@@ -46,6 +46,7 @@ buildscript {
     ext.kotlin_version = '1.0.6'
     ext.dagger_version = '2.2'
     ext.autovalue_version = '1.2'
+    ext.autovalue_parcel_version = '0.2.5'
 
     repositories {
         jcenter()
@@ -88,12 +89,17 @@ dependencies {
     compile "com.trello:rxlifecycle:$rxlifecycle_version"
     compile "com.trello:rxlifecycle-components:$rxlifecycle_version"
 
+    kapt 'com.squareup:javapoet:1.7.0'
+
     compile "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     provided 'org.glassfish:javax.annotation:10.0-b28'
 
     kapt "com.google.auto.value:auto-value:$autovalue_version"
     provided "com.google.auto.value:auto-value:$autovalue_version"
+
+    kapt "com.ryanharter.auto.value:auto-value-parcel:$autovalue_parcel_version"
+    compile "com.ryanharter.auto.value:auto-value-parcel-adapter:$autovalue_parcel_version"
 
     compile 'com.squareup.sqlbrite:sqlbrite:0.8.0'
 

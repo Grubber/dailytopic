@@ -19,6 +19,7 @@ import com.github.xtorrent.dailytopic.R
 import com.github.xtorrent.dailytopic.base.BaseFragment
 import com.github.xtorrent.dailytopic.base.ContentFragment
 import com.github.xtorrent.dailytopic.base.PagingRecyclerViewAdapter
+import com.github.xtorrent.dailytopic.bookshelf.detail.BookshelfDetailsActivity
 import com.github.xtorrent.dailytopic.bookshelf.model.Bookshelf
 import com.github.xtorrent.dailytopic.bookshelf.model.BookshelfHeaderImage
 import com.github.xtorrent.dailytopic.widget.viewpager.LoopViewPager
@@ -139,7 +140,7 @@ class BookshelfFragment : ContentFragment(), BookshelfContract.View {
             holder.titleView.text = item.title()
             holder.authorView.text = item.author()
             holder.itemView.setOnClickListener {
-                // TODO
+                BookshelfDetailsActivity.start(context, item, null)
             }
         }
 
@@ -252,7 +253,7 @@ class BookshelfFragment : ContentFragment(), BookshelfContract.View {
                     .fit()
                     .into(_imageView)
             bindSubscribe(_imageView.clicks()) {
-                // TODO url
+                BookshelfDetailsActivity.start(context, null, _url)
             }
         }
 

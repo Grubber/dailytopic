@@ -34,6 +34,10 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".bookshelf.detail.BookshelfDetailsActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".settings.SettingsActivity"
             android:screenOrientation="portrait" />
 

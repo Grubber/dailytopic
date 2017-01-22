@@ -1,5 +1,6 @@
 package com.github.xtorrent.dailytopic.bookshelf.model
 
+import android.os.Parcelable
 import com.github.xtorrent.dailytopic.db.model.BookshelfModel
 import com.google.auto.value.AutoValue
 
@@ -7,7 +8,7 @@ import com.google.auto.value.AutoValue
  * Created by grubber on 2017/1/18.
  */
 @AutoValue
-abstract class Bookshelf : BookshelfModel {
+abstract class Bookshelf : BookshelfModel, Parcelable {
     companion object {
         private val _creator: BookshelfModel.Creator<Bookshelf> by lazy {
             BookshelfModel.Creator<Bookshelf>(::AutoValue_Bookshelf)
