@@ -84,10 +84,6 @@ class ArticleFragment : ContentFragment(), ArticleContract.View {
         bitmap?.recycle()
     }
 
-    override fun setLoadingView() {
-        displayLoadingView()
-    }
-
     override fun setContentView(data: Article) {
         picasso().load(data.backgroundImage())
                 .config(Bitmap.Config.RGB_565)

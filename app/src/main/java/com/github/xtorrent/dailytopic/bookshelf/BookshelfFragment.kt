@@ -90,10 +90,6 @@ class BookshelfFragment : ContentFragment(), BookshelfContract.View {
         displayErrorView()
     }
 
-    override fun setLoadingView() {
-        displayLoadingView()
-    }
-
     override fun setPresenter(presenter: BookshelfContract.Presenter) {
         _presenter = presenter
     }
