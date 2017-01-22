@@ -28,6 +28,10 @@ abstract class BaseFragment : RxFragment() {
         return (activity as BaseActivity).toolbar
     }
 
+    protected fun setTitle(title: String) {
+        (activity as BaseActivity).setTitle(title)
+    }
+
     private fun <T> _bindToLifecycle(observable: Observable<T>): Observable<T> {
         return observable.compose(this.bindToLifecycle<T>())
     }

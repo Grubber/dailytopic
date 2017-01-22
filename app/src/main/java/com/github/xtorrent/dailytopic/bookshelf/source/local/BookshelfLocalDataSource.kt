@@ -21,7 +21,7 @@ class BookshelfLocalDataSource(private val databaseManager: DatabaseManager) : B
         return emptyObservable()
     }
 
-    override fun getBookshelfDetails(url: String): Observable<List<Book>> {
+    override fun getBookshelfDetails(url: String): Observable<Pair<Bookshelf, List<Book>>> {
         // TODO
         return emptyObservable()
     }

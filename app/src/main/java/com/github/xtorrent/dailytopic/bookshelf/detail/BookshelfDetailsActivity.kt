@@ -3,9 +3,11 @@ package com.github.xtorrent.dailytopic.bookshelf.detail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import com.github.xtorrent.dailytopic.DTApplication
 import com.github.xtorrent.dailytopic.R
 import com.github.xtorrent.dailytopic.base.BaseActivity
 import com.github.xtorrent.dailytopic.bookshelf.model.Bookshelf
+import javax.inject.Inject
 
 /**
  * Created by grubber on 2017/1/22.
@@ -27,13 +29,21 @@ class BookshelfDetailsActivity : BaseActivity() {
         }
     }
 
+    @Inject
+    lateinit var presenter: BookshelfDetailsPresenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val bookshelf = intent.getParcelableExtra<Bookshelf>(EXTRA_BOOKSHELF)
         val url = intent.getStringExtra(EXTRA_URL)
+        val fragment = BookshelfDetailsFragment.newInstance(bookshelf, url)
+        DTApplication.from(this)
+                .mainRepositoryComponent
+                .plus(BookshelfDetailsPresenterModule(fragment))
+                .inject(this)
         supportFragmentManager.beginTransaction()
-                .replace(R.id.content, BookshelfDetailsFragment.newInstance(bookshelf, url))
+                .replace(R.id.content, fragment)
                 .commit()
     }
 }

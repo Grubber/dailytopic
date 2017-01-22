@@ -45,19 +45,26 @@ class BookshelfRemoteDataSource : BookshelfDataSource {
         }
     }
 
-    override fun getBookshelfDetails(url: String): Observable<List<Book>> {
+    override fun getBookshelfDetails(url: String): Observable<Pair<Bookshelf, List<Book>>> {
         return observable {
             if (!it.isUnsubscribed) {
                 try {
                     val document = newJsoupConnection(url).get()
+                    val bookshelf: Bookshelf
                     val books = arrayListOf<Book>()
+                    val bookshelfNode = document.getElementsByClass("book-chapter-sidebar")
+                            .first()
+                    val image = bookshelfNode.select("img").first().attr("abs:src")
+                    val title = bookshelfNode.getElementsByClass("book-name").first().text()
+                    val author = bookshelfNode.getElementsByClass("book-author").first().text()
+                    bookshelf = Bookshelf.create(title, author, url, image)
                     document.getElementsByClass("chapter-list")
                             .first()
                             .getElementsByTag("a")
                             .forEach {
                                 books += Book.create(it.text(), it.attr("abs:href"))
                             }
-                    it.onNext(books)
+                    it.onNext(Pair(bookshelf, books))
                     it.onCompleted()
                 } catch (e: Exception) {
                     it.onError(e)
