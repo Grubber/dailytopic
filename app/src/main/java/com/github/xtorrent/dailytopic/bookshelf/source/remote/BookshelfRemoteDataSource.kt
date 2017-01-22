@@ -1,5 +1,6 @@
 package com.github.xtorrent.dailytopic.bookshelf.source.remote
 
+import com.github.xtorrent.dailytopic.bookshelf.model.Book
 import com.github.xtorrent.dailytopic.bookshelf.model.Bookshelf
 import com.github.xtorrent.dailytopic.bookshelf.model.BookshelfHeaderImage
 import com.github.xtorrent.dailytopic.bookshelf.source.BookshelfDataSource
@@ -36,6 +37,27 @@ class BookshelfRemoteDataSource : BookshelfDataSource {
                                 data += Bookshelf.create(title, author, url, image)
                             }
                     it.onNext(if (pageNumber == 1) Pair(headerImages, data) else Pair(null, data))
+                    it.onCompleted()
+                } catch (e: Exception) {
+                    it.onError(e)
+                }
+            }
+        }
+    }
+
+    override fun getBookshelfDetails(url: String): Observable<List<Book>> {
+        return observable {
+            if (!it.isUnsubscribed) {
+                try {
+                    val document = newJsoupConnection(url).get()
+                    val books = arrayListOf<Book>()
+                    document.getElementsByClass("chapter-list")
+                            .first()
+                            .getElementsByTag("a")
+                            .forEach {
+                                books += Book.create(it.text(), it.attr("abs:href"))
+                            }
+                    it.onNext(books)
                     it.onCompleted()
                 } catch (e: Exception) {
                     it.onError(e)
