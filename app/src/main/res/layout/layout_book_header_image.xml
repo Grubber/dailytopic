@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    android:clipChildren="false"
+    android:orientation="vertical">
+
+    <com.github.xtorrent.dailytopic.widget.viewpager.LoopViewPager
+        android:id="@+id/headerImageViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:clipChildren="false" />
+
+    <com.viewpagerindicator.CirclePageIndicator xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/headerImageIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:fillColor="@color/colorPrimary"
+        app:pageColor="@color/colorAccent"
+        app:radius="5dp"
+        app:strokeColor="#40FFFFFF"
+        app:strokeWidth="0.5dp" />
+</LinearLayout>

@@ -39,7 +39,7 @@ class BookPresenter @Inject constructor(private val repository: BookRepository,
                 .bind {
                     next {
                         if (it != null) {
-                            _data.addAll(it)
+                            _data.addAll(it.second)
                             view.setContentView(it, false)
                         }
                     }
@@ -48,7 +48,7 @@ class BookPresenter @Inject constructor(private val repository: BookRepository,
                         if (_data.isEmpty()) {
                             view.setErrorView()
                         } else {
-                            view.setContentView(null, true)
+                            view.setContentView(Pair(null, null), true)
                         }
                     }
                 }

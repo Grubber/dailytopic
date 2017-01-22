@@ -9,7 +9,7 @@ import com.github.xtorrent.dailytopic.R
 /**
  * Created by zhihao.zeng on 16/11/29.
  */
-abstract class PagingRecyclerViewAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+abstract class PagingRecyclerViewAdapter<T, H> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {
         const val TYPE_HEADER = 0
         const val TYPE_FOOTER = TYPE_HEADER + 1
@@ -168,6 +168,8 @@ abstract class PagingRecyclerViewAdapter<T> : RecyclerView.Adapter<RecyclerView.
 
         notifyDataSetChanged()
     }
+
+    var headerItem: H? = null
 
     fun getItem(position: Int): T {
         return _items[position]

@@ -1,6 +1,7 @@
 package com.github.xtorrent.dailytopic.book.source.local
 
 import com.github.xtorrent.dailytopic.book.model.Book
+import com.github.xtorrent.dailytopic.book.model.BookHeaderImage
 import com.github.xtorrent.dailytopic.book.source.BookDataSource
 import com.github.xtorrent.dailytopic.db.DatabaseManager
 import rx.Observable
@@ -14,7 +15,7 @@ class BookLocalDataSource(private val databaseManager: DatabaseManager) : BookDa
         databaseManager.database
     }
 
-    override fun getBookList(pageNumber: Int): Observable<List<Book>> {
+    override fun getBookList(pageNumber: Int): Observable<Pair<List<BookHeaderImage>?, List<Book>>> {
         // TODO
         return emptyObservable()
     }
