@@ -1,0 +1,10 @@
+CREATE TABLE book (
+    title TEXT NOT NULL,
+    url TEXT NOT NULL
+);
+
+select_row:
+SELECT * FROM book WHERE url = ?;
+
+insert_row:
+INSERT INTO book (title, url) VALUES (?, ?);
