@@ -11,7 +11,7 @@
 
     <string name="drawer_menu_article">文章</string>
     <string name="drawer_menu_voice">声音</string>
-    <string name="drawer_menu_book">书架</string>
+    <string name="drawer_menu_bookshelf">书架</string>
     <string name="drawer_menu_favourite">收藏</string>
     <string name="drawer_menu_settings">设置</string>
     <string name="drawer_menu_feedback">反馈</string>

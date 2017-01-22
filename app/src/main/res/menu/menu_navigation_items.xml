@@ -7,22 +7,22 @@
         <item
             android:id="@+id/article"
             android:icon="@drawable/ic_import_contacts_black_24dp"
-            android:title="@string/drawer_menu_article"/>
+            android:title="@string/drawer_menu_article" />
 
         <item
             android:id="@+id/voice"
             android:icon="@drawable/ic_record_voice_over_black_24dp"
-            android:title="@string/drawer_menu_voice"/>
+            android:title="@string/drawer_menu_voice" />
 
         <item
             android:id="@+id/book"
             android:icon="@drawable/ic_book_black_24dp"
-            android:title="@string/drawer_menu_book"/>
+            android:title="@string/drawer_menu_bookshelf" />
 
         <item
             android:id="@+id/favourite"
             android:icon="@drawable/ic_favorite_black_24dp"
-            android:title="@string/drawer_menu_favourite"/>
+            android:title="@string/drawer_menu_favourite" />
     </group>
 
     <group
@@ -32,11 +32,11 @@
         <item
             android:id="@+id/settings"
             android:icon="@drawable/ic_settings_black_24dp"
-            android:title="@string/drawer_menu_settings"/>
+            android:title="@string/drawer_menu_settings" />
 
         <item
             android:id="@+id/feedback"
             android:icon="@drawable/ic_feedback_black_24dp"
-            android:title="@string/drawer_menu_feedback"/>
+            android:title="@string/drawer_menu_feedback" />
     </group>
 </menu>

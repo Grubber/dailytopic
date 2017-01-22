@@ -19,9 +19,9 @@ import com.github.xtorrent.dailytopic.article.ArticlePresenter
 import com.github.xtorrent.dailytopic.article.ArticlePresenterModule
 import com.github.xtorrent.dailytopic.base.BaseActivity
 import com.github.xtorrent.dailytopic.base.BaseFragment
-import com.github.xtorrent.dailytopic.book.BookFragment
-import com.github.xtorrent.dailytopic.book.BookPresenter
-import com.github.xtorrent.dailytopic.book.BookPresenterModule
+import com.github.xtorrent.dailytopic.book.BookshelfFragment
+import com.github.xtorrent.dailytopic.book.BookshelfPresenter
+import com.github.xtorrent.dailytopic.book.BookshelfPresenterModule
 import com.github.xtorrent.dailytopic.favourite.FavouriteFragment
 import com.github.xtorrent.dailytopic.feedback.FeedbackActivity
 import com.github.xtorrent.dailytopic.settings.SettingsActivity
@@ -52,7 +52,7 @@ class MainFragment : BaseFragment() {
     @Inject
     lateinit var articlePresenter: ArticlePresenter
     @Inject
-    lateinit var bookPresenter: BookPresenter
+    lateinit var bookshelfPresenter: BookshelfPresenter
 
     private val _articleFragment by lazy {
         ArticleFragment.newInstance(false)
@@ -60,8 +60,8 @@ class MainFragment : BaseFragment() {
     private val _voiceFragment by lazy {
         VoiceFragment.newInstance()
     }
-    private val _bookFragment by  lazy {
-        BookFragment.newInstance()
+    private val _bookshelfFragment by  lazy {
+        BookshelfFragment.newInstance()
     }
     private val _favouriteFragment by lazy {
         FavouriteFragment.newInstance()
@@ -70,7 +70,7 @@ class MainFragment : BaseFragment() {
         arrayListOf(
                 _articleFragment,
                 _voiceFragment,
-                _bookFragment,
+                _bookshelfFragment,
                 _favouriteFragment
         )
     }
@@ -81,7 +81,7 @@ class MainFragment : BaseFragment() {
 
         DTApplication.from(context)
                 .mainRepositoryComponent
-                .plus(ArticlePresenterModule(_articleFragment), BookPresenterModule(_bookFragment))
+                .plus(ArticlePresenterModule(_articleFragment), BookshelfPresenterModule(_bookshelfFragment))
                 .inject(this)
 
         _setDrawer()
@@ -114,7 +114,7 @@ class MainFragment : BaseFragment() {
                 }
 
                 R.id.book -> {
-                    _toolbar.setTitle(R.string.drawer_menu_book)
+                    _toolbar.setTitle(R.string.drawer_menu_bookshelf)
                     index = 2
                 }
 

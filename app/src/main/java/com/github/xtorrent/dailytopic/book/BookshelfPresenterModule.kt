@@ -7,9 +7,9 @@ import dagger.Provides
  * Created by grubber on 2017/1/18.
  */
 @Module
-class BookPresenterModule(val view: BookContract.View) {
+class BookshelfPresenterModule(val view: BookshelfContract.View) {
     @Provides
-    fun provideBookContractView(): BookContract.View {
+    fun provideBookshelfContractView(): BookshelfContract.View {
         return view
     }
 }

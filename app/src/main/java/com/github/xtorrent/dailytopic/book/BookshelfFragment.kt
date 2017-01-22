@@ -19,8 +19,8 @@ import com.github.xtorrent.dailytopic.R
 import com.github.xtorrent.dailytopic.base.BaseFragment
 import com.github.xtorrent.dailytopic.base.ContentFragment
 import com.github.xtorrent.dailytopic.base.PagingRecyclerViewAdapter
-import com.github.xtorrent.dailytopic.book.model.Book
-import com.github.xtorrent.dailytopic.book.model.BookHeaderImage
+import com.github.xtorrent.dailytopic.book.model.Bookshelf
+import com.github.xtorrent.dailytopic.book.model.BookshelfHeaderImage
 import com.github.xtorrent.dailytopic.widget.viewpager.LoopViewPager
 import com.jakewharton.rxbinding.view.clicks
 import com.squareup.picasso.Picasso
@@ -30,23 +30,23 @@ import java.util.*
 /**
  * @author Grubber
  */
-class BookFragment : ContentFragment(), BookContract.View {
+class BookshelfFragment : ContentFragment(), BookshelfContract.View {
     companion object {
-        fun newInstance(): BookFragment {
-            return BookFragment()
+        fun newInstance(): BookshelfFragment {
+            return BookshelfFragment()
         }
     }
 
-    private lateinit var _presenter: BookContract.Presenter
+    private lateinit var _presenter: BookshelfContract.Presenter
 
     override fun createContentView(container: ViewGroup): View {
-        return LayoutInflater.from(context).inflate(R.layout.fragment_book, container, false)
+        return LayoutInflater.from(context).inflate(R.layout.fragment_bookshelf, container, false)
     }
 
     private val _recyclerView by bindView<RecyclerView>(R.id.recyclerView)
 
     private val _adapter by lazy {
-        BookItemAdapter(context, childFragmentManager, _presenter, picasso())
+        BookshelfItemAdapter(context, childFragmentManager, _presenter, picasso())
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -67,10 +67,10 @@ class BookFragment : ContentFragment(), BookContract.View {
         _presenter.subscribe()
     }
 
-    override fun setContentView(data: List<Book>) {
+    override fun setContentView(data: List<Bookshelf>) {
     }
 
-    override fun setContentView(pair: Pair<List<BookHeaderImage>?, List<Book>?>, loadedError: Boolean) {
+    override fun setContentView(pair: Pair<List<BookshelfHeaderImage>?, List<Bookshelf>?>, loadedError: Boolean) {
         pair.first?.let {
             _adapter.headerItem = it
         }
@@ -93,7 +93,7 @@ class BookFragment : ContentFragment(), BookContract.View {
         displayLoadingView()
     }
 
-    override fun setPresenter(presenter: BookContract.Presenter) {
+    override fun setPresenter(presenter: BookshelfContract.Presenter) {
         _presenter = presenter
     }
 
@@ -110,10 +110,10 @@ class BookFragment : ContentFragment(), BookContract.View {
         return null
     }
 
-    class BookItemAdapter(private val context: Context,
-                          private val fragmentManager: FragmentManager,
-                          private val presenter: BookContract.Presenter,
-                          private val picasso: Picasso) : PagingRecyclerViewAdapter<Book, List<BookHeaderImage>>() {
+    class BookshelfItemAdapter(private val context: Context,
+                               private val fragmentManager: FragmentManager,
+                               private val presenter: BookshelfContract.Presenter,
+                               private val picasso: Picasso) : PagingRecyclerViewAdapter<Bookshelf, List<BookshelfHeaderImage>>() {
         override fun getLoadCount(): Int {
             return 12
         }
@@ -124,11 +124,11 @@ class BookFragment : ContentFragment(), BookContract.View {
         }
 
         override fun onCreateBasicItemViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-            return BookItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_book, parent, false))
+            return BookshelfItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_bookshelf, parent, false))
         }
 
         override fun onBindBasicItemView(holder: RecyclerView.ViewHolder, position: Int) {
-            holder as BookItemViewHolder
+            holder as BookshelfItemViewHolder
             val item = getItem(position)
             picasso.load(item.image())
                     .placeholder(ColorDrawable(R.color.colorAccent))
@@ -153,14 +153,14 @@ class BookFragment : ContentFragment(), BookContract.View {
         }
 
         override fun onCreateHeaderViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
-            return BookHeaderImageViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.layout_book_header_image, parent, false))
+            return BookshelfHeaderImageViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.layout_bookshelf_header_image, parent, false))
         }
 
         private var _pagerAdapter: HeaderImagePagerAdapter? = null
 
         override fun onBindHeaderView(holder: RecyclerView.ViewHolder, position: Int) {
             super.onBindHeaderView(holder, position)
-            holder as BookHeaderImageViewHolder
+            holder as BookshelfHeaderImageViewHolder
             if (_pagerAdapter == null) {
                 _pagerAdapter = HeaderImagePagerAdapter(fragmentManager)
                 holder.headerImageViewPager.setPageTransformer(true, ZoomOutPageTransformer())
@@ -231,7 +231,7 @@ class BookFragment : ContentFragment(), BookContract.View {
         }
 
         override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-            return inflater?.inflate(R.layout.fragment_book_header_image, container, false)
+            return inflater?.inflate(R.layout.fragment_bookshelf_header_image, container, false)
         }
 
         private val _imageView by bindView<ImageView>(R.id.imageView)
@@ -261,12 +261,12 @@ class BookFragment : ContentFragment(), BookContract.View {
         }
     }
 
-    class BookHeaderImageViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+    class BookshelfHeaderImageViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
         val headerImageViewPager by bindView<LoopViewPager>(R.id.headerImageViewPager)
         val headerImageIndicator by bindView<CirclePageIndicator>(R.id.headerImageIndicator)
     }
 
-    class BookItemViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+    class BookshelfItemViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
         val coverView by bindView<ImageView>(R.id.coverView)
         val titleView by bindView<TextView>(R.id.titleView)
         val authorView by bindView<TextView>(R.id.authorView)

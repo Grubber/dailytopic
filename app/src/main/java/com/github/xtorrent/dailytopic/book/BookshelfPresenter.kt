@@ -1,7 +1,7 @@
 package com.github.xtorrent.dailytopic.book
 
-import com.github.xtorrent.dailytopic.book.model.Book
-import com.github.xtorrent.dailytopic.book.source.BookRepository
+import com.github.xtorrent.dailytopic.book.model.Bookshelf
+import com.github.xtorrent.dailytopic.book.source.BookshelfRepository
 import com.github.xtorrent.dailytopic.utils.applySchedulers
 import com.github.xtorrent.dailytopic.utils.bind
 import com.github.xtorrent.dailytopic.utils.plusAssign
@@ -11,8 +11,8 @@ import javax.inject.Inject
 /**
  * Created by grubber on 2017/1/18.
  */
-class BookPresenter @Inject constructor(private val repository: BookRepository,
-                                        private val view: BookContract.View) : BookContract.Presenter {
+class BookshelfPresenter @Inject constructor(private val repository: BookshelfRepository,
+                                             private val view: BookshelfContract.View) : BookshelfContract.Presenter {
     @Inject
     fun setup() {
         view.setPresenter(this)
@@ -24,7 +24,7 @@ class BookPresenter @Inject constructor(private val repository: BookRepository,
 
     private var _pageNumber = 1
     private val _data by lazy {
-        arrayListOf<Book>()
+        arrayListOf<Bookshelf>()
     }
 
     override fun setPageNumber(pageNumber: Int) {
@@ -34,7 +34,7 @@ class BookPresenter @Inject constructor(private val repository: BookRepository,
     override fun subscribe() {
         _binder.clear()
 
-        _binder += repository.getBookList(_pageNumber)
+        _binder += repository.getBookshelfList(_pageNumber)
                 .applySchedulers()
                 .bind {
                     next {
