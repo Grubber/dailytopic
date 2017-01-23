@@ -6,6 +6,7 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -29,6 +30,7 @@ import com.github.xtorrent.dailytopic.voice.VoiceFragment
 import com.github.xtorrent.dailytopic.voice.VoicePresenter
 import com.github.xtorrent.dailytopic.voice.VoicePresenterModule
 import javax.inject.Inject
+
 
 /**
  * @author Grubber
@@ -195,7 +197,14 @@ class MainFragment : BaseFragment() {
             _checkItemId = R.id.article
             _navigationView.setCheckedItem(_checkItemId)
         } else {
-            (activity as MainActivity).exit()
+            AlertDialog.Builder(context)
+                    .setMessage(R.string.title_exit_app)
+                    .setPositiveButton(R.string.button_ok, { dialog, which ->
+                        dialog.dismiss()
+                        (activity as MainActivity).exit()
+                    })
+                    .setNegativeButton(R.string.button_cancel, null)
+                    .show()
         }
     }
 
