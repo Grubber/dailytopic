@@ -10,6 +10,8 @@ import com.github.xtorrent.dailytopic.bookshelf.details.BookshelfDetailsPresente
 import com.github.xtorrent.dailytopic.bookshelf.details.BookshelfDetailsPresenterModule
 import com.github.xtorrent.dailytopic.bookshelf.source.BookshelfRepositoryModule
 import com.github.xtorrent.dailytopic.voice.VoicePresenterModule
+import com.github.xtorrent.dailytopic.voice.details.VoiceDetailsPresenterComponent
+import com.github.xtorrent.dailytopic.voice.details.VoiceDetailsPresenterModule
 import com.github.xtorrent.dailytopic.voice.source.VoiceRepositoryModule
 import dagger.Subcomponent
 
@@ -28,4 +30,6 @@ interface MainRepositoryComponent {
     fun plus(bookshelfDetailsPresenterModule: BookshelfDetailsPresenterModule): BookshelfDetailsPresenterComponent
 
     fun plus(chapterPresenterModule: ChapterPresenterModule): ChapterPresenterComponent
+
+    fun plus(voiceDetailsPresenterModule: VoiceDetailsPresenterModule): VoiceDetailsPresenterComponent
 }

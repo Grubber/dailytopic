@@ -3,8 +3,10 @@ package com.github.xtorrent.dailytopic.voice.details
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import com.github.xtorrent.dailytopic.DTApplication
 import com.github.xtorrent.dailytopic.R
 import com.github.xtorrent.dailytopic.base.BaseActivity
+import javax.inject.Inject
 
 /**
  * Created by grubber on 2017/1/23.
@@ -22,12 +24,19 @@ class VoiceDetailsActivity : BaseActivity() {
         }
     }
 
+    @Inject
+    lateinit var presenter: VoiceDetailsPresenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val title = intent.getStringExtra(EXTRA_TITLE)
         val url = intent.getStringExtra(EXTRA_URL)
         val fragment = VoiceDetailsFragment.newInstance(title, url)
+        DTApplication.from(this)
+                .mainRepositoryComponent
+                .plus(VoiceDetailsPresenterModule(fragment))
+                .inject(this)
         supportFragmentManager.beginTransaction()
                 .replace(R.id.content, fragment)
                 .commit()
