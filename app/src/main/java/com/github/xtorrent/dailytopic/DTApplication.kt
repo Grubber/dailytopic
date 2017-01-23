@@ -9,6 +9,7 @@ import com.github.xtorrent.dailytopic.db.DatabaseManager
 import com.github.xtorrent.dailytopic.main.MainRepositoryComponent
 import com.github.xtorrent.dailytopic.utils.DeviceUtils
 import com.github.xtorrent.dailytopic.utils.ToastHelper
+import com.github.xtorrent.dailytopic.voice.source.VoiceRepositoryModule
 import com.squareup.picasso.Picasso
 import timber.log.Timber
 import javax.inject.Inject
@@ -51,7 +52,11 @@ class DTApplication : MultiDexApplication() {
                 .dataModule(DataModule())
                 .utilsModule(UtilsModule())
                 .build()
-        mainRepositoryComponent = applicationComponent.plus(ArticleRepositoryModule(), BookshelfRepositoryModule())
+        mainRepositoryComponent = applicationComponent.plus(
+                ArticleRepositoryModule(),
+                BookshelfRepositoryModule(),
+                VoiceRepositoryModule()
+        )
         applicationComponent.inject(this)
     }
 

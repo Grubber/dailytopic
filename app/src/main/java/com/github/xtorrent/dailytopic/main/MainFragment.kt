@@ -26,6 +26,8 @@ import com.github.xtorrent.dailytopic.favourite.FavouriteFragment
 import com.github.xtorrent.dailytopic.feedback.FeedbackActivity
 import com.github.xtorrent.dailytopic.settings.SettingsActivity
 import com.github.xtorrent.dailytopic.voice.VoiceFragment
+import com.github.xtorrent.dailytopic.voice.VoicePresenter
+import com.github.xtorrent.dailytopic.voice.VoicePresenterModule
 import javax.inject.Inject
 
 /**
@@ -53,6 +55,8 @@ class MainFragment : BaseFragment() {
     lateinit var articlePresenter: ArticlePresenter
     @Inject
     lateinit var bookshelfPresenter: BookshelfPresenter
+    @Inject
+    lateinit var voicePresenter: VoicePresenter
 
     private val _articleFragment by lazy {
         ArticleFragment.newInstance(false)
@@ -81,7 +85,11 @@ class MainFragment : BaseFragment() {
 
         DTApplication.from(context)
                 .mainRepositoryComponent
-                .plus(ArticlePresenterModule(_articleFragment), BookshelfPresenterModule(_bookshelfFragment))
+                .plus(
+                        ArticlePresenterModule(_articleFragment),
+                        BookshelfPresenterModule(_bookshelfFragment),
+                        VoicePresenterModule(_voiceFragment)
+                )
                 .inject(this)
 
         _setDrawer()

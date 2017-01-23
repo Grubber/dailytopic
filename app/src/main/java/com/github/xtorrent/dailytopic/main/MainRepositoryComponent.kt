@@ -9,16 +9,19 @@ import com.github.xtorrent.dailytopic.bookshelf.chapter.ChapterPresenterModule
 import com.github.xtorrent.dailytopic.bookshelf.detail.BookshelfDetailsPresenterComponent
 import com.github.xtorrent.dailytopic.bookshelf.detail.BookshelfDetailsPresenterModule
 import com.github.xtorrent.dailytopic.bookshelf.source.BookshelfRepositoryModule
+import com.github.xtorrent.dailytopic.voice.VoicePresenterModule
+import com.github.xtorrent.dailytopic.voice.source.VoiceRepositoryModule
 import dagger.Subcomponent
 
 /**
  * Created by grubber on 2017/1/18.
  */
 @MainRepositoryScope
-@Subcomponent(modules = arrayOf(ArticleRepositoryModule::class, BookshelfRepositoryModule::class))
+@Subcomponent(modules = arrayOf(ArticleRepositoryModule::class, BookshelfRepositoryModule::class, VoiceRepositoryModule::class))
 interface MainRepositoryComponent {
     fun plus(articlePresenterModule: ArticlePresenterModule,
-             bookPresenterModule: BookshelfPresenterModule): MainPresenterComponent
+             bookPresenterModule: BookshelfPresenterModule,
+             voicePresenterModule: VoicePresenterModule): MainPresenterComponent
 
     fun plus(articlePresenterModule: ArticlePresenterModule): ArticlePresenterComponent
 
