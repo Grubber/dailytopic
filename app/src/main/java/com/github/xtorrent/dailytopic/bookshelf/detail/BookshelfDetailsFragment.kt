@@ -1,5 +1,6 @@
 package com.github.xtorrent.dailytopic.bookshelf.detail
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -12,6 +13,7 @@ import butterknife.bindView
 import com.github.xtorrent.dailytopic.R
 import com.github.xtorrent.dailytopic.base.ContentFragment
 import com.github.xtorrent.dailytopic.base.PagingRecyclerViewAdapter
+import com.github.xtorrent.dailytopic.bookshelf.chapter.ChapterActivity
 import com.github.xtorrent.dailytopic.bookshelf.model.Book
 import com.github.xtorrent.dailytopic.bookshelf.model.Chapter
 import com.squareup.picasso.Picasso
@@ -53,7 +55,7 @@ class BookshelfDetailsFragment : ContentFragment(), BookshelfDetailsContract.Vie
 
     private val _recyclerView by bindView<RecyclerView>(R.id.recyclerView)
     private val _adapter by lazy {
-        BookshelfDetailsItemAdapter(picasso())
+        BookshelfDetailsItemAdapter(context, picasso())
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -89,7 +91,8 @@ class BookshelfDetailsFragment : ContentFragment(), BookshelfDetailsContract.Vie
         _presenter = presenter
     }
 
-    class BookshelfDetailsItemAdapter(private val picasso: Picasso) : PagingRecyclerViewAdapter<Chapter, Book>() {
+    class BookshelfDetailsItemAdapter(private val context: Context,
+                                      private val picasso: Picasso) : PagingRecyclerViewAdapter<Chapter, Book>() {
         override fun getLoadCount(): Int {
             // Ignored.
             return 0
@@ -116,7 +119,7 @@ class BookshelfDetailsFragment : ContentFragment(), BookshelfDetailsContract.Vie
             val item = getItem(position)
             holder.titleView.text = item.title()
             holder.itemView.setOnClickListener {
-                // TODO
+                ChapterActivity.start(context, item.title(), item.url())
             }
         }
 
