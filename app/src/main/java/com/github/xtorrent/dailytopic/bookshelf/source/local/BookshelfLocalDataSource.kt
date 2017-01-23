@@ -25,4 +25,9 @@ class BookshelfLocalDataSource(private val databaseManager: DatabaseManager) : B
         // TODO
         return emptyObservable()
     }
+
+    override fun getChapter(url: String): Observable<Chapter> {
+        // TODO
+        return emptyObservable()
+    }
 }

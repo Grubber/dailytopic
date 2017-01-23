@@ -12,4 +12,6 @@ interface BookshelfDataSource {
     fun getBookshelfList(pageNumber: Int): Observable<Pair<List<BookshelfHeaderImage>?, List<Book>>>
 
     fun getBookshelfDetails(url: String): Observable<Pair<Book, List<Chapter>>>
+
+    fun getChapter(url: String): Observable<Chapter>
 }

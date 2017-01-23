@@ -4,6 +4,8 @@ import com.github.xtorrent.dailytopic.article.ArticlePresenterComponent
 import com.github.xtorrent.dailytopic.article.ArticlePresenterModule
 import com.github.xtorrent.dailytopic.article.source.ArticleRepositoryModule
 import com.github.xtorrent.dailytopic.bookshelf.BookshelfPresenterModule
+import com.github.xtorrent.dailytopic.bookshelf.chapter.ChapterPresenterComponent
+import com.github.xtorrent.dailytopic.bookshelf.chapter.ChapterPresenterModule
 import com.github.xtorrent.dailytopic.bookshelf.detail.BookshelfDetailsPresenterComponent
 import com.github.xtorrent.dailytopic.bookshelf.detail.BookshelfDetailsPresenterModule
 import com.github.xtorrent.dailytopic.bookshelf.source.BookshelfRepositoryModule
@@ -21,4 +23,6 @@ interface MainRepositoryComponent {
     fun plus(articlePresenterModule: ArticlePresenterModule): ArticlePresenterComponent
 
     fun plus(bookshelfDetailsPresenterModule: BookshelfDetailsPresenterModule): BookshelfDetailsPresenterComponent
+
+    fun plus(chapterPresenterModule: ChapterPresenterModule): ChapterPresenterComponent
 }

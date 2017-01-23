@@ -72,4 +72,20 @@ class BookshelfRemoteDataSource : BookshelfDataSource {
             }
         }
     }
+
+    override fun getChapter(url: String): Observable<Chapter> {
+        return observable {
+            if (!it.isUnsubscribed) {
+                try {
+                    val document = newJsoupConnection(url).get()
+                    val title = document.getElementsByClass("list-header").text().trim()
+                    val content = document.getElementsByClass("chapter-bg").first().html()
+                    it.onNext(Chapter.create(title, url, content))
+                    it.onCompleted()
+                } catch (e: Exception) {
+                    it.onError(e)
+                }
+            }
+        }
+    }
 }

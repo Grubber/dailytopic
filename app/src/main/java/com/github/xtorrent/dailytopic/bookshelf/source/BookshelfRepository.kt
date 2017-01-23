@@ -20,4 +20,8 @@ class BookshelfRepository @Inject constructor(private @LocalBookshelf val localD
     override fun getBookshelfDetails(url: String): Observable<Pair<Book, List<Chapter>>> {
         return remoteDataSource.getBookshelfDetails(url)
     }
+
+    override fun getChapter(url: String): Observable<Chapter> {
+        return remoteDataSource.getChapter(url)
+    }
 }
