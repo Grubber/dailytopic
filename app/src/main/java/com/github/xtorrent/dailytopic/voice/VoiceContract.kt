@@ -8,7 +8,9 @@ import com.github.xtorrent.dailytopic.voice.model.Voice
  * Created by grubber on 2017/1/23.
  */
 interface VoiceContract {
-    interface View : BaseView<Presenter, List<Voice>>
+    interface View : BaseView<Presenter, List<Voice>> {
+        fun setContentView(data: List<Voice>?, loadedError: Boolean)
+    }
 
     interface Presenter : BasePresenter {
         fun setPageNumber(pageNumber: Int)
