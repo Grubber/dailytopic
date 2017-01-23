@@ -14,6 +14,7 @@ import butterknife.bindView
 import com.github.xtorrent.dailytopic.R
 import com.github.xtorrent.dailytopic.base.ContentFragment
 import com.github.xtorrent.dailytopic.base.PagingRecyclerViewAdapter
+import com.github.xtorrent.dailytopic.voice.details.VoiceDetailsActivity
 import com.github.xtorrent.dailytopic.voice.model.Voice
 import com.squareup.picasso.Picasso
 
@@ -108,7 +109,7 @@ class VoiceFragment : ContentFragment(), VoiceContract.View {
             holder.authorView.text = item.author()
             holder.tagView.text = item.tag()
             holder.itemView.setOnClickListener {
-                // TODO
+                VoiceDetailsActivity.start(context, item.title(), item.link())
             }
         }
 

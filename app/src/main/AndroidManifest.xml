@@ -42,6 +42,10 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".voice.details.VoiceDetailsActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".settings.SettingsActivity"
             android:screenOrientation="portrait" />
 
