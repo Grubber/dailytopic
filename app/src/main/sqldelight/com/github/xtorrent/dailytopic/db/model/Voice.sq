@@ -1,0 +1,11 @@
+CREATE TABLE voice (
+    title TEXT NOT NULL,
+    author TEXT NOT NULL,
+    coverImage TEXT NOT NULL,
+    tag TEXT NOT NULL,
+    link TEXT NOT NULL,
+    playUrl TEXT
+);
+
+insert_row:
+INSERT INTO voice (title, author, coverImage, tag, link, playUrl) VALUES (?, ?, ?, ?, ?, ?);
