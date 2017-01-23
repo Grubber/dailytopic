@@ -1,0 +1,10 @@
+CREATE TABLE chapter (
+    title TEXT NOT NULL,
+    url TEXT NOT NULL
+);
+
+select_row:
+SELECT * FROM chapter WHERE url = ?;
+
+insert_row:
+INSERT INTO chapter (title, url) VALUES (?, ?);

@@ -1,6 +1,6 @@
 package com.github.xtorrent.dailytopic.bookshelf
 
-import com.github.xtorrent.dailytopic.bookshelf.model.Bookshelf
+import com.github.xtorrent.dailytopic.bookshelf.model.Book
 import com.github.xtorrent.dailytopic.bookshelf.source.BookshelfRepository
 import com.github.xtorrent.dailytopic.utils.applySchedulers
 import com.github.xtorrent.dailytopic.utils.bind
@@ -24,7 +24,7 @@ class BookshelfPresenter @Inject constructor(private val repository: BookshelfRe
 
     private var _pageNumber = 1
     private val _data by lazy {
-        arrayListOf<Bookshelf>()
+        arrayListOf<Book>()
     }
 
     override fun setPageNumber(pageNumber: Int) {

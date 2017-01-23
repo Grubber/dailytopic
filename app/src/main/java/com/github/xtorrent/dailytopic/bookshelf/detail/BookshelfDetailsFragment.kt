@@ -13,7 +13,7 @@ import com.github.xtorrent.dailytopic.R
 import com.github.xtorrent.dailytopic.base.ContentFragment
 import com.github.xtorrent.dailytopic.base.PagingRecyclerViewAdapter
 import com.github.xtorrent.dailytopic.bookshelf.model.Book
-import com.github.xtorrent.dailytopic.bookshelf.model.Bookshelf
+import com.github.xtorrent.dailytopic.bookshelf.model.Chapter
 import com.squareup.picasso.Picasso
 
 /**
@@ -21,14 +21,14 @@ import com.squareup.picasso.Picasso
  */
 class BookshelfDetailsFragment : ContentFragment(), BookshelfDetailsContract.View {
     companion object {
-        private const val EXTRA_BOOKSHELF = "bookshelf"
+        private const val EXTRA_BOOK = "book"
         private const val EXTRA_URL = "url"
 
-        fun newInstance(bookshelf: Bookshelf?, url: String?): BookshelfDetailsFragment {
+        fun newInstance(book: Book?, url: String?): BookshelfDetailsFragment {
             val fragment = BookshelfDetailsFragment()
             val args = Bundle()
-            bookshelf?.let {
-                args.putParcelable(EXTRA_BOOKSHELF, it)
+            book?.let {
+                args.putParcelable(EXTRA_BOOK, it)
             }
             url?.let {
                 args.putString(EXTRA_URL, it)
@@ -42,8 +42,8 @@ class BookshelfDetailsFragment : ContentFragment(), BookshelfDetailsContract.Vie
         return LayoutInflater.from(context).inflate(R.layout.fragment_bookshelf_details, container, false)
     }
 
-    private val _bookshelf by lazy {
-        arguments.getParcelable<Bookshelf>(EXTRA_BOOKSHELF)
+    private val _book by lazy {
+        arguments.getParcelable<Book>(EXTRA_BOOK)
     }
     private val _url by lazy {
         arguments.getString(EXTRA_URL)
@@ -65,16 +65,16 @@ class BookshelfDetailsFragment : ContentFragment(), BookshelfDetailsContract.Vie
         if (_url != null) {
             _presenter.setUrl(_url)
         } else {
-            _adapter.headerItem = _bookshelf
+            _adapter.headerItem = _book
             _adapter.notifyDataSetChanged()
-            _presenter.setUrl(_bookshelf.url())
+            _presenter.setUrl(_book.url())
         }
         _presenter.subscribe()
     }
 
-    override fun setContentView(data: Pair<Bookshelf, List<Book>>) {
+    override fun setContentView(data: Pair<Book, List<Chapter>>) {
         setTitle(data.first.title())
-        if (_bookshelf == null) {
+        if (_book == null) {
             _adapter.headerItem = data.first
         }
         _adapter.addItems(data.second, PagingRecyclerViewAdapter.STATE_LOADING_COMPLETED)
@@ -89,7 +89,7 @@ class BookshelfDetailsFragment : ContentFragment(), BookshelfDetailsContract.Vie
         _presenter = presenter
     }
 
-    class BookshelfDetailsItemAdapter(private val picasso: Picasso) : PagingRecyclerViewAdapter<Book, Bookshelf>() {
+    class BookshelfDetailsItemAdapter(private val picasso: Picasso) : PagingRecyclerViewAdapter<Chapter, Book>() {
         override fun getLoadCount(): Int {
             // Ignored.
             return 0
@@ -163,6 +163,6 @@ class BookshelfDetailsFragment : ContentFragment(), BookshelfDetailsContract.Vie
     }
 
     override fun getTitle(): String? {
-        return _bookshelf?.title() ?: ""
+        return _book?.title() ?: ""
     }
 }

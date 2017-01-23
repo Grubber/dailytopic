@@ -1,8 +1,8 @@
 package com.github.xtorrent.dailytopic.bookshelf.source.local
 
 import com.github.xtorrent.dailytopic.bookshelf.model.Book
-import com.github.xtorrent.dailytopic.bookshelf.model.Bookshelf
 import com.github.xtorrent.dailytopic.bookshelf.model.BookshelfHeaderImage
+import com.github.xtorrent.dailytopic.bookshelf.model.Chapter
 import com.github.xtorrent.dailytopic.bookshelf.source.BookshelfDataSource
 import com.github.xtorrent.dailytopic.db.DatabaseManager
 import rx.Observable
@@ -16,12 +16,12 @@ class BookshelfLocalDataSource(private val databaseManager: DatabaseManager) : B
         databaseManager.database
     }
 
-    override fun getBookshelfList(pageNumber: Int): Observable<Pair<List<BookshelfHeaderImage>?, List<Bookshelf>>> {
+    override fun getBookshelfList(pageNumber: Int): Observable<Pair<List<BookshelfHeaderImage>?, List<Book>>> {
         // TODO
         return emptyObservable()
     }
 
-    override fun getBookshelfDetails(url: String): Observable<Pair<Bookshelf, List<Book>>> {
+    override fun getBookshelfDetails(url: String): Observable<Pair<Book, List<Chapter>>> {
         // TODO
         return emptyObservable()
     }

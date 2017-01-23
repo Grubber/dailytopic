@@ -20,7 +20,7 @@ import com.github.xtorrent.dailytopic.base.BaseFragment
 import com.github.xtorrent.dailytopic.base.ContentFragment
 import com.github.xtorrent.dailytopic.base.PagingRecyclerViewAdapter
 import com.github.xtorrent.dailytopic.bookshelf.detail.BookshelfDetailsActivity
-import com.github.xtorrent.dailytopic.bookshelf.model.Bookshelf
+import com.github.xtorrent.dailytopic.bookshelf.model.Book
 import com.github.xtorrent.dailytopic.bookshelf.model.BookshelfHeaderImage
 import com.github.xtorrent.dailytopic.widget.viewpager.LoopViewPager
 import com.jakewharton.rxbinding.view.clicks
@@ -68,10 +68,10 @@ class BookshelfFragment : ContentFragment(), BookshelfContract.View {
         _presenter.subscribe()
     }
 
-    override fun setContentView(data: List<Bookshelf>) {
+    override fun setContentView(data: List<Book>) {
     }
 
-    override fun setContentView(pair: Pair<List<BookshelfHeaderImage>?, List<Bookshelf>?>, loadedError: Boolean) {
+    override fun setContentView(pair: Pair<List<BookshelfHeaderImage>?, List<Book>?>, loadedError: Boolean) {
         pair.first?.let {
             _adapter.headerItem = it
         }
@@ -110,7 +110,7 @@ class BookshelfFragment : ContentFragment(), BookshelfContract.View {
     class BookshelfItemAdapter(private val context: Context,
                                private val fragmentManager: FragmentManager,
                                private val presenter: BookshelfContract.Presenter,
-                               private val picasso: Picasso) : PagingRecyclerViewAdapter<Bookshelf, List<BookshelfHeaderImage>>() {
+                               private val picasso: Picasso) : PagingRecyclerViewAdapter<Book, List<BookshelfHeaderImage>>() {
         override fun getLoadCount(): Int {
             return 12
         }
