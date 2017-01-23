@@ -1,4 +1,4 @@
-package com.github.xtorrent.dailytopic.bookshelf.detail
+package com.github.xtorrent.dailytopic.bookshelf.details
 
 import com.github.xtorrent.dailytopic.core.di.scope.ViewScope
 import dagger.Subcomponent

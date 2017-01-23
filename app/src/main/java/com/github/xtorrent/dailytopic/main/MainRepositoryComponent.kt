@@ -6,8 +6,8 @@ import com.github.xtorrent.dailytopic.article.source.ArticleRepositoryModule
 import com.github.xtorrent.dailytopic.bookshelf.BookshelfPresenterModule
 import com.github.xtorrent.dailytopic.bookshelf.chapter.ChapterPresenterComponent
 import com.github.xtorrent.dailytopic.bookshelf.chapter.ChapterPresenterModule
-import com.github.xtorrent.dailytopic.bookshelf.detail.BookshelfDetailsPresenterComponent
-import com.github.xtorrent.dailytopic.bookshelf.detail.BookshelfDetailsPresenterModule
+import com.github.xtorrent.dailytopic.bookshelf.details.BookshelfDetailsPresenterComponent
+import com.github.xtorrent.dailytopic.bookshelf.details.BookshelfDetailsPresenterModule
 import com.github.xtorrent.dailytopic.bookshelf.source.BookshelfRepositoryModule
 import com.github.xtorrent.dailytopic.voice.VoicePresenterModule
 import com.github.xtorrent.dailytopic.voice.source.VoiceRepositoryModule

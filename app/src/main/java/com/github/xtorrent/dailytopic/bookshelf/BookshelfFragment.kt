@@ -19,7 +19,7 @@ import com.github.xtorrent.dailytopic.R
 import com.github.xtorrent.dailytopic.base.BaseFragment
 import com.github.xtorrent.dailytopic.base.ContentFragment
 import com.github.xtorrent.dailytopic.base.PagingRecyclerViewAdapter
-import com.github.xtorrent.dailytopic.bookshelf.detail.BookshelfDetailsActivity
+import com.github.xtorrent.dailytopic.bookshelf.details.BookshelfDetailsActivity
 import com.github.xtorrent.dailytopic.bookshelf.model.Book
 import com.github.xtorrent.dailytopic.bookshelf.model.BookshelfHeaderImage
 import com.github.xtorrent.dailytopic.widget.viewpager.LoopViewPager
