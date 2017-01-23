@@ -27,6 +27,31 @@
                 android:textColor="#222"
                 android:textIsSelectable="true"
                 android:textSize="16sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:background="#eee"
+                android:padding="15dp">
+
+                <TextView
+                    android:id="@+id/previousView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_previous_chapter"
+                    android:textColor="@color/bg_chapter_button"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/nextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/button_next_chapter"
+                    android:textColor="@color/bg_chapter_button"
+                    android:textSize="16sp" />
+            </RelativeLayout>
         </LinearLayout>
     </FrameLayout>
 </ScrollView>

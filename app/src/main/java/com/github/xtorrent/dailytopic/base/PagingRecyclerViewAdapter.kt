@@ -169,6 +169,10 @@ abstract class PagingRecyclerViewAdapter<T, H> : RecyclerView.Adapter<RecyclerVi
         notifyDataSetChanged()
     }
 
+    fun getItems(): List<T> {
+        return _items
+    }
+
     var headerItem: H? = null
 
     fun getItem(position: Int): T {

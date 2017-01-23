@@ -6,10 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import butterknife.bindView
 import com.github.xtorrent.dailytopic.R
 import com.github.xtorrent.dailytopic.base.ContentFragment
 import com.github.xtorrent.dailytopic.bookshelf.model.Chapter
+import com.jakewharton.rxbinding.view.clicks
+import java.util.*
 
 /**
  * Created by grubber on 2017/1/23.
@@ -17,13 +18,15 @@ import com.github.xtorrent.dailytopic.bookshelf.model.Chapter
 class ChapterFragment : ContentFragment(), ChapterContract.View {
     companion object {
         private const val EXTRA_TITLE = "title"
-        private const val EXTRA_URL = "url"
+        private const val EXTRA_DATA = "data"
+        private const val EXTRA_INDEX = "index"
 
-        fun newInstance(title: String, url: String): ChapterFragment {
+        fun newInstance(title: String, data: ArrayList<Chapter>, index: Int): ChapterFragment {
             val fragment = ChapterFragment()
             val args = Bundle()
             args.putString(EXTRA_TITLE, title)
-            args.putString(EXTRA_URL, url)
+            args.putParcelableArrayList(EXTRA_DATA, data)
+            args.putInt(EXTRA_INDEX, index)
             fragment.arguments = args
             return fragment
         }
@@ -32,22 +35,61 @@ class ChapterFragment : ContentFragment(), ChapterContract.View {
     private val _title by lazy {
         arguments.getString(EXTRA_TITLE)
     }
-    private val _url by lazy {
-        arguments.getString(EXTRA_URL)
+    private val _data by lazy {
+        arguments.getParcelableArrayList<Chapter>(EXTRA_DATA)
     }
+    private var _index = 0
+    private lateinit var _chapter: Chapter
 
     override fun createContentView(container: ViewGroup): View {
-        return LayoutInflater.from(context).inflate(R.layout.fragment_chapter, container, false)
+        _rootView = LayoutInflater.from(context).inflate(R.layout.fragment_chapter, container, false)
+        return _rootView
     }
 
-    private val _contentView by bindView<TextView>(R.id.contentView)
+    private lateinit var _rootView: View
+    private lateinit var _contentView: TextView
+    private lateinit var _nextView: TextView
+    private lateinit var _previousView: TextView
 
     private lateinit var _presenter: ChapterContract.Presenter
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        _presenter.setUrl(_url)
+        _index = arguments.getInt(EXTRA_INDEX)
+        _initView()
+        _requestData()
+    }
+
+    private fun _initView() {
+        _contentView = _rootView.findViewById(R.id.contentView) as TextView
+        _nextView = _rootView.findViewById(R.id.nextView) as TextView
+        _previousView = _rootView.findViewById(R.id.previousView) as TextView
+
+        bindSubscribe(_nextView.clicks()) {
+            displayLoadingView()
+            invalidateContentView()
+            _initView()
+            _index++
+            _requestData()
+        }
+        bindSubscribe(_previousView.clicks()) {
+            displayLoadingView()
+            invalidateContentView()
+            _initView()
+            _index--
+            _requestData()
+        }
+    }
+
+    private fun _requestData() {
+        _chapter = _data[_index]
+        setTitle("(${_index + 1}/${_data.size}) $_title/${_chapter.title()}")
+
+        _previousView.visibility = if (_index == 0) View.GONE else View.VISIBLE
+        _nextView.visibility = if (_index == _data.size - 1) View.GONE else View.VISIBLE
+
+        _presenter.setUrl(_chapter.url())
         _presenter.subscribe()
     }
 
@@ -74,6 +116,6 @@ class ChapterFragment : ContentFragment(), ChapterContract.View {
     }
 
     override fun getTitle(): String? {
-        return _title
+        return ""
     }
 }

@@ -17,6 +17,7 @@ import com.github.xtorrent.dailytopic.bookshelf.chapter.ChapterActivity
 import com.github.xtorrent.dailytopic.bookshelf.model.Book
 import com.github.xtorrent.dailytopic.bookshelf.model.Chapter
 import com.squareup.picasso.Picasso
+import java.util.*
 
 /**
  * Created by grubber on 2017/1/22.
@@ -79,6 +80,7 @@ class BookshelfDetailsFragment : ContentFragment(), BookshelfDetailsContract.Vie
         if (_book == null) {
             _adapter.headerItem = data.first
         }
+        _adapter.title = data.first.title()
         _adapter.addItems(data.second, PagingRecyclerViewAdapter.STATE_LOADING_COMPLETED)
         displayContentView()
     }
@@ -114,12 +116,14 @@ class BookshelfDetailsFragment : ContentFragment(), BookshelfDetailsContract.Vie
             return BookshelfDetailsItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_bookshelf_details, parent, false))
         }
 
+        var title: String = ""
+
         override fun onBindBasicItemView(holder: RecyclerView.ViewHolder, position: Int) {
             holder as BookshelfDetailsItemViewHolder
             val item = getItem(position)
             holder.titleView.text = item.title()
             holder.itemView.setOnClickListener {
-                ChapterActivity.start(context, item.title(), item.url())
+                ChapterActivity.start(context, title, getItems() as ArrayList<Chapter>, position)
             }
         }
 

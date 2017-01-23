@@ -17,4 +17,7 @@
     <string name="drawer_menu_feedback">反馈</string>
 
     <string name="title_random_article">随机文章</string>
+
+    <string name="button_next_chapter">下一页</string>
+    <string name="button_previous_chapter">上一页</string>
 </resources>
