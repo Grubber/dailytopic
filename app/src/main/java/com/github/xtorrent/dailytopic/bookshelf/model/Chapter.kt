@@ -15,8 +15,8 @@ abstract class Chapter : ChapterModel {
 
         val FACTORY = ChapterModel.Factory<Chapter>(_creator)
 
-        fun create(title: String, url: String): Chapter {
-            return _creator.create(title, url)
+        fun create(title: String, url: String, content: String? = null): Chapter {
+            return _creator.create(title, url, content)
         }
     }
 }
