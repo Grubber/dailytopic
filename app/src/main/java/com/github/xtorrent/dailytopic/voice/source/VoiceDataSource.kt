@@ -8,4 +8,5 @@ import rx.Observable
  */
 interface VoiceDataSource {
     fun getVoiceList(pageNumber: Int): Observable<List<Voice>>
+    fun getVoiceDetails(url: String): Observable<String>
 }

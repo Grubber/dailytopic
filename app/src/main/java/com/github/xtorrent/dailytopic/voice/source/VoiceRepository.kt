@@ -14,4 +14,8 @@ class VoiceRepository @Inject constructor(private @LocalVoice val localDataSourc
     override fun getVoiceList(pageNumber: Int): Observable<List<Voice>> {
         return remoteDataSource.getVoiceList(pageNumber)
     }
+
+    override fun getVoiceDetails(url: String): Observable<String> {
+        return remoteDataSource.getVoiceDetails(url)
+    }
 }

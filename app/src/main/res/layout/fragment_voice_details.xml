@@ -1,7 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/backgroundView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop" />
+
+    <RelativeLayout
+        android:id="@+id/contentSection"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_article"
+        android:paddingLeft="24dp"
+        android:paddingRight="20dp"
+        android:paddingTop="24dp">
+
+        <LinearLayout
+            android:id="@+id/titleSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginRight="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_voice_details_line_left" />
+
+            <TextView
+                android:id="@+id/titleView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:textIsSelectable="true"
+                android:textSize="23sp" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginLeft="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_voice_details_line_right" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/authorView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/titleSection"
+            android:layout_marginBottom="32dp"
+            android:gravity="center_horizontal"
+            android:textColor="#333"
+            android:textIsSelectable="true"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/updateView"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_alignLeft="@id/contentSection"
+        android:layout_alignTop="@id/contentSection"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop" />
+</RelativeLayout>

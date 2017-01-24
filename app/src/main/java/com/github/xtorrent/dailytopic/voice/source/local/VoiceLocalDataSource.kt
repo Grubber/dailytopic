@@ -14,4 +14,9 @@ class VoiceLocalDataSource(private val databaseManager: DatabaseManager) : Voice
         // TODO
         return emptyObservable()
     }
+
+    override fun getVoiceDetails(url: String): Observable<String> {
+        // TODO
+        return emptyObservable()
+    }
 }

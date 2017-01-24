@@ -109,7 +109,7 @@ class VoiceFragment : ContentFragment(), VoiceContract.View {
             holder.authorView.text = item.author()
             holder.tagView.text = item.tag()
             holder.itemView.setOnClickListener {
-                VoiceDetailsActivity.start(context, item.title(), item.link())
+                VoiceDetailsActivity.start(context, item)
             }
         }
 

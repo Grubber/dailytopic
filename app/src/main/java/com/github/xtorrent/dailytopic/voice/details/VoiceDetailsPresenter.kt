@@ -1,5 +1,8 @@
 package com.github.xtorrent.dailytopic.voice.details
 
+import com.github.xtorrent.dailytopic.utils.applySchedulers
+import com.github.xtorrent.dailytopic.utils.bind
+import com.github.xtorrent.dailytopic.utils.plusAssign
 import com.github.xtorrent.dailytopic.voice.source.VoiceRepository
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
@@ -27,7 +30,19 @@ class VoiceDetailsPresenter @Inject constructor(private val view: VoiceDetailsCo
     override fun subscribe() {
         _binder.clear()
 
+        _binder += repository.getVoiceDetails(_url)
+                .applySchedulers()
+                .bind {
+                    next {
+                        it?.let {
+                            view.setContentView(it)
+                        }
+                    }
 
+                    error {
+                        view.setErrorView()
+                    }
+                }
     }
 
     override fun unsubscribe() {

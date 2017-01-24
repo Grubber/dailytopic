@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.github.xtorrent.dailytopic.DTApplication
 import com.github.xtorrent.dailytopic.R
 import com.github.xtorrent.dailytopic.base.BaseActivity
+import com.github.xtorrent.dailytopic.voice.model.Voice
 import javax.inject.Inject
 
 /**
@@ -13,13 +14,11 @@ import javax.inject.Inject
  */
 class VoiceDetailsActivity : BaseActivity() {
     companion object {
-        private const val EXTRA_TITLE = "title"
-        private const val EXTRA_URL = "url"
+        private const val EXTRA_VOICE = "voice"
 
-        fun start(context: Context, title: String, url: String) {
+        fun start(context: Context, voice: Voice) {
             val intent = Intent(context, VoiceDetailsActivity::class.java)
-            intent.putExtra(EXTRA_TITLE, title)
-            intent.putExtra(EXTRA_URL, url)
+            intent.putExtra(EXTRA_VOICE, voice)
             context.startActivity(intent)
         }
     }
@@ -30,9 +29,8 @@ class VoiceDetailsActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val title = intent.getStringExtra(EXTRA_TITLE)
-        val url = intent.getStringExtra(EXTRA_URL)
-        val fragment = VoiceDetailsFragment.newInstance(title, url)
+        val voice = intent.getParcelableExtra<Voice>(EXTRA_VOICE)
+        val fragment = VoiceDetailsFragment.newInstance(voice)
         DTApplication.from(this)
                 .mainRepositoryComponent
                 .plus(VoiceDetailsPresenterModule(fragment))
