@@ -13,14 +13,13 @@
     <RelativeLayout
         android:id="@+id/contentSection"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:layout_marginBottom="20dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/bg_article"
-        android:paddingLeft="24dp"
-        android:paddingRight="20dp"
         android:paddingTop="24dp">
 
         <LinearLayout
@@ -28,15 +27,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginStart="12dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_voice_details_line_left" />
 
@@ -45,13 +44,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorBlack"
-                android:textIsSelectable="true"
                 android:textSize="23sp" />
 
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
-                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_voice_details_line_right" />
         </LinearLayout>
@@ -61,18 +59,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/titleSection"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="48dp"
             android:gravity="center_horizontal"
             android:textColor="#333"
-            android:textIsSelectable="true"
             android:textSize="16sp" />
+
+        <com.github.xtorrent.dailytopic.voice.view.AudioExoPlayerView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/playerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/authorView"
+            android:layout_marginBottom="36dp"
+            app:controller_layout_id="@layout/layout_exo_player_controller"
+            app:player_layout_id="@layout/layout_exo_player"
+            app:show_timeout="-1" />
     </RelativeLayout>
 
     <ImageView
         android:id="@+id/updateView"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_alignLeft="@id/contentSection"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignStart="@id/contentSection"
         android:layout_alignTop="@id/contentSection"
         android:contentDescription="@null"
         android:scaleType="centerCrop" />

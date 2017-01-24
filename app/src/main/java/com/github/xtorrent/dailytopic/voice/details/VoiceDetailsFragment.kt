@@ -2,6 +2,7 @@ package com.github.xtorrent.dailytopic.voice.details
 
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,15 @@ import butterknife.bindView
 import com.github.xtorrent.dailytopic.R
 import com.github.xtorrent.dailytopic.base.ContentFragment
 import com.github.xtorrent.dailytopic.voice.model.Voice
+import com.github.xtorrent.dailytopic.voice.view.AudioExoPlayerView
+import com.google.android.exoplayer2.DefaultLoadControl
+import com.google.android.exoplayer2.ExoPlayerFactory
+import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
+import com.google.android.exoplayer2.source.ExtractorMediaSource
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
+import com.google.android.exoplayer2.util.Util
 import com.squareup.picasso.MemoryPolicy
 
 /**
@@ -44,6 +54,7 @@ class VoiceDetailsFragment : ContentFragment(), VoiceDetailsContract.View {
     private val _updateView by bindView<ImageView>(R.id.updateView)
     private val _titleView  by bindView<TextView>(R.id.titleView)
     private val _authorView by bindView<TextView>(R.id.authorView)
+    private val _playerView by bindView<AudioExoPlayerView>(R.id.playerView)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -53,7 +64,6 @@ class VoiceDetailsFragment : ContentFragment(), VoiceDetailsContract.View {
     }
 
     override fun setContentView(data: String) {
-        // TODO
         picasso().load(_voice.coverImage())
                 .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                 .config(Bitmap.Config.RGB_565)
@@ -67,10 +77,38 @@ class VoiceDetailsFragment : ContentFragment(), VoiceDetailsContract.View {
                 .into(_updateView)
         _titleView.text = _voice.title()
         _authorView.text = _voice.author()
+        _playUrl = data
+        _initMediaPlayer()
         displayContentView()
     }
 
-    private fun _recycle() {
+    private var _playUrl: String? = null
+    private var _exoPlayer: SimpleExoPlayer? = null
+
+    private fun _initMediaPlayer() {
+        val trackSelector = DefaultTrackSelector()
+        val loadControl = DefaultLoadControl()
+        _exoPlayer = ExoPlayerFactory.newSimpleInstance(context, trackSelector, loadControl)
+        _playerView.player = _exoPlayer
+
+        _prepareMediaPlayer()
+    }
+
+    private fun _prepareMediaPlayer() {
+        val dataSourceFactory = DefaultHttpDataSourceFactory(Util.getUserAgent(context, "dailytopic"))
+        val extractorsFactory = DefaultExtractorsFactory()
+        val videoSource = ExtractorMediaSource(Uri.parse(_playUrl), dataSourceFactory, extractorsFactory, null, null)
+        _exoPlayer!!.prepare(videoSource)
+    }
+
+    private fun _releaseMediaPlayer() {
+        if (_exoPlayer != null) {
+            _exoPlayer!!.release()
+            _exoPlayer = null
+        }
+    }
+
+    private fun _recycleBitmap() {
         picasso().cancelRequest(_backgroundView)
         val backgroundViewDrawable = _backgroundView.drawable
         _backgroundView.setImageDrawable(null)
@@ -98,7 +136,8 @@ class VoiceDetailsFragment : ContentFragment(), VoiceDetailsContract.View {
 
     override fun onDestroy() {
         _presenter.unsubscribe()
-        _recycle()
+        _recycleBitmap()
+        _releaseMediaPlayer()
         super.onDestroy()
     }
 
