@@ -24,4 +24,6 @@
     <string name="title_exit_app">是否退出应用？</string>
     <string name="button_ok">确认</string>
     <string name="button_cancel">取消</string>
+
+    <string name="title_join_us">加入主播</string>
 </resources>

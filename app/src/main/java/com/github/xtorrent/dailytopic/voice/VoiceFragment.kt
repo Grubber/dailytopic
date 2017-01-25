@@ -5,9 +5,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.bindView
@@ -15,6 +13,7 @@ import com.github.xtorrent.dailytopic.R
 import com.github.xtorrent.dailytopic.base.ContentFragment
 import com.github.xtorrent.dailytopic.base.PagingRecyclerViewAdapter
 import com.github.xtorrent.dailytopic.voice.details.VoiceDetailsActivity
+import com.github.xtorrent.dailytopic.voice.joinus.JoinUsActivity
 import com.github.xtorrent.dailytopic.voice.model.Voice
 import com.squareup.picasso.Picasso
 
@@ -41,6 +40,7 @@ class VoiceFragment : ContentFragment(), VoiceContract.View {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        setHasOptionsMenu(true)
 
         _recyclerView.layoutManager = GridLayoutManager(context, 2)
         _recyclerView.adapter = _adapter
@@ -56,6 +56,22 @@ class VoiceFragment : ContentFragment(), VoiceContract.View {
 
         _presenter.setPageNumber(1)
         _presenter.subscribe()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater?.inflate(R.menu.menu_voice, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            R.id.joinUs -> {
+                JoinUsActivity.start(context)
+                true
+            }
+
+            else -> return super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onRetry() {
