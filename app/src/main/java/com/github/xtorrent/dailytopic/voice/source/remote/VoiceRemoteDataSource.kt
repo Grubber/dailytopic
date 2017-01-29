@@ -25,8 +25,15 @@ class VoiceRemoteDataSource : VoiceDataSource {
                                 val author = it.getElementsByClass("author_name").first().text()
                                 val coverImage = it.select("img").first().attr("abs:src")
                                 val tag = it.getElementsByClass("voice_tag").first().text()
-                                val link = it.select("a").first().attr("abs:href")
-                                voices += Voice.create(title, author, coverImage, tag, link)
+                                val url = it.select("a").first().attr("abs:href")
+                                var _id: Long = 0
+                                val regex = "(.*)vid=(.*)"
+                                val pattern = Pattern.compile(regex)
+                                val matcher = pattern.matcher(url)
+                                if (matcher.find()) {
+                                    _id = matcher.group(2).toLong()
+                                }
+                                voices += Voice.create(_id, title, author, coverImage, tag, url)
                             }
                     it.onNext(voices)
                     it.onCompleted()

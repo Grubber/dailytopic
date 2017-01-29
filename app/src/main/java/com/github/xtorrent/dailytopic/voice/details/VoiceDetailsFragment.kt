@@ -59,7 +59,7 @@ class VoiceDetailsFragment : ContentFragment(), VoiceDetailsContract.View {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        _presenter.setUrl(_voice.link())
+        _presenter.setUrl(_voice.url())
         _presenter.subscribe()
     }
 

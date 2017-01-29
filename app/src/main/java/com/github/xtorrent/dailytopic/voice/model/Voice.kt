@@ -16,8 +16,8 @@ abstract class Voice : VoiceModel, Parcelable {
 
         val FACTORY = VoiceModel.Factory<Voice>(_creator)
 
-        fun create(title: String, author: String, coverImage: String, tag: String, link: String, playUrl: String? = null): Voice {
-            return _creator.create(title, author, coverImage, tag, link, playUrl)
+        fun create(_id: Long, title: String, author: String, coverImage: String, tag: String, url: String, playUrl: String? = null): Voice {
+            return _creator.create(_id, title, author, coverImage, tag, url, playUrl)
         }
     }
 }

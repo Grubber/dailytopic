@@ -1,11 +1,18 @@
 CREATE TABLE voice (
+    _id INTEGER NOT NULL PRIMARY KEY,
     title TEXT NOT NULL,
     author TEXT NOT NULL,
     coverImage TEXT NOT NULL,
     tag TEXT NOT NULL,
-    link TEXT NOT NULL,
+    url TEXT NOT NULL,
     playUrl TEXT
 );
 
 insert_row:
-INSERT INTO voice (title, author, coverImage, tag, link, playUrl) VALUES (?, ?, ?, ?, ?, ?);
+INSERT INTO voice (_id, title, author, coverImage, tag, url, playUrl) VALUES (?, ?, ?, ?, ?, ?, ?);
+
+select_row:
+SELECT * FROM voice WHERE _id = ?;
+
+update_row:
+UPDATE voice SET playUrl = ?;
