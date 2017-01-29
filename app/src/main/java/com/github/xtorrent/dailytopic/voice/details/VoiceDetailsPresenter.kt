@@ -30,7 +30,7 @@ class VoiceDetailsPresenter @Inject constructor(private val view: VoiceDetailsCo
     override fun subscribe() {
         _binder.clear()
 
-        _binder += repository.getVoiceDetails(_url)
+        _binder += repository.getVoicePlayUrl(_url)
                 .applySchedulers()
                 .bind {
                     next {

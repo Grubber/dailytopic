@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper
 import com.github.xtorrent.dailytopic.core.di.qualifier.ForApplication
 import com.github.xtorrent.dailytopic.core.di.scope.ApplicationScope
 import com.github.xtorrent.dailytopic.db.model.ArticleModel
+import com.github.xtorrent.dailytopic.db.model.VoiceModel
 import javax.inject.Inject
 
 /**
@@ -14,7 +15,8 @@ import javax.inject.Inject
 @ApplicationScope
 class DelightfulOpenHelper @Inject constructor(private @ForApplication val context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
     override fun onCreate(db: SQLiteDatabase?) {
-        db?.execSQL(ArticleModel.CREATE_TABLE)
+        db!!.execSQL(ArticleModel.CREATE_TABLE)
+        db.execSQL(VoiceModel.CREATE_TABLE)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {

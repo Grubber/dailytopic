@@ -9,10 +9,10 @@ CREATE TABLE voice (
 );
 
 insert_row:
-INSERT INTO voice (_id, title, author, coverImage, tag, url, playUrl) VALUES (?, ?, ?, ?, ?, ?, ?);
+INSERT INTO voice (_id, title, author, coverImage, tag, url) VALUES (?, ?, ?, ?, ?, ?);
 
-select_row:
-SELECT * FROM voice WHERE _id = ?;
+count_row:
+SELECT COUNT (*) FROM voice WHERE _id = ?;
 
 update_row:
-UPDATE voice SET playUrl = ?;
+UPDATE voice SET playUrl = ? WHERE _id = ?;

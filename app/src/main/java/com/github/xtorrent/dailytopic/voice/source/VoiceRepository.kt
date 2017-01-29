@@ -13,9 +13,26 @@ class VoiceRepository @Inject constructor(private @LocalVoice val localDataSourc
                                           private @RemoteVoice val remoteDataSource: VoiceDataSource) : VoiceDataSource {
     override fun getVoiceList(pageNumber: Int): Observable<List<Voice>> {
         return remoteDataSource.getVoiceList(pageNumber)
+                .map {
+                    it.forEach {
+                        val count = countVoice(it._id())
+                        if (count == 0L) {
+                            saveVoice(it)
+                        }
+                    }
+                    it
+                }
     }
 
-    override fun getVoiceDetails(url: String): Observable<String> {
-        return remoteDataSource.getVoiceDetails(url)
+    override fun getVoicePlayUrl(url: String): Observable<String> {
+        return remoteDataSource.getVoicePlayUrl(url)
+    }
+
+    override fun countVoice(_id: Long): Long {
+        return localDataSource.countVoice(_id)
+    }
+
+    override fun saveVoice(voice: Voice) {
+        localDataSource.saveVoice(voice)
     }
 }

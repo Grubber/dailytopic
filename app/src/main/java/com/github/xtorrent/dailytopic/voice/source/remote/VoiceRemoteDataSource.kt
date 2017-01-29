@@ -44,7 +44,7 @@ class VoiceRemoteDataSource : VoiceDataSource {
         }
     }
 
-    override fun getVoiceDetails(url: String): Observable<String> {
+    override fun getVoicePlayUrl(url: String): Observable<String> {
         return observable {
             if (!it.isUnsubscribed) {
                 try {
@@ -65,5 +65,14 @@ class VoiceRemoteDataSource : VoiceDataSource {
                 }
             }
         }
+    }
+
+    override fun countVoice(_id: Long): Long {
+        // Ignored.
+        return 0
+    }
+
+    override fun saveVoice(voice: Voice) {
+        // Ignored.
     }
 }
