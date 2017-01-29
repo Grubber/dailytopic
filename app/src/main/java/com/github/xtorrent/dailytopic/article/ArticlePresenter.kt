@@ -51,8 +51,6 @@ class ArticlePresenter @Inject constructor(private val repository: ArticleReposi
     }
 
     override fun isFavourite() {
-        _binder.clear()
-
         _binder += repository.getArticle(_data.title(), _data.author(), Article.Type.FAVOURITE)
                 .applySchedulers()
                 .bind {
