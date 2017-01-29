@@ -109,17 +109,19 @@ class VoiceDetailsFragment : ContentFragment(), VoiceDetailsContract.View {
     }
 
     private fun _recycleBitmap() {
-        picasso().cancelRequest(_backgroundView)
-        val backgroundViewDrawable = _backgroundView.drawable
-        _backgroundView.setImageDrawable(null)
-        val backgroundViewBitmap = (backgroundViewDrawable as? BitmapDrawable)?.bitmap
-        backgroundViewBitmap?.recycle()
+        _playUrl?.let {
+            picasso().cancelRequest(_backgroundView)
+            val backgroundViewDrawable = _backgroundView.drawable
+            _backgroundView.setImageDrawable(null)
+            val backgroundViewBitmap = (backgroundViewDrawable as? BitmapDrawable)?.bitmap
+            backgroundViewBitmap?.recycle()
 
-        picasso().cancelRequest(_updateView)
-        val updateViewDrawable = _updateView.drawable
-        _updateView.setImageDrawable(null)
-        val updateViewBitmap = (updateViewDrawable as? BitmapDrawable)?.bitmap
-        updateViewBitmap?.recycle()
+            picasso().cancelRequest(_updateView)
+            val updateViewDrawable = _updateView.drawable
+            _updateView.setImageDrawable(null)
+            val updateViewBitmap = (updateViewDrawable as? BitmapDrawable)?.bitmap
+            updateViewBitmap?.recycle()
+        }
     }
 
     override fun setErrorView() {
