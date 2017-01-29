@@ -63,8 +63,12 @@ class ArticleRepository @Inject constructor(private @LocalArticle val localDataS
         }
     }
 
-    override fun getArticle(id: Long): Observable<Article> {
-        return localDataSource.getArticle(id)
+    override fun getArticle(title: String, author: String, type: Article.Type): Observable<Article> {
+        return localDataSource.getArticle(title, author, type)
+    }
+
+    override fun deleteArticle(title: String, author: String, type: Article.Type) {
+        localDataSource.deleteArticle(title, author, type)
     }
 
     override fun saveArticle(article: Article) {

@@ -8,9 +8,13 @@ import com.github.xtorrent.dailytopic.base.BaseView
  * @author Grubber
  */
 interface ArticleContract {
-    interface View : BaseView<Presenter, Article>
+    interface View : BaseView<Presenter, Article> {
+        fun setIsFavourite(isFavourite: Boolean)
+    }
 
     interface Presenter : BasePresenter {
         fun isRandom(isRandom: Boolean)
+        fun isFavourite()
+        fun toggleFavourite(isFavourite: Boolean)
     }
 }

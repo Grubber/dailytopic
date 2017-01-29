@@ -6,11 +6,14 @@ CREATE TABLE article (
     author TEXT NOT NULL,
     content TEXT NOT NULL,
     backgroundImage TEXT NOT NULL,
-    type TEXT AS Article.Type
+    type TEXT AS Article.Type NOT NULL
 );
 
-select_row_by_id:
-SELECT * FROM article WHERE _id = ?;
+select_row:
+SELECT * FROM article WHERE title = ? and author = ? and type = ?;
+
+delete_row:
+DELETE FROM article WHERE title = ? and author = ? and type = ?;
 
 select_row_by_type:
 SELECT * FROM article WHERE type = ?;

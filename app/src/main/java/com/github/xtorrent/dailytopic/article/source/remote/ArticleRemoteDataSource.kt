@@ -37,8 +37,12 @@ class ArticleRemoteDataSource : ArticleDataSource {
         }
     }
 
-    override fun getArticle(id: Long): Observable<Article> {
+    override fun getArticle(title: String, author: String, type: Article.Type): Observable<Article> {
         return emptyObservable()
+    }
+
+    override fun deleteArticle(title: String, author: String, type: Article.Type) {
+        // Ignored.
     }
 
     override fun saveArticle(article: Article) {

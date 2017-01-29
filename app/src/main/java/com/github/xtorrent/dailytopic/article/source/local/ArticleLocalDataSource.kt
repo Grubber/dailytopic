@@ -39,15 +39,15 @@ class ArticleLocalDataSource(private val databaseManager: DatabaseManager) : Art
         }
     }
 
-    override fun getArticle(id: Long): Observable<Article> {
+    override fun getArticle(title: String, author: String, type: Article.Type): Observable<Article> {
         return observable {
             if (!it.isUnsubscribed) {
                 try {
-                    val query = Article.FACTORY.select_row_by_id(id)
+                    val query = Article.FACTORY.select_row(title, author, type)
                     val cursor = _db.rawQuery(query.statement, query.args)
                     var article: Article? = null
                     while (cursor.moveToNext()) {
-                        article = Article.FACTORY.select_row_by_idMapper().map(cursor)
+                        article = Article.FACTORY.select_rowMapper().map(cursor)
                     }
                     cursor.close()
                     it.onNext(article)
@@ -57,6 +57,12 @@ class ArticleLocalDataSource(private val databaseManager: DatabaseManager) : Art
                 }
             }
         }
+    }
+
+    override fun deleteArticle(title: String, author: String, type: Article.Type) {
+        val delete = ArticleModel.Delete_row(_db, Article.FACTORY)
+        delete.bind(title, author, type)
+        delete.program.execute()
     }
 
     override fun saveArticle(article: Article) {

@@ -1,8 +1,10 @@
 package com.github.xtorrent.dailytopic.article
 
+import com.github.xtorrent.dailytopic.article.model.Article
 import com.github.xtorrent.dailytopic.article.source.ArticleRepository
 import com.github.xtorrent.dailytopic.utils.applySchedulers
 import com.github.xtorrent.dailytopic.utils.bind
+import com.github.xtorrent.dailytopic.utils.plusAssign
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
 
@@ -21,6 +23,7 @@ class ArticlePresenter @Inject constructor(private val repository: ArticleReposi
     }
 
     private var _isRandom: Boolean = false
+    private lateinit var _data: Article
 
     override fun isRandom(isRandom: Boolean) {
         _isRandom = isRandom
@@ -29,11 +32,12 @@ class ArticlePresenter @Inject constructor(private val repository: ArticleReposi
     override fun subscribe() {
         _binder.clear()
 
-        repository.getArticle(_isRandom)
+        _binder += repository.getArticle(_isRandom)
                 .applySchedulers()
                 .bind {
                     next {
                         if (it != null) {
+                            _data = it
                             view.setContentView(it)
                         } else {
                             view.setErrorView()
@@ -44,6 +48,30 @@ class ArticlePresenter @Inject constructor(private val repository: ArticleReposi
                         view.setErrorView()
                     }
                 }
+    }
+
+    override fun isFavourite() {
+        _binder.clear()
+
+        _binder += repository.getArticle(_data.title(), _data.author(), Article.Type.FAVOURITE)
+                .applySchedulers()
+                .bind {
+                    next {
+                        view.setIsFavourite(it != null)
+                    }
+                }
+    }
+
+    override fun toggleFavourite(isFavourite: Boolean) {
+        _binder.clear()
+
+        if (isFavourite) {
+            repository.deleteArticle(_data.title(), _data.author(), Article.Type.FAVOURITE)
+        } else {
+            val persist = Article.create(_data.title(), _data.author(), _data.content(), _data.backgroundImage(), Article.Type.FAVOURITE)
+            repository.saveArticle(persist)
+        }
+        view.setIsFavourite(!isFavourite)
     }
 
     override fun unsubscribe() {

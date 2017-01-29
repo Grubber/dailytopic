@@ -1,8 +1,10 @@
 package com.github.xtorrent.dailytopic.article
 
 import android.graphics.Bitmap
+import android.graphics.PorterDuff
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.text.Html
 import android.view.*
 import android.widget.ImageView
@@ -52,6 +54,8 @@ class ArticleFragment : ContentFragment(), ArticleContract.View {
         arguments.getBoolean(EXTRA_IS_RANDOM)
     }
 
+    private var _isFavourite: Boolean? = null
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setHasOptionsMenu(true)
@@ -96,6 +100,8 @@ class ArticleFragment : ContentFragment(), ArticleContract.View {
         _authorView.text = data.author()
         _contentView.text = Html.fromHtml(data.content())
         displayContentView()
+
+        _presenter.isFavourite()
     }
 
     override fun setErrorView() {
@@ -106,6 +112,11 @@ class ArticleFragment : ContentFragment(), ArticleContract.View {
         _presenter.subscribe()
     }
 
+    override fun setIsFavourite(isFavourite: Boolean) {
+        _isFavourite = isFavourite
+        activity.invalidateOptionsMenu()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater?.inflate(R.menu.menu_article, menu)
@@ -113,19 +124,40 @@ class ArticleFragment : ContentFragment(), ArticleContract.View {
 
     override fun onPrepareOptionsMenu(menu: Menu?) {
         super.onPrepareOptionsMenu(menu)
+        val favouriteItem = menu!!.findItem(R.id.favourite)
+        val drawable = favouriteItem.icon
+        if (_isFavourite == null) {
+            favouriteItem.isEnabled = false
+        } else if (!_isFavourite!!) {
+            drawable.mutate()
+            drawable.setColorFilter(ContextCompat.getColor(context, R.color.colorWhite), PorterDuff.Mode.SRC_IN)
+        } else {
+            drawable.mutate()
+            drawable.setColorFilter(ContextCompat.getColor(context, R.color.colorAccent), PorterDuff.Mode.SRC_IN)
+        }
         if (_isRandom) {
-            menu?.findItem(R.id.random)?.isVisible = false
+            menu.findItem(R.id.random).isVisible = false
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
+        return when (item?.itemId) {
             R.id.random -> {
                 ArticleActivity.start(context)
-                return true
+                true
             }
+
+            R.id.favourite -> {
+                _toggleFavourite()
+                true
+            }
+
+            else -> return super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
+    }
+
+    private fun _toggleFavourite() {
+        _presenter.toggleFavourite(_isFavourite!!)
     }
 
     override fun onDestroy() {
