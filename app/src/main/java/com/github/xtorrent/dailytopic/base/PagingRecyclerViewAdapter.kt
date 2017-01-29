@@ -156,7 +156,10 @@ abstract class PagingRecyclerViewAdapter<T, H> : RecyclerView.Adapter<RecyclerVi
         _loadingState = state
 
         if (items != null) {
-            _items.addAll(items)
+            val distinct = items.filter {
+                !_items.contains(it)
+            }
+            _items.addAll(distinct)
             if (items.size < getLoadCount()) {
                 _loadingState = STATE_LOADING_COMPLETED
             }

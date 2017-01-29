@@ -19,3 +19,6 @@ UPDATE voice SET playUrl = ? WHERE url = ?;
 
 select_row_by_url:
 SELECT * FROM voice WHERE url = ? LIMIT 1;
+
+select_rows:
+SELECT * FROM voice ORDER BY _id DESC LIMIT ? OFFSET ?;

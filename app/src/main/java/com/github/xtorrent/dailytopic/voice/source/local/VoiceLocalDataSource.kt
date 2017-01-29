@@ -5,7 +5,6 @@ import com.github.xtorrent.dailytopic.db.model.VoiceModel
 import com.github.xtorrent.dailytopic.voice.model.Voice
 import com.github.xtorrent.dailytopic.voice.source.VoiceDataSource
 import rx.Observable
-import rx.lang.kotlin.emptyObservable
 import rx.lang.kotlin.observable
 
 /**
@@ -17,8 +16,24 @@ class VoiceLocalDataSource(private val databaseManager: DatabaseManager) : Voice
     }
 
     override fun getVoiceList(pageNumber: Int): Observable<List<Voice>> {
-        // TODO
-        return emptyObservable()
+        return observable {
+            if (!it.isUnsubscribed) {
+                try {
+                    val data = arrayListOf<Voice>()
+                    val query = Voice.FACTORY.select_rows(12, (pageNumber - 1) * 12.toLong())
+                    val cursor = _db.rawQuery(query.statement, query.args)
+                    cursor.use {
+                        while (it.moveToNext()) {
+                            data += Voice.FACTORY.select_rowsMapper().map(it)
+                        }
+                    }
+                    it.onNext(data)
+                    it.onCompleted()
+                } catch (e: Exception) {
+                    it.onError(e)
+                }
+            }
+        }
     }
 
     override fun getVoicePlayUrl(url: String): Observable<String> {
