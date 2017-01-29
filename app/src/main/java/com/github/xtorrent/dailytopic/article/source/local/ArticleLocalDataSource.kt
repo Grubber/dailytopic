@@ -26,8 +26,10 @@ class ArticleLocalDataSource(private val databaseManager: DatabaseManager) : Art
                     } else {
                         val query = Article.FACTORY.select_row_by_type(if (isRandom) Article.Type.NONE else Article.Type.DAILY)
                         val cursor = _db.rawQuery(query.statement, query.args)
-                        while (cursor.moveToNext()) {
-                            article = Article.FACTORY.select_row_by_typeMapper().map(cursor)
+                        cursor.use {
+                            while (it.moveToNext()) {
+                                article = Article.FACTORY.select_row_by_typeMapper().map(it)
+                            }
                         }
                         it.onNext(article)
                         it.onCompleted()
@@ -46,10 +48,11 @@ class ArticleLocalDataSource(private val databaseManager: DatabaseManager) : Art
                     val query = Article.FACTORY.select_row(title, author, type)
                     val cursor = _db.rawQuery(query.statement, query.args)
                     var article: Article? = null
-                    while (cursor.moveToNext()) {
-                        article = Article.FACTORY.select_rowMapper().map(cursor)
+                    cursor.use {
+                        while (it.moveToNext()) {
+                            article = Article.FACTORY.select_rowMapper().map(it)
+                        }
                     }
-                    cursor.close()
                     it.onNext(article)
                     it.onCompleted()
                 } catch (e: Exception) {

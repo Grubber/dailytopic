@@ -11,4 +11,5 @@ interface VoiceDataSource {
     fun getVoicePlayUrl(url: String): Observable<String>
     fun countVoice(_id: Long): Long
     fun saveVoice(voice: Voice)
+    fun updateVoice(url: String, playUrl: String)
 }

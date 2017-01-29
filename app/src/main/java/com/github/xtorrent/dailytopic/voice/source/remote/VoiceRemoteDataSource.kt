@@ -75,4 +75,8 @@ class VoiceRemoteDataSource : VoiceDataSource {
     override fun saveVoice(voice: Voice) {
         // Ignored.
     }
+
+    override fun updateVoice(url: String, playUrl: String) {
+        // Ignored.
+    }
 }

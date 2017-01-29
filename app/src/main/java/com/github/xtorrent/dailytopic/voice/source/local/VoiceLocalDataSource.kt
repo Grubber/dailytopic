@@ -6,6 +6,7 @@ import com.github.xtorrent.dailytopic.voice.model.Voice
 import com.github.xtorrent.dailytopic.voice.source.VoiceDataSource
 import rx.Observable
 import rx.lang.kotlin.emptyObservable
+import rx.lang.kotlin.observable
 
 /**
  * Created by grubber on 2017/1/23.
@@ -21,18 +22,35 @@ class VoiceLocalDataSource(private val databaseManager: DatabaseManager) : Voice
     }
 
     override fun getVoicePlayUrl(url: String): Observable<String> {
-        // TODO
-        return emptyObservable()
+        return observable {
+            if (!it.isUnsubscribed) {
+                try {
+                    var playUrl: String? = null
+                    val query = Voice.FACTORY.select_row_by_url(url)
+                    val cursor = _db.rawQuery(query.statement, query.args)
+                    cursor.use {
+                        while (it.moveToNext()) {
+                            playUrl = Voice.FACTORY.select_row_by_urlMapper().map(it).playUrl()
+                        }
+                    }
+                    it.onNext(playUrl)
+                    it.onCompleted()
+                } catch (e: Exception) {
+                    it.onError(e)
+                }
+            }
+        }
     }
 
     override fun countVoice(_id: Long): Long {
         var count: Long = 0
         val query = Voice.FACTORY.count_row(_id)
         val cursor = _db.rawQuery(query.statement, query.args)
-        while (cursor.moveToNext()) {
-            count = Voice.FACTORY.count_rowMapper().map(cursor)
+        cursor.use {
+            while (it.moveToNext()) {
+                count = Voice.FACTORY.count_rowMapper().map(it)
+            }
         }
-        cursor.close()
         return count
     }
 
@@ -40,5 +58,11 @@ class VoiceLocalDataSource(private val databaseManager: DatabaseManager) : Voice
         val insert = VoiceModel.Insert_row(_db)
         insert.bind(voice._id(), voice.title(), voice.author(), voice.coverImage(), voice.tag(), voice.url())
         insert.program.execute()
+    }
+
+    override fun updateVoice(url: String, playUrl: String) {
+        val update = VoiceModel.Update_row(_db)
+        update.bind(playUrl, url)
+        update.program.execute()
     }
 }

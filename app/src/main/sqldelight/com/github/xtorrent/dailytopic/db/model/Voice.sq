@@ -15,4 +15,7 @@ count_row:
 SELECT COUNT (*) FROM voice WHERE _id = ?;
 
 update_row:
-UPDATE voice SET playUrl = ? WHERE _id = ?;
+UPDATE voice SET playUrl = ? WHERE url = ?;
+
+select_row_by_url:
+SELECT * FROM voice WHERE url = ? LIMIT 1;
