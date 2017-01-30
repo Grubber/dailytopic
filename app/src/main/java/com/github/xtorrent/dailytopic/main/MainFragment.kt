@@ -24,13 +24,14 @@ import com.github.xtorrent.dailytopic.bookshelf.BookshelfFragment
 import com.github.xtorrent.dailytopic.bookshelf.BookshelfPresenter
 import com.github.xtorrent.dailytopic.bookshelf.BookshelfPresenterModule
 import com.github.xtorrent.dailytopic.favourite.FavouriteFragment
+import com.github.xtorrent.dailytopic.favourite.FavouritePresenter
+import com.github.xtorrent.dailytopic.favourite.FavouritePresenterModule
 import com.github.xtorrent.dailytopic.feedback.FeedbackActivity
 import com.github.xtorrent.dailytopic.settings.SettingsActivity
 import com.github.xtorrent.dailytopic.voice.VoiceFragment
 import com.github.xtorrent.dailytopic.voice.VoicePresenter
 import com.github.xtorrent.dailytopic.voice.VoicePresenterModule
 import javax.inject.Inject
-
 
 /**
  * @author Grubber
@@ -59,6 +60,8 @@ class MainFragment : BaseFragment() {
     lateinit var bookshelfPresenter: BookshelfPresenter
     @Inject
     lateinit var voicePresenter: VoicePresenter
+    @Inject
+    lateinit var favouritePresenter: FavouritePresenter
 
     private val _articleFragment by lazy {
         ArticleFragment.newInstance(false)
@@ -73,7 +76,7 @@ class MainFragment : BaseFragment() {
         FavouriteFragment.newInstance()
     }
     private val _fragments by lazy {
-        arrayListOf(
+        arrayListOf<BaseFragment>(
                 _articleFragment,
                 _voiceFragment,
                 _bookshelfFragment,
@@ -90,7 +93,8 @@ class MainFragment : BaseFragment() {
                 .plus(
                         ArticlePresenterModule(_articleFragment),
                         BookshelfPresenterModule(_bookshelfFragment),
-                        VoicePresenterModule(_voiceFragment)
+                        VoicePresenterModule(_voiceFragment),
+                        FavouritePresenterModule(_favouriteFragment)
                 )
                 .inject(this)
 

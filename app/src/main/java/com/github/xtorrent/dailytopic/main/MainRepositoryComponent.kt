@@ -9,6 +9,7 @@ import com.github.xtorrent.dailytopic.bookshelf.chapter.ChapterPresenterModule
 import com.github.xtorrent.dailytopic.bookshelf.details.BookshelfDetailsPresenterComponent
 import com.github.xtorrent.dailytopic.bookshelf.details.BookshelfDetailsPresenterModule
 import com.github.xtorrent.dailytopic.bookshelf.source.BookshelfRepositoryModule
+import com.github.xtorrent.dailytopic.favourite.FavouritePresenterModule
 import com.github.xtorrent.dailytopic.voice.VoicePresenterModule
 import com.github.xtorrent.dailytopic.voice.details.VoiceDetailsPresenterComponent
 import com.github.xtorrent.dailytopic.voice.details.VoiceDetailsPresenterModule
@@ -23,7 +24,8 @@ import dagger.Subcomponent
 interface MainRepositoryComponent {
     fun plus(articlePresenterModule: ArticlePresenterModule,
              bookPresenterModule: BookshelfPresenterModule,
-             voicePresenterModule: VoicePresenterModule): MainPresenterComponent
+             voicePresenterModule: VoicePresenterModule,
+             favouritePresenterModule: FavouritePresenterModule): MainPresenterComponent
 
     fun plus(articlePresenterModule: ArticlePresenterModule): ArticlePresenterComponent
 
