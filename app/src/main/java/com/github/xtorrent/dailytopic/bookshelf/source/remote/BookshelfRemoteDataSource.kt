@@ -81,7 +81,7 @@ class BookshelfRemoteDataSource : BookshelfDataSource {
                             .first()
                             .getElementsByTag("a")
                             .forEach {
-                                chapters += Chapter.create(it.text(), it.attr("abs:href"))
+                                chapters += Chapter.create(it.text(), it.attr("abs:href"), null, _id)
                             }
                     it.onNext(Pair(book, chapters))
                     it.onCompleted()

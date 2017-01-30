@@ -75,16 +75,62 @@ class BookshelfRepository @Inject constructor(private @LocalBookshelf val localD
     }
 
     override fun getBookshelfDetails(url: String): Observable<Pair<Book, List<Chapter>>> {
-        return remoteDataSource.getBookshelfDetails(url)
-                .map {
-                    it.second.forEach {
-                        val count = countChapter(it.url())
-                        if (count == 0L) {
-                            saveChapter(it)
+        return observable { subscriber ->
+            if (!subscriber.isUnsubscribed) {
+                var data: Pair<Book, List<Chapter>>? = null
+                val localSubscription = localDataSource.getBookshelfDetails(url)
+                        .bind {
+                            next {
+                                it?.let {
+                                    data = it
+                                    subscriber.onNext(it)
+                                }
+                            }
                         }
+                remoteDataSource.getBookshelfDetails(url)
+                        .map {
+                            it.second.forEach {
+                                val count = countChapter(it.url())
+                                if (count == 0L) {
+                                    saveChapter(it)
+                                }
+                            }
+                            it
+                        }
+                        .bind {
+                            next {
+                                it?.let {
+                                    if (data == null) {
+                                        subscriber.onNext(it)
+                                    } else {
+                                        val distinct = it.second.filter { remote ->
+                                            data!!.second.all { local ->
+                                                remote.url() != local.url()
+                                            }
+                                        }
+                                        subscriber.onNext(Pair(it.first, distinct))
+                                    }
+                                    subscriber.onCompleted()
+                                }
+                            }
+
+                            error {
+                                if (data == null) {
+                                    subscriber.onError(it)
+                                }
+                            }
+                        }
+                subscriber.add(object : Subscription {
+                    override fun isUnsubscribed(): Boolean {
+                        return false
                     }
-                    it
-                }
+
+                    override fun unsubscribe() {
+                        localSubscription.unsubscribe()
+                    }
+                })
+            }
+        }
     }
 
     override fun countBook(url: String): Long {

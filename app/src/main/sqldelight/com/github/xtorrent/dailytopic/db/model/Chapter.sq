@@ -2,17 +2,22 @@ CREATE TABLE chapter (
     _id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     title TEXT NOT NULL,
     url TEXT NOT NULL,
-    content TEXT
+    content TEXT,
+    book INTEGER,
+    FOREIGN KEY(book) REFERENCES book(_id)
 );
 
 select_row:
 SELECT * FROM chapter WHERE url = ? LIMIT 1;
 
 insert_row:
-INSERT INTO chapter (title, url) VALUES (?, ?);
+INSERT INTO chapter (title, url, book) VALUES (?, ?, ?);
 
 update_row:
 UPDATE chapter SET content = ? where url = ?;
 
 count_row:
 SELECT COUNT (*) FROM chapter WHERE url = ? LIMIT 1;
+
+for_book:
+SELECT * FROM chapter JOIN book ON chapter.book = book._id WHERE book._id = ?;

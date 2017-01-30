@@ -9,8 +9,8 @@ import com.github.xtorrent.dailytopic.db.model.BookModel
 import com.github.xtorrent.dailytopic.db.model.BookshelfHeaderImageModel
 import com.github.xtorrent.dailytopic.db.model.ChapterModel
 import rx.Observable
-import rx.lang.kotlin.emptyObservable
 import rx.lang.kotlin.observable
+import java.util.regex.Pattern
 
 /**
  * Created by grubber on 2017/1/18.
@@ -53,8 +53,36 @@ class BookshelfLocalDataSource(private val databaseManager: DatabaseManager) : B
     }
 
     override fun getBookshelfDetails(url: String): Observable<Pair<Book, List<Chapter>>> {
-        // TODO
-        return emptyObservable()
+        return observable {
+            if (!it.isUnsubscribed) {
+                try {
+                    var book: Book? = null
+                    val chapters = arrayListOf<Chapter>()
+                    var _id = 0L
+                    val regex = "(.*)bid=(.*)"
+                    val pattern = Pattern.compile(regex)
+                    val matcher = pattern.matcher(url)
+                    if (matcher.find()) {
+                        _id = matcher.group(2).toLong()
+                    }
+                    val query = Chapter.FACTORY.for_book(_id)
+                    val cursor = _db.rawQuery(query.statement, query.args)
+                    cursor.use {
+                        while (it.moveToNext()) {
+                            val forBook = Chapter.FOR_BOOK_MAPPER.map(it)
+                            if (book == null) {
+                                book = forBook.book()
+                            }
+                            chapters += forBook.chapter()
+                        }
+                    }
+                    it.onNext(Pair(book!!, chapters))
+                    it.onCompleted()
+                } catch (e: Exception) {
+                    it.onError(e)
+                }
+            }
+        }
     }
 
     override fun saveBook(book: Book) {
@@ -128,7 +156,7 @@ class BookshelfLocalDataSource(private val databaseManager: DatabaseManager) : B
 
     override fun saveChapter(chapter: Chapter) {
         val insert = ChapterModel.Insert_row(_db)
-        insert.bind(chapter.title(), chapter.url())
+        insert.bind(chapter.title(), chapter.url(), chapter.book())
         insert.program.execute()
     }
 
