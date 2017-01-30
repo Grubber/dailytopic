@@ -25,7 +25,7 @@ abstract class PagingRecyclerViewAdapter<T, H> : RecyclerView.Adapter<RecyclerVi
 
     private var _pageNumber = 1
     private val _items by lazy {
-        arrayListOf<T>()
+        mutableListOf<T>()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
@@ -80,7 +80,7 @@ abstract class PagingRecyclerViewAdapter<T, H> : RecyclerView.Adapter<RecyclerVi
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (itemCount == 1) {
+        if (_items.size == 0) {
             return TYPE_EMPTY
         }
 
@@ -172,7 +172,7 @@ abstract class PagingRecyclerViewAdapter<T, H> : RecyclerView.Adapter<RecyclerVi
         notifyDataSetChanged()
     }
 
-    fun getItems(): List<T> {
+    fun getItems(): MutableList<T> {
         return _items
     }
 

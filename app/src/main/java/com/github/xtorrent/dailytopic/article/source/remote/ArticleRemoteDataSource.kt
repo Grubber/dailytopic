@@ -52,4 +52,9 @@ class ArticleRemoteDataSource : ArticleDataSource {
     override fun deleteArticle(type: Article.Type) {
         // Ignored.
     }
+
+    override fun getFavouriteArticleList(): Observable<List<Article>> {
+        // Ignored.
+        return emptyObservable()
+    }
 }

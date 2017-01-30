@@ -10,6 +10,7 @@ import com.github.xtorrent.dailytopic.main.MainRepositoryComponent
 import com.github.xtorrent.dailytopic.utils.DeviceUtils
 import com.github.xtorrent.dailytopic.utils.ToastHelper
 import com.github.xtorrent.dailytopic.voice.source.VoiceRepositoryModule
+import com.squareup.otto.Bus
 import com.squareup.picasso.Picasso
 import timber.log.Timber
 import javax.inject.Inject
@@ -36,6 +37,8 @@ class DTApplication : MultiDexApplication() {
     lateinit var toastHelper: ToastHelper
     @Inject
     lateinit var deviceUtils: DeviceUtils
+    @Inject
+    lateinit var eventBus: Bus
 
     override fun onCreate() {
         super.onCreate()

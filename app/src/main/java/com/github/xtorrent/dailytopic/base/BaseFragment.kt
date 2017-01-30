@@ -24,6 +24,8 @@ abstract class BaseFragment : RxFragment() {
 
     protected fun deviceUtils() = DTApplication.from(context).deviceUtils
 
+    protected fun eventBus() = DTApplication.from(context).eventBus
+
     fun getToolbar(): Toolbar {
         return (activity as BaseActivity).toolbar
     }

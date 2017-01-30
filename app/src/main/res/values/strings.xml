@@ -25,5 +25,7 @@
     <string name="button_ok">确认</string>
     <string name="button_cancel">取消</string>
 
+    <string name="text_favourite_empty">暂无收藏</string>
+
     <string name="title_join_us">加入主播</string>
 </resources>

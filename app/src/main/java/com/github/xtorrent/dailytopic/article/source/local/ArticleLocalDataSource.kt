@@ -79,4 +79,25 @@ class ArticleLocalDataSource(private val databaseManager: DatabaseManager) : Art
         delete.bind(type)
         delete.program.execute()
     }
+
+    override fun getFavouriteArticleList(): Observable<List<Article>> {
+        return observable {
+            if (!it.isUnsubscribed) {
+                try {
+                    val data = arrayListOf<Article>()
+                    val query = Article.FACTORY.select_row_by_type(Article.Type.FAVOURITE)
+                    val cursor = _db.rawQuery(query.statement, query.args)
+                    cursor.use {
+                        while (it.moveToNext()) {
+                            data += Article.FACTORY.select_row_by_typeMapper().map(it)
+                        }
+                    }
+                    it.onNext(data)
+                    it.onCompleted()
+                } catch (e: Exception) {
+                    it.onError(e)
+                }
+            }
+        }
+    }
 }

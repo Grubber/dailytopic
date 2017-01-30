@@ -78,4 +78,8 @@ class ArticleRepository @Inject constructor(private @LocalArticle val localDataS
     override fun deleteArticle(type: Article.Type) {
         localDataSource.deleteArticle(type)
     }
+
+    override fun getFavouriteArticleList(): Observable<List<Article>> {
+        return localDataSource.getFavouriteArticleList()
+    }
 }
