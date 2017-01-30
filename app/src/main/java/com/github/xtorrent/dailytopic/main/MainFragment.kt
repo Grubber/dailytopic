@@ -137,12 +137,15 @@ class MainFragment : BaseFragment() {
                     index = 3
                 }
 
+                R.id.create -> {
+                }
+
                 R.id.settings -> SettingsActivity.start(context)
 
                 R.id.feedback -> FeedbackActivity.start(context)
             }
 
-            if (it.itemId != R.id.settings && it.itemId != R.id.feedback && !it.isChecked) {
+            if (it.itemId != R.id.create && it.itemId != R.id.settings && it.itemId != R.id.feedback && !it.isChecked) {
                 _showContentFrame(index)
                 it.isChecked = true
                 _checkItemId = it.itemId

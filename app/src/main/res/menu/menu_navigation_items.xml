@@ -30,6 +30,11 @@
         android:checkableBehavior="single">
 
         <item
+            android:id="@+id/create"
+            android:icon="@drawable/ic_create_black_24dp"
+            android:title="@string/drawer_menu_create" />
+
+        <item
             android:id="@+id/settings"
             android:icon="@drawable/ic_settings_black_24dp"
             android:title="@string/drawer_menu_settings" />
