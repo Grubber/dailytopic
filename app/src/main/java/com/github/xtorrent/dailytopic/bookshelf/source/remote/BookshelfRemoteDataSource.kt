@@ -73,6 +73,15 @@ class BookshelfRemoteDataSource : BookshelfDataSource {
         }
     }
 
+    override fun saveBook(book: Book) {
+        // Ignored.
+    }
+
+    override fun countBook(url: String): Long {
+        // Ignored.
+        return 0
+    }
+
     override fun getChapter(url: String): Observable<Chapter> {
         return observable {
             if (!it.isUnsubscribed) {

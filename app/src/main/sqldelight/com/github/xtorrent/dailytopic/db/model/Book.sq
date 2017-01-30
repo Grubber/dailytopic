@@ -7,7 +7,10 @@ CREATE TABLE book (
 );
 
 select_row:
-SELECT * FROM book WHERE _id = ?;
+SELECT * FROM book WHERE url = ?;
 
 insert_row:
 INSERT INTO book (title, author, url, image) VALUES (?, ?, ?, ?);
+
+count_row:
+SELECT COUNT (*) FROM book WHERE url = ?;

@@ -11,6 +11,8 @@ import rx.Observable
 interface BookshelfDataSource {
     fun getBookshelfList(pageNumber: Int): Observable<Pair<List<BookshelfHeaderImage>?, List<Book>>>
     fun getBookshelfDetails(url: String): Observable<Pair<Book, List<Chapter>>>
+    fun saveBook(book: Book)
+    fun countBook(url: String): Long
 
     fun getChapter(url: String): Observable<Chapter>
     fun countChapter(url: String): Long

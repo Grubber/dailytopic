@@ -5,6 +5,7 @@ import com.github.xtorrent.dailytopic.bookshelf.model.BookshelfHeaderImage
 import com.github.xtorrent.dailytopic.bookshelf.model.Chapter
 import com.github.xtorrent.dailytopic.bookshelf.source.BookshelfDataSource
 import com.github.xtorrent.dailytopic.db.DatabaseManager
+import com.github.xtorrent.dailytopic.db.model.BookModel
 import com.github.xtorrent.dailytopic.db.model.ChapterModel
 import rx.Observable
 import rx.lang.kotlin.emptyObservable
@@ -26,6 +27,24 @@ class BookshelfLocalDataSource(private val databaseManager: DatabaseManager) : B
     override fun getBookshelfDetails(url: String): Observable<Pair<Book, List<Chapter>>> {
         // TODO
         return emptyObservable()
+    }
+
+    override fun saveBook(book: Book) {
+        val insert = BookModel.Insert_row(_db)
+        insert.bind(book.title(), book.author(), book.url(), book.image())
+        insert.program.execute()
+    }
+
+    override fun countBook(url: String): Long {
+        var count = 0L
+        val query = Book.FACTORY.count_row(url)
+        val cursor = _db.rawQuery(query.statement, query.args)
+        cursor.use {
+            while (it.moveToNext()) {
+                count = Book.FACTORY.count_rowMapper().map(it)
+            }
+        }
+        return count
     }
 
     override fun getChapter(url: String): Observable<Chapter> {
