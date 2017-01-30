@@ -1,11 +1,18 @@
 CREATE TABLE chapter (
+    _id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     title TEXT NOT NULL,
     url TEXT NOT NULL,
     content TEXT
 );
 
 select_row:
-SELECT * FROM chapter WHERE url = ?;
+SELECT * FROM chapter WHERE url = ? LIMIT 1;
 
 insert_row:
 INSERT INTO chapter (title, url) VALUES (?, ?);
+
+update_row:
+UPDATE chapter SET content = ? where url = ?;
+
+count_row:
+SELECT COUNT (*) FROM chapter WHERE url = ? LIMIT 1;

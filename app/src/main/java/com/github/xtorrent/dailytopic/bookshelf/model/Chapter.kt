@@ -17,7 +17,7 @@ abstract class Chapter : ChapterModel, Parcelable {
         val FACTORY = ChapterModel.Factory<Chapter>(_creator)
 
         fun create(title: String, url: String, content: String? = null): Chapter {
-            return _creator.create(title, url, content)
+            return _creator.create(0, title, url, content)
         }
     }
 }

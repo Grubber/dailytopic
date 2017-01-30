@@ -88,4 +88,17 @@ class BookshelfRemoteDataSource : BookshelfDataSource {
             }
         }
     }
+
+    override fun countChapter(url: String): Long {
+        // Ignored.
+        return 0
+    }
+
+    override fun saveChapter(chapter: Chapter) {
+        // Ignored.
+    }
+
+    override fun updateChapter(url: String, content: String) {
+        // Ignored.
+    }
 }

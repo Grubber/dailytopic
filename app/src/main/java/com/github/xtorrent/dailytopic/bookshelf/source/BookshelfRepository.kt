@@ -19,9 +19,40 @@ class BookshelfRepository @Inject constructor(private @LocalBookshelf val localD
 
     override fun getBookshelfDetails(url: String): Observable<Pair<Book, List<Chapter>>> {
         return remoteDataSource.getBookshelfDetails(url)
+                .map {
+                    it.second.forEach {
+                        val count = countChapter(it.url())
+                        if (count == 0L) {
+                            saveChapter(it)
+                        }
+                    }
+                    it
+                }
     }
 
     override fun getChapter(url: String): Observable<Chapter> {
-        return remoteDataSource.getChapter(url)
+        val localResultO = localDataSource.getChapter(url)
+        val remoteResultO = remoteDataSource.getChapter(url)
+                .map {
+                    updateChapter(url, it.content()!!)
+                    it
+                }
+        return Observable.concat(localResultO, remoteResultO)
+                .filter {
+                    it.content() != null
+                }
+                .first()
+    }
+
+    override fun countChapter(url: String): Long {
+        return localDataSource.countChapter(url)
+    }
+
+    override fun saveChapter(chapter: Chapter) {
+        localDataSource.saveChapter(chapter)
+    }
+
+    override fun updateChapter(url: String, content: String) {
+        localDataSource.updateChapter(url, content)
     }
 }
