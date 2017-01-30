@@ -4,7 +4,10 @@ import com.github.xtorrent.dailytopic.bookshelf.model.Book
 import com.github.xtorrent.dailytopic.bookshelf.model.BookshelfHeaderImage
 import com.github.xtorrent.dailytopic.bookshelf.model.Chapter
 import com.github.xtorrent.dailytopic.main.MainRepositoryScope
+import com.github.xtorrent.dailytopic.utils.bind
 import rx.Observable
+import rx.Subscription
+import rx.lang.kotlin.observable
 import javax.inject.Inject
 
 /**
@@ -14,22 +17,61 @@ import javax.inject.Inject
 class BookshelfRepository @Inject constructor(private @LocalBookshelf val localDataSource: BookshelfDataSource,
                                               private @RemoteBookshelf val remoteDataSource: BookshelfDataSource) : BookshelfDataSource {
     override fun getBookshelfList(pageNumber: Int): Observable<Pair<List<BookshelfHeaderImage>?, List<Book>>> {
-        return remoteDataSource.getBookshelfList(pageNumber)
-                .map {
-                    it.first?.forEach {
-                        val count = countBookshelfHeaderImage(it.url())
-                        if (count == 0L) {
-                            saveBookshelfHeaderImage(it)
+        return observable { subscriber ->
+            if (!subscriber.isUnsubscribed) {
+                val data = arrayListOf<Book>()
+                val localSubscription = localDataSource.getBookshelfList(pageNumber)
+                        .bind {
+                            next {
+                                it?.let {
+                                    if (it.second.isNotEmpty()) {
+                                        data += it.second
+                                        subscriber.onNext(it)
+                                    }
+                                }
+                            }
                         }
-                    }
-                    it.second.forEach {
-                        val count = countBook(it.url())
-                        if (count == 0L) {
-                            saveBook(it)
+                remoteDataSource.getBookshelfList(pageNumber)
+                        .map {
+                            it.first?.forEach {
+                                val count = countBookshelfHeaderImage(it.url())
+                                if (count == 0L) {
+                                    saveBookshelfHeaderImage(it)
+                                }
+                            }
+                            it.second.forEach {
+                                val count = countBook(it.url())
+                                if (count == 0L) {
+                                    saveBook(it)
+                                }
+                            }
+                            it
                         }
+                        .bind {
+                            next {
+                                it?.let {
+                                    subscriber.onNext(it)
+                                    subscriber.onCompleted()
+                                }
+                            }
+
+                            error {
+                                if (data.isEmpty()) {
+                                    subscriber.onError(it)
+                                }
+                            }
+                        }
+                subscriber.add(object : Subscription {
+                    override fun isUnsubscribed(): Boolean {
+                        return false
                     }
-                    it
-                }
+
+                    override fun unsubscribe() {
+                        localSubscription.unsubscribe()
+                    }
+                })
+            }
+        }
     }
 
     override fun getBookshelfDetails(url: String): Observable<Pair<Book, List<Chapter>>> {

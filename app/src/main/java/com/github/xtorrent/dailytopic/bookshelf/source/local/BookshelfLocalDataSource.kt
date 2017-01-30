@@ -21,8 +21,35 @@ class BookshelfLocalDataSource(private val databaseManager: DatabaseManager) : B
     }
 
     override fun getBookshelfList(pageNumber: Int): Observable<Pair<List<BookshelfHeaderImage>?, List<Book>>> {
-        // TODO
-        return emptyObservable()
+        return observable {
+            if (!it.isUnsubscribed) {
+                try {
+                    val books = arrayListOf<Book>()
+                    val bookQuery = Book.FACTORY.select_rows(12, (pageNumber - 1) * 12.toLong())
+                    val bookCursor = _db.rawQuery(bookQuery.statement, bookQuery.args)
+                    bookCursor.use {
+                        while (it.moveToNext()) {
+                            books += Book.FACTORY.select_rowsMapper().map(it)
+                        }
+                    }
+                    if (pageNumber == 1) {
+                        val headerImages = arrayListOf<BookshelfHeaderImage>()
+                        val headerImageCursor = _db.rawQuery(BookshelfHeaderImageModel.SELECT_ALL, arrayOfNulls(0))
+                        headerImageCursor.use {
+                            while (it.moveToNext()) {
+                                headerImages += BookshelfHeaderImage.FACTORY.select_allMapper().map(it)
+                            }
+                        }
+                        it.onNext(Pair(headerImages, books))
+                    } else {
+                        it.onNext(Pair(null, books))
+                    }
+                    it.onCompleted()
+                } catch (e: Exception) {
+                    it.onError(e)
+                }
+            }
+        }
     }
 
     override fun getBookshelfDetails(url: String): Observable<Pair<Book, List<Chapter>>> {

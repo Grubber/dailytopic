@@ -20,14 +20,6 @@ class BookshelfRemoteDataSource : BookshelfDataSource {
                 try {
                     val document = newJsoupConnection(buildBaseUrl("book") + "/book?page=$pageNumber").get()
                     val data = arrayListOf<Book>()
-                    val headerImages = arrayListOf<BookshelfHeaderImage>()
-                    document.getElementsByClass("slide")[0]
-                            .getElementsByTag("a")
-                            .forEach {
-                                val url = it.attr("href")
-                                val image = it.select("img").first().attr("abs:src")
-                                headerImages += BookshelfHeaderImage.create(url, image)
-                            }
                     document.getElementsByClass("book-list")[0]
                             .getElementsByTag("li")
                             .forEach {
@@ -44,7 +36,19 @@ class BookshelfRemoteDataSource : BookshelfDataSource {
                                 }
                                 data += Book.create(_id, title, author, url, image)
                             }
-                    it.onNext(if (pageNumber == 1) Pair(headerImages, data) else Pair(null, data))
+                    if (pageNumber == 1) {
+                        val headerImages = arrayListOf<BookshelfHeaderImage>()
+                        document.getElementsByClass("slide")[0]
+                                .getElementsByTag("a")
+                                .forEach {
+                                    val url = it.attr("href")
+                                    val image = it.select("img").first().attr("abs:src")
+                                    headerImages += BookshelfHeaderImage.create(url, image)
+                                }
+                        it.onNext(Pair(headerImages, data))
+                    } else {
+                        it.onNext(Pair(null, data))
+                    }
                     it.onCompleted()
                 } catch (e: Exception) {
                     it.onError(e)

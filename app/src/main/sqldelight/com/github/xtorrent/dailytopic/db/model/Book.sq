@@ -14,3 +14,6 @@ INSERT INTO book (_id, title, author, url, image) VALUES (?, ?, ?, ?, ?);
 
 count_row:
 SELECT COUNT (*) FROM book WHERE url = ?;
+
+select_rows:
+SELECT * FROM book ORDER BY _id DESC LIMIT ? OFFSET ?;
