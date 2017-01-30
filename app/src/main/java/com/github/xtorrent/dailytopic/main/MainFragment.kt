@@ -18,6 +18,7 @@ import com.github.xtorrent.dailytopic.R
 import com.github.xtorrent.dailytopic.article.ArticleFragment
 import com.github.xtorrent.dailytopic.article.ArticlePresenter
 import com.github.xtorrent.dailytopic.article.ArticlePresenterModule
+import com.github.xtorrent.dailytopic.article.create.CreateArticleActivity
 import com.github.xtorrent.dailytopic.base.BaseActivity
 import com.github.xtorrent.dailytopic.base.BaseFragment
 import com.github.xtorrent.dailytopic.bookshelf.BookshelfFragment
@@ -137,8 +138,7 @@ class MainFragment : BaseFragment() {
                     index = 3
                 }
 
-                R.id.create -> {
-                }
+                R.id.create -> CreateArticleActivity.start(context)
 
                 R.id.settings -> SettingsActivity.start(context)
 
