@@ -16,5 +16,6 @@ interface ArticleContract {
         fun isRandom(isRandom: Boolean)
         fun isFavourite()
         fun toggleFavourite(isFavourite: Boolean)
+        fun setId(id: Long)
     }
 }

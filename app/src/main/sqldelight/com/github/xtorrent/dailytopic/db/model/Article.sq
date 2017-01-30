@@ -23,3 +23,6 @@ DELETE FROM article WHERE type = ?;
 
 insert_row:
 INSERT INTO article (title, author, content, backgroundImage, type) VALUES (?, ?, ?, ?, ?);
+
+select_row_by_id:
+SELECT * FROM article WHERE _id = ? and type = ? LIMIT 1;

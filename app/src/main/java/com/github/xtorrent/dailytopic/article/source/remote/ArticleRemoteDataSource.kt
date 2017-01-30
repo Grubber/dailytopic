@@ -57,4 +57,9 @@ class ArticleRemoteDataSource : ArticleDataSource {
         // Ignored.
         return emptyObservable()
     }
+
+    override fun getFavouriteArticle(_id: Long): Observable<Article> {
+        // Ignored.
+        return emptyObservable()
+    }
 }

@@ -100,4 +100,25 @@ class ArticleLocalDataSource(private val databaseManager: DatabaseManager) : Art
             }
         }
     }
+
+    override fun getFavouriteArticle(_id: Long): Observable<Article> {
+        return observable {
+            if (!it.isUnsubscribed) {
+                try {
+                    var article: Article? = null
+                    val query = Article.FACTORY.select_row_by_id(_id, Article.Type.FAVOURITE)
+                    val cursor = _db.rawQuery(query.statement, query.args)
+                    cursor.use {
+                        while (it.moveToNext()) {
+                            article = Article.FACTORY.select_row_by_idMapper().map(it)
+                        }
+                    }
+                    it.onNext(article)
+                    it.onCompleted()
+                } catch (e: Exception) {
+                    it.onError(e)
+                }
+            }
+        }
+    }
 }

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import butterknife.bindView
 import com.github.xtorrent.dailytopic.R
+import com.github.xtorrent.dailytopic.article.ArticleActivity
 import com.github.xtorrent.dailytopic.article.model.Article
 import com.github.xtorrent.dailytopic.base.ContentFragment
 import com.github.xtorrent.dailytopic.base.PagingRecyclerViewAdapter
@@ -52,6 +53,14 @@ class FavouriteFragment : ContentFragment(), FavouriteContract.View {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        _adapter.getItems().clear()
+        _adapter.notifyDataSetChanged()
+        _presenter.subscribe()
+    }
+
     override fun onRetry() {
         _presenter.subscribe()
     }
@@ -87,7 +96,7 @@ class FavouriteFragment : ContentFragment(), FavouriteContract.View {
             val item = getItem(position)
             holder.titleView.text = item.title()
             holder.itemView.setOnClickListener {
-                // TODO
+                ArticleActivity.start(context, item._id())
             }
         }
 

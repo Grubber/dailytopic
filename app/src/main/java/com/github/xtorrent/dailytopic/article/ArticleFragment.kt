@@ -22,11 +22,13 @@ import com.squareup.picasso.MemoryPolicy
 class ArticleFragment : ContentFragment(), ArticleContract.View {
     companion object {
         private const val EXTRA_IS_RANDOM = "isRandom"
+        private const val EXTRA_ID = "_id"
 
-        fun newInstance(isRandom: Boolean): ArticleFragment {
+        fun newInstance(isRandom: Boolean, _id: Long): ArticleFragment {
             val fragment = ArticleFragment()
             val args = Bundle()
             args.putBoolean(EXTRA_IS_RANDOM, isRandom)
+            args.putLong(EXTRA_ID, _id)
             fragment.arguments = args
             return fragment
         }
@@ -53,6 +55,9 @@ class ArticleFragment : ContentFragment(), ArticleContract.View {
     private val _isRandom by lazy {
         arguments.getBoolean(EXTRA_IS_RANDOM)
     }
+    private val _id by lazy {
+        arguments.getLong(EXTRA_ID)
+    }
 
     private var _isFavourite: Boolean? = null
 
@@ -63,6 +68,7 @@ class ArticleFragment : ContentFragment(), ArticleContract.View {
         _randomButton.visibility = if (_isRandom) View.VISIBLE else View.GONE
 
         _presenter.isRandom(_isRandom)
+        _presenter.setId(_id)
         _presenter.subscribe()
     }
 
@@ -168,6 +174,12 @@ class ArticleFragment : ContentFragment(), ArticleContract.View {
     }
 
     override fun getTitle(): String? {
-        return if (_isRandom) getString(R.string.title_random_article) else (activity as BaseActivity).supportActionBar?.title as String?
+        return if (_id != 0L) {
+            getString(R.string.title_favourite_article)
+        } else if (_isRandom) {
+            getString(R.string.title_random_article)
+        } else {
+            (activity as BaseActivity).supportActionBar?.title as String?
+        }
     }
 }

@@ -13,8 +13,11 @@ import javax.inject.Inject
  */
 class ArticleActivity : BaseActivity() {
     companion object {
-        fun start(context: Context) {
+        private const val EXTRA_ID = "_id"
+
+        fun start(context: Context, _id: Long = 0) {
             val intent = Intent(context, ArticleActivity::class.java)
+            intent.putExtra(EXTRA_ID, _id)
             context.startActivity(intent)
         }
     }
@@ -25,7 +28,8 @@ class ArticleActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val fragment = ArticleFragment.newInstance(true)
+        val _id = intent.getLongExtra(EXTRA_ID, 0)
+        val fragment = ArticleFragment.newInstance(true, _id)
         DTApplication.from(this)
                 .mainRepositoryComponent
                 .plus(ArticlePresenterModule(fragment))

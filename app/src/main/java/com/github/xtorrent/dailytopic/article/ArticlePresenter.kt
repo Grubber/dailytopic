@@ -24,16 +24,21 @@ class ArticlePresenter @Inject constructor(private val repository: ArticleReposi
 
     private var _isRandom: Boolean = false
     private lateinit var _data: Article
+    private var _id: Long = 0
 
     override fun isRandom(isRandom: Boolean) {
         _isRandom = isRandom
     }
 
+    override fun setId(id: Long) {
+        _id = id
+    }
+
     override fun subscribe() {
         _binder.clear()
 
-        _binder += repository.getArticle(_isRandom)
-                .applySchedulers()
+        val ob = if (_id != 0L) repository.getFavouriteArticle(_id) else repository.getArticle(_isRandom)
+        _binder += ob.applySchedulers()
                 .bind {
                     next {
                         if (it != null) {
