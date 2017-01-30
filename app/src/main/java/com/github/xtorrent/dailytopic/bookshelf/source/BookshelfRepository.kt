@@ -16,6 +16,12 @@ class BookshelfRepository @Inject constructor(private @LocalBookshelf val localD
     override fun getBookshelfList(pageNumber: Int): Observable<Pair<List<BookshelfHeaderImage>?, List<Book>>> {
         return remoteDataSource.getBookshelfList(pageNumber)
                 .map {
+                    it.first?.forEach {
+                        val count = countBookshelfHeaderImage(it.url())
+                        if (count == 0L) {
+                            saveBookshelfHeaderImage(it)
+                        }
+                    }
                     it.second.forEach {
                         val count = countBook(it.url())
                         if (count == 0L) {
@@ -45,6 +51,14 @@ class BookshelfRepository @Inject constructor(private @LocalBookshelf val localD
 
     override fun saveBook(book: Book) {
         localDataSource.saveBook(book)
+    }
+
+    override fun countBookshelfHeaderImage(url: String): Long {
+        return localDataSource.countBookshelfHeaderImage(url)
+    }
+
+    override fun saveBookshelfHeaderImage(bookshelfHeaderImage: BookshelfHeaderImage) {
+        localDataSource.saveBookshelfHeaderImage(bookshelfHeaderImage)
     }
 
     override fun getChapter(url: String): Observable<Chapter> {

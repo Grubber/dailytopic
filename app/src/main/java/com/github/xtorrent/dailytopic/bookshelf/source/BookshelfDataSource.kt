@@ -13,6 +13,8 @@ interface BookshelfDataSource {
     fun getBookshelfDetails(url: String): Observable<Pair<Book, List<Chapter>>>
     fun saveBook(book: Book)
     fun countBook(url: String): Long
+    fun saveBookshelfHeaderImage(bookshelfHeaderImage: BookshelfHeaderImage)
+    fun countBookshelfHeaderImage(url: String): Long
 
     fun getChapter(url: String): Observable<Chapter>
     fun countChapter(url: String): Long

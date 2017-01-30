@@ -1,10 +1,14 @@
 CREATE TABLE bookshelf_header_image (
+    _id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     url TEXT NOT NULL,
     image TEXT NOT NULL
 );
 
 select_all:
-SELECT * FROM bookshelf_header_image;
+SELECT * FROM bookshelf_header_image ORDER BY _id ASC;
 
 insert_row:
 INSERT INTO bookshelf_header_image (url, image) VALUES (?, ?);
+
+count_row:
+SELECT COUNT (*) FROM bookshelf_header_image WHERE url = ? LIMIT 1;

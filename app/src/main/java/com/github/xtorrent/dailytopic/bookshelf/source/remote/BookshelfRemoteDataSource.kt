@@ -82,6 +82,15 @@ class BookshelfRemoteDataSource : BookshelfDataSource {
         return 0
     }
 
+    override fun saveBookshelfHeaderImage(bookshelfHeaderImage: BookshelfHeaderImage) {
+        // Ignored.
+    }
+
+    override fun countBookshelfHeaderImage(url: String): Long {
+        // Ignored.
+        return 0
+    }
+
     override fun getChapter(url: String): Observable<Chapter> {
         return observable {
             if (!it.isUnsubscribed) {

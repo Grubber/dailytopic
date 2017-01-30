@@ -6,6 +6,7 @@ import com.github.xtorrent.dailytopic.bookshelf.model.Chapter
 import com.github.xtorrent.dailytopic.bookshelf.source.BookshelfDataSource
 import com.github.xtorrent.dailytopic.db.DatabaseManager
 import com.github.xtorrent.dailytopic.db.model.BookModel
+import com.github.xtorrent.dailytopic.db.model.BookshelfHeaderImageModel
 import com.github.xtorrent.dailytopic.db.model.ChapterModel
 import rx.Observable
 import rx.lang.kotlin.emptyObservable
@@ -42,6 +43,24 @@ class BookshelfLocalDataSource(private val databaseManager: DatabaseManager) : B
         cursor.use {
             while (it.moveToNext()) {
                 count = Book.FACTORY.count_rowMapper().map(it)
+            }
+        }
+        return count
+    }
+
+    override fun saveBookshelfHeaderImage(bookshelfHeaderImage: BookshelfHeaderImage) {
+        val insert = BookshelfHeaderImageModel.Insert_row(_db)
+        insert.bind(bookshelfHeaderImage.url(), bookshelfHeaderImage.image())
+        insert.program.execute()
+    }
+
+    override fun countBookshelfHeaderImage(url: String): Long {
+        var count = 0L
+        val query = BookshelfHeaderImage.FACTORY.count_row(url)
+        val cursor = _db.rawQuery(query.statement, query.args)
+        cursor.use {
+            while (it.moveToNext()) {
+                count = BookshelfHeaderImage.FACTORY.count_rowMapper().map(it)
             }
         }
         return count

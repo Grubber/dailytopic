@@ -16,7 +16,7 @@ abstract class BookshelfHeaderImage : BookshelfHeaderImageModel {
         val FACTORY = BookshelfHeaderImageModel.Factory<BookshelfHeaderImage>(_creator)
 
         fun create(url: String, image: String): BookshelfHeaderImage {
-            return _creator.create(url, image)
+            return _creator.create(0, url, image)
         }
     }
 }
