@@ -12,7 +12,8 @@ import dagger.Component
  * @author Grubber
  */
 @ApplicationScope
-@Component(modules = arrayOf(AndroidModule::class, DataModule::class, UtilsModule::class, NetworkModule::class))
+@Component(modules = arrayOf(AndroidModule::class, DataModule::class, UtilsModule::class,
+        NetworkModule::class, ApiModule::class))
 interface ApplicationComponent {
     fun plus(articleRepositoryModule: ArticleRepositoryModule,
              bookRepositoryModule: BookshelfRepositoryModule,
