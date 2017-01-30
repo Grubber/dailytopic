@@ -1,5 +1,5 @@
 CREATE TABLE book (
-    _id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    _id INTEGER NOT NULL PRIMARY KEY,
     title TEXT NOT NULL,
     author TEXT NOT NULL,
     url TEXT NOT NULL,
@@ -10,7 +10,7 @@ select_row:
 SELECT * FROM book WHERE url = ?;
 
 insert_row:
-INSERT INTO book (title, author, url, image) VALUES (?, ?, ?, ?);
+INSERT INTO book (_id, title, author, url, image) VALUES (?, ?, ?, ?, ?);
 
 count_row:
 SELECT COUNT (*) FROM book WHERE url = ?;

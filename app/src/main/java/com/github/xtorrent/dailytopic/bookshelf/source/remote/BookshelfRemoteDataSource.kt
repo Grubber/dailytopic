@@ -8,6 +8,7 @@ import com.github.xtorrent.dailytopic.core.buildBaseUrl
 import com.github.xtorrent.dailytopic.utils.newJsoupConnection
 import rx.Observable
 import rx.lang.kotlin.observable
+import java.util.regex.Pattern
 
 /**
  * Created by grubber on 2017/1/18.
@@ -34,7 +35,14 @@ class BookshelfRemoteDataSource : BookshelfDataSource {
                                 val url = it.select("a")[1].attr("abs:href")
                                 val author = it.getElementsByClass("book-author").first().text()
                                 val image = it.select("img").first().attr("abs:src")
-                                data += Book.create(title, author, url, image)
+                                var _id = 0L
+                                val regex = "(.*)bid=(.*)"
+                                val pattern = Pattern.compile(regex)
+                                val matcher = pattern.matcher(url)
+                                if (matcher.find()) {
+                                    _id = matcher.group(2).toLong()
+                                }
+                                data += Book.create(_id, title, author, url, image)
                             }
                     it.onNext(if (pageNumber == 1) Pair(headerImages, data) else Pair(null, data))
                     it.onCompleted()
@@ -57,7 +65,14 @@ class BookshelfRemoteDataSource : BookshelfDataSource {
                     val image = bookNode.select("img").first().attr("abs:src")
                     val title = bookNode.getElementsByClass("book-name").first().text()
                     val author = bookNode.getElementsByClass("book-author").first().text()
-                    book = Book.create(title, author, url, image)
+                    var _id = 0L
+                    val regex = "(.*)bid=(.*)"
+                    val pattern = Pattern.compile(regex)
+                    val matcher = pattern.matcher(url)
+                    if (matcher.find()) {
+                        _id = matcher.group(2).toLong()
+                    }
+                    book = Book.create(_id, title, author, url, image)
                     document.getElementsByClass("chapter-list")
                             .first()
                             .getElementsByTag("a")

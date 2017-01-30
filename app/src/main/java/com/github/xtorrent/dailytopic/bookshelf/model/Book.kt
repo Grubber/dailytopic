@@ -15,10 +15,9 @@ abstract class Book : BookModel, Parcelable {
         }
 
         val FACTORY = BookModel.Factory<Book>(_creator)
-        val MAPPER = FACTORY.select_rowMapper()
 
-        fun create(title: String, author: String, url: String, image: String): Book {
-            return _creator.create(0, title, author, url, image)
+        fun create(_id: Long, title: String, author: String, url: String, image: String): Book {
+            return _creator.create(_id, title, author, url, image)
         }
     }
 }

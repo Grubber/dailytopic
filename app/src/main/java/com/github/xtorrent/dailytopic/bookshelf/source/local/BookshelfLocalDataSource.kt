@@ -32,7 +32,7 @@ class BookshelfLocalDataSource(private val databaseManager: DatabaseManager) : B
 
     override fun saveBook(book: Book) {
         val insert = BookModel.Insert_row(_db)
-        insert.bind(book.title(), book.author(), book.url(), book.image())
+        insert.bind(book._id(), book.title(), book.author(), book.url(), book.image())
         insert.program.execute()
     }
 
