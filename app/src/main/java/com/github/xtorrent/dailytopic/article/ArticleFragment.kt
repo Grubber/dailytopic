@@ -65,7 +65,7 @@ class ArticleFragment : ContentFragment(), ArticleContract.View {
         super.onActivityCreated(savedInstanceState)
         setHasOptionsMenu(true)
         _initView()
-        _randomButton.visibility = if (_isRandom) View.VISIBLE else View.GONE
+        _randomButton.visibility = if (_isRandom && _id == 0L) View.VISIBLE else View.GONE
 
         _presenter.isRandom(_isRandom)
         _presenter.setId(_id)
