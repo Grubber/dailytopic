@@ -19,8 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:fillColor="@color/colorPrimary"
-        app:pageColor="@color/colorAccent"
+        app:fillColor="@color/colorAccent"
+        app:pageColor="@color/colorPrimary"
         app:radius="5dp"
         app:strokeColor="#40FFFFFF"
         app:strokeWidth="0.5dp" />
