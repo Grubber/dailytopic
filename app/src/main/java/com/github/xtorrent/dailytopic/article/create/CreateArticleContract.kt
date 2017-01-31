@@ -9,5 +9,11 @@ import com.github.xtorrent.dailytopic.base.BaseView
 interface CreateArticleContract {
     interface View : BaseView<Presenter, Any>
 
-    interface Presenter : BasePresenter
+    interface Presenter : BasePresenter {
+        fun setData(title: String,
+                    author: String,
+                    content: String,
+                    deliver: String,
+                    source: String)
+    }
 }

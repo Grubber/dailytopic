@@ -1,6 +1,9 @@
 package com.github.xtorrent.dailytopic.article.create
 
 import com.github.xtorrent.dailytopic.article.source.ArticleRepository
+import com.github.xtorrent.dailytopic.utils.applySchedulers
+import com.github.xtorrent.dailytopic.utils.bind
+import com.github.xtorrent.dailytopic.utils.plusAssign
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
 
@@ -18,10 +21,36 @@ class CreateArticlePresenter @Inject constructor(private val view: CreateArticle
         CompositeSubscription()
     }
 
+    private var _title: String = ""
+    private var _author: String = ""
+    private var _content: String = ""
+    private var _deliver: String = ""
+    private var _source: String = ""
+
+    override fun setData(title: String, author: String, content: String, deliver: String, source: String) {
+        _title = title
+        _author = author
+        _content = content
+        _deliver = deliver
+        _source = source
+    }
+
     override fun subscribe() {
         _binder.clear()
 
+        _binder += repository.createArticle(_title, _author, _content, _deliver, _source)
+                .applySchedulers()
+                .bind {
+                    next {
+                        it?.let {
+                            view.setContentView(it)
+                        }
+                    }
 
+                    error {
+                        view.setErrorView()
+                    }
+                }
     }
 
     override fun unsubscribe() {

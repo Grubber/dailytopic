@@ -5,6 +5,7 @@ import com.github.xtorrent.dailytopic.article.source.ArticleDataSource
 import com.github.xtorrent.dailytopic.db.DatabaseManager
 import com.github.xtorrent.dailytopic.db.model.ArticleModel
 import rx.Observable
+import rx.lang.kotlin.emptyObservable
 import rx.lang.kotlin.observable
 
 /**
@@ -120,5 +121,10 @@ class ArticleLocalDataSource(private val databaseManager: DatabaseManager) : Art
                 }
             }
         }
+    }
+
+    override fun createArticle(title: String, author: String, content: String, deliver: String, source: String): Observable<String> {
+        // Ignored.
+        return emptyObservable()
     }
 }

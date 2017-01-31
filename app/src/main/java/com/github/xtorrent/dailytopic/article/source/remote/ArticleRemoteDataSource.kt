@@ -1,5 +1,6 @@
 package com.github.xtorrent.dailytopic.article.source.remote
 
+import com.github.xtorrent.dailytopic.article.create.service.ArticleService
 import com.github.xtorrent.dailytopic.article.model.Article
 import com.github.xtorrent.dailytopic.article.source.ArticleDataSource
 import com.github.xtorrent.dailytopic.core.buildBaseUrl
@@ -12,7 +13,7 @@ import java.util.*
 /**
  * @author Grubber
  */
-class ArticleRemoteDataSource : ArticleDataSource {
+class ArticleRemoteDataSource(private val articleService: ArticleService) : ArticleDataSource {
     override fun getArticle(isRandom: Boolean): Observable<Article> {
         return observable {
             if (!it.isUnsubscribed) {
@@ -61,5 +62,9 @@ class ArticleRemoteDataSource : ArticleDataSource {
     override fun getFavouriteArticle(_id: Long): Observable<Article> {
         // Ignored.
         return emptyObservable()
+    }
+
+    override fun createArticle(title: String, author: String, content: String, deliver: String, source: String): Observable<String> {
+        return articleService.create(title, author, content, deliver, source)
     }
 }

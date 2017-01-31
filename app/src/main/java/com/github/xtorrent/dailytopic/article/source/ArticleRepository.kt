@@ -86,4 +86,8 @@ class ArticleRepository @Inject constructor(private @LocalArticle val localDataS
     override fun getFavouriteArticle(_id: Long): Observable<Article> {
         return localDataSource.getFavouriteArticle(_id)
     }
+
+    override fun createArticle(title: String, author: String, content: String, deliver: String, source: String): Observable<String> {
+        return remoteDataSource.createArticle(title, author, content, deliver, source)
+    }
 }

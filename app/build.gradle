@@ -75,6 +75,7 @@ dependencies {
     compile "com.squareup.retrofit2:retrofit:$retrofit_version"
     compile "com.squareup.retrofit2:adapter-rxjava:$retrofit_version"
     compile "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    compile "com.squareup.retrofit2:converter-scalars:$retrofit_version"
 
     compile 'com.jakewharton.timber:timber:3.1.0'
     compile 'com.jakewharton:kotterknife:0.1.0-SNAPSHOT'

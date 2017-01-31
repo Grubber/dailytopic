@@ -30,4 +30,14 @@
     <string name="text_favourite_empty">暂无收藏</string>
 
     <string name="title_join_us">加入主播</string>
+
+    <string name="text_create_article">1 添加文章是匿名的。\n2 保持良好的文章格式：段落之间空一行，每段开头不空两个字，所有标点都是中文标点。\n3 原则上更加欢迎经典短篇。</string>
+    <string name="text_article_title">标题</string>
+    <string name="text_article_author">作者</string>
+    <string name="text_article_content">文章</string>
+    <string name="text_article_deliver">投递者</string>
+    <string name="text_article_source">原文地址</string>
+    <string name="button_article_add">添加文章</string>
+    <string name="message_create_article_succeed">投递文章成功</string>
+    <string name="message_create_article_failed">投递文章失败</string>
 </resources>
