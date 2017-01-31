@@ -40,6 +40,8 @@ class CreateArticlePresenter @Inject constructor(private val view: CreateArticle
 
         _binder += repository.createArticle(_title, _author, _content, _deliver, _source)
                 .applySchedulers()
+                .doOnSubscribe { view.showLoadingDialog(true) }
+                .doOnTerminate { view.showLoadingDialog(false) }
                 .bind {
                     next {
                         it?.let {

@@ -40,4 +40,6 @@
     <string name="button_article_add">添加文章</string>
     <string name="message_create_article_succeed">投递文章成功</string>
     <string name="message_create_article_failed">投递文章失败</string>
+
+    <string name="message_loading">请稍候…</string>
 </resources>

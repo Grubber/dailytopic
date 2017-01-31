@@ -1,6 +1,7 @@
 package com.github.xtorrent.dailytopic.article.create
 
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -55,7 +56,6 @@ class CreateArticleFragment : BaseFragment(), CreateArticleContract.View {
             _submitButton.isEnabled = it
         }
         bindSubscribe(_submitButton.clicks()) {
-            // TODO progress dialog
             _presenter.setData(_titleView.text.toString(),
                     _authorView.text.toString(),
                     _contentView.text.toString(),
@@ -63,6 +63,16 @@ class CreateArticleFragment : BaseFragment(), CreateArticleContract.View {
                     _sourceView.text.toString())
             _presenter.subscribe()
         }
+    }
+
+    override fun showLoadingDialog(loading: Boolean) {
+        if (loading) _dialog.show() else _dialog.dismiss()
+    }
+
+    private val _dialog by lazy {
+        AlertDialog.Builder(context)
+                .setView(R.layout.dialog_loading)
+                .create()
     }
 
     override fun setContentView(data: Any) {

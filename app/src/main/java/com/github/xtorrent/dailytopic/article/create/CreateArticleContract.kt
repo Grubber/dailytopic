@@ -7,7 +7,9 @@ import com.github.xtorrent.dailytopic.base.BaseView
  * Created by grubber on 2017/1/30.
  */
 interface CreateArticleContract {
-    interface View : BaseView<Presenter, Any>
+    interface View : BaseView<Presenter, Any> {
+        fun showLoadingDialog(loading: Boolean)
+    }
 
     interface Presenter : BasePresenter {
         fun setData(title: String,
