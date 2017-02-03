@@ -1,6 +1,9 @@
 package com.github.xtorrent.dailytopic.core.di
 
 import com.github.xtorrent.dailytopic.core.BASE_ENDPOINT
+import com.github.xtorrent.dailytopic.core.BMOB_BASE_ENDPOINT
+import com.github.xtorrent.dailytopic.core.di.qualifier.AppRestfulClient
+import com.github.xtorrent.dailytopic.core.di.qualifier.BmobRestfulClient
 import com.github.xtorrent.dailytopic.core.di.qualifier.GsonConverter
 import com.github.xtorrent.dailytopic.core.di.qualifier.ScalarsConverter
 import com.github.xtorrent.dailytopic.core.di.scope.ApplicationScope
@@ -36,13 +39,23 @@ class ApiModule {
 
     @Provides
     @ApplicationScope
-    fun provideRetrofit(okHttpClient: OkHttpClient,
-                        @ScalarsConverter scalarsConverterFactory: Converter.Factory,
-                        @GsonConverter gsonConverterFactory: Converter.Factory): Retrofit {
+    @AppRestfulClient
+    fun provideRetrofitForApp(okHttpClient: OkHttpClient, @ScalarsConverter scalarsConverterFactory: Converter.Factory): Retrofit {
         return Retrofit.Builder()
                 .baseUrl(BASE_ENDPOINT)
                 .client(okHttpClient)
                 .addConverterFactory(scalarsConverterFactory)
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build()
+    }
+
+    @Provides
+    @ApplicationScope
+    @BmobRestfulClient
+    fun provideRetrofitForBmob(okHttpClient: OkHttpClient, @GsonConverter gsonConverterFactory: Converter.Factory): Retrofit {
+        return Retrofit.Builder()
+                .baseUrl(BMOB_BASE_ENDPOINT)
+                .client(okHttpClient)
                 .addConverterFactory(gsonConverterFactory)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build()

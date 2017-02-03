@@ -3,6 +3,7 @@ package com.github.xtorrent.dailytopic.article.source
 import com.github.xtorrent.dailytopic.article.create.service.ArticleService
 import com.github.xtorrent.dailytopic.article.source.local.ArticleLocalDataSource
 import com.github.xtorrent.dailytopic.article.source.remote.ArticleRemoteDataSource
+import com.github.xtorrent.dailytopic.core.di.qualifier.AppRestfulClient
 import com.github.xtorrent.dailytopic.db.DatabaseManager
 import com.github.xtorrent.dailytopic.main.MainRepositoryScope
 import dagger.Module
@@ -30,7 +31,7 @@ class ArticleRepositoryModule {
 
     @Provides
     @MainRepositoryScope
-    fun provideArticleService(retrofit: Retrofit): ArticleService {
+    fun provideArticleService(@AppRestfulClient retrofit: Retrofit): ArticleService {
         return retrofit.create(ArticleService::class.java)
     }
 }

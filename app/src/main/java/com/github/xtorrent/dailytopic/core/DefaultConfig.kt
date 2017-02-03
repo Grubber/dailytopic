@@ -8,3 +8,5 @@ fun buildBaseUrl(type: String): String {
 }
 
 const val BASE_ENDPOINT = "https://meiriyiwen.com/"
+
+const val BMOB_BASE_ENDPOINT = "https://api.bmob.cn/1/"

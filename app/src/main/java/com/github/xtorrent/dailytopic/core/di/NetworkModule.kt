@@ -2,6 +2,7 @@ package com.github.xtorrent.dailytopic.core.di
 
 import android.content.Context
 import com.github.xtorrent.dailytopic.BuildConfig
+import com.github.xtorrent.dailytopic.core.ApiHeaders
 import com.github.xtorrent.dailytopic.core.di.qualifier.ForApplication
 import com.github.xtorrent.dailytopic.core.di.scope.ApplicationScope
 import com.jakewharton.picasso.OkHttp3Downloader
@@ -23,11 +24,12 @@ class NetworkModule {
     private val OKHTTP_CLIENT_DISK_CACHE_NAME = "http-cache"
     private val OKHTTP_CLIENT_DISK_CACHE_SIZE = 20 * 1024 * 1024L
 
-    private fun createOkHttpClient(context: Context): OkHttpClient {
+    private fun createOkHttpClient(context: Context, apiHeaders: ApiHeaders): OkHttpClient {
         val builder = OkHttpClient.Builder()
                 .connectTimeout(15000L, TimeUnit.MILLISECONDS)
                 .readTimeout(20000L, TimeUnit.MILLISECONDS)
                 .writeTimeout(15000L, TimeUnit.MILLISECONDS)
+                .addInterceptor(apiHeaders)
                 .addInterceptor(
                         HttpLoggingInterceptor().setLevel(
                                 if (BuildConfig.DEBUG) {
@@ -54,8 +56,8 @@ class NetworkModule {
 
     @Provides
     @ApplicationScope
-    fun provideOkHttpClient(@ForApplication context: Context): OkHttpClient {
-        return createOkHttpClient(context)
+    fun provideOkHttpClient(@ForApplication context: Context, apiHeaders: ApiHeaders): OkHttpClient {
+        return createOkHttpClient(context, apiHeaders)
     }
 
     @Provides
