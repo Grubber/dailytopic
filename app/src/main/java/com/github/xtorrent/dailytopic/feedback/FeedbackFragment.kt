@@ -45,7 +45,7 @@ class FeedbackFragment : BaseFragment(), FeedbackContract.View {
                 if (_feedbackView.text.toString().isNullOrBlank()) {
                     toastHelper().show(R.string.message_feedback_empty)
                 } else {
-                    val feedback = Feedback(_contactView.text.toString(), _feedbackView.text.toString())
+                    val feedback = Feedback(_feedbackView.text.toString(), _contactView.text.toString())
                     _presenter.setFeedback(feedback)
                     _presenter.subscribe()
                 }
