@@ -1,4 +1,4 @@
-package com.github.xtorrent.dailytopic.core
+package com.github.xtorrent.dailytopic.core.api
 
 import com.github.xtorrent.dailytopic.core.di.scope.ApplicationScope
 import okhttp3.Interceptor

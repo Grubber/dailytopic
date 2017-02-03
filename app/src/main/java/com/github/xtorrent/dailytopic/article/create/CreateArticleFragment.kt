@@ -1,7 +1,6 @@
 package com.github.xtorrent.dailytopic.article.create
 
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -11,6 +10,7 @@ import android.widget.EditText
 import butterknife.bindView
 import com.github.xtorrent.dailytopic.R
 import com.github.xtorrent.dailytopic.base.BaseFragment
+import com.github.xtorrent.dailytopic.widget.dialog.LoadingDialog
 import com.jakewharton.rxbinding.view.clicks
 import com.jakewharton.rxbinding.widget.textChanges
 import rx.Observable
@@ -70,9 +70,7 @@ class CreateArticleFragment : BaseFragment(), CreateArticleContract.View {
     }
 
     private val _dialog by lazy {
-        AlertDialog.Builder(context)
-                .setView(R.layout.dialog_loading)
-                .create()
+        LoadingDialog.create(context)
     }
 
     override fun setContentView(data: Any) {

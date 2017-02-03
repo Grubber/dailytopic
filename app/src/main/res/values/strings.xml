@@ -42,4 +42,12 @@
     <string name="message_create_article_failed">投递文章失败</string>
 
     <string name="message_loading">请稍候…</string>
+
+    <string name="text_contact_hint">你的联系方式（邮箱，微博，QQ，微信 皆可）</string>
+    <string name="text_feedback_hint">请写下你对 [文音阅读] 的感受吧</string>
+    <string name="message_feedback_empty">反馈内容不能为空</string>
+    <string name="message_feedback_succeed">提交反馈成功</string>
+    <string name="message_feedback_failed">提交反馈失败</string>
+
+    <string name="text_submit">提交</string>
 </resources>

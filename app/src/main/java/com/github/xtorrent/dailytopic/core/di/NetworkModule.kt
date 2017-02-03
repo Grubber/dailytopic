@@ -2,7 +2,7 @@ package com.github.xtorrent.dailytopic.core.di
 
 import android.content.Context
 import com.github.xtorrent.dailytopic.BuildConfig
-import com.github.xtorrent.dailytopic.core.ApiHeaders
+import com.github.xtorrent.dailytopic.core.api.ApiHeaders
 import com.github.xtorrent.dailytopic.core.di.qualifier.ForApplication
 import com.github.xtorrent.dailytopic.core.di.scope.ApplicationScope
 import com.jakewharton.picasso.OkHttp3Downloader

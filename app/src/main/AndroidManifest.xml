@@ -59,7 +59,8 @@
 
         <activity
             android:name=".feedback.FeedbackActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>
