@@ -42,6 +42,6 @@ captures/
 .DS_Store
 
 # Keystore files
-signing.properties
-*.keystore
-*.jks
+#signing.properties
+#*.keystore
+#*.jks
