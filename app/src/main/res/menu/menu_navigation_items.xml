@@ -37,7 +37,8 @@
         <item
             android:id="@+id/settings"
             android:icon="@drawable/ic_settings_black_24dp"
-            android:title="@string/drawer_menu_settings" />
+            android:title="@string/drawer_menu_settings"
+            android:visible="false" />
 
         <item
             android:id="@+id/feedback"

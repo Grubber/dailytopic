@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import butterknife.bindView
 import com.github.xtorrent.dailytopic.DTApplication
 import com.github.xtorrent.dailytopic.R
@@ -29,10 +30,12 @@ import com.github.xtorrent.dailytopic.favourite.FavouritePresenter
 import com.github.xtorrent.dailytopic.favourite.FavouritePresenterModule
 import com.github.xtorrent.dailytopic.feedback.FeedbackActivity
 import com.github.xtorrent.dailytopic.settings.SettingsActivity
+import com.github.xtorrent.dailytopic.utils.getVersionName
 import com.github.xtorrent.dailytopic.voice.VoiceFragment
 import com.github.xtorrent.dailytopic.voice.VoicePresenter
 import com.github.xtorrent.dailytopic.voice.VoicePresenterModule
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 /**
  * @author Grubber
@@ -51,6 +54,7 @@ class MainFragment : BaseFragment() {
     private val _toolbar by bindView<Toolbar>(R.id.toolbar)
     private val _drawerLayout by bindView<DrawerLayout>(R.id.drawerLayout)
     private val _navigationView by bindView<NavigationView>(R.id.navigationView)
+    private var _versionView by Delegates.notNull<TextView>()
 
     private var _drawerToggle: ActionBarDrawerToggle? = null
     private var _checkItemId: Int = R.id.article
@@ -105,6 +109,9 @@ class MainFragment : BaseFragment() {
         _toolbar.setTitle(R.string.drawer_menu_article)
         _initFragments()
         _showContentFrame(0)
+
+        _versionView = _navigationView.getHeaderView(0).findViewById(R.id.versionView) as TextView
+        _versionView.text = getString(R.string.text_version, getVersionName(context))
     }
 
     override fun onResume() {
