@@ -3,6 +3,10 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.squareup.sqldelight'
 
+def getDebugConfig = { ->
+    return true
+}
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -24,6 +28,14 @@ android {
     }
 
     buildTypes {
+        debug {
+            shrinkResources getDebugConfig()
+            minifyEnabled getDebugConfig()
+            zipAlignEnabled getDebugConfig()
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            applicationIdSuffix ".debug"
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
