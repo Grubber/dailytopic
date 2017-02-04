@@ -117,7 +117,7 @@ repositories {
 }
 
 buildscript {
-    ext.support_version = '25.1.0'
+    ext.support_version = '25.1.1'
     ext.okhttp_version = '3.4.1'
     ext.retrofit_version = '2.1.0'
     ext.rxlifecycle_version = '0.6.1'
