@@ -53,6 +53,8 @@ class DTApplication : MultiDexApplication() {
         applicationComponent = DaggerApplicationComponent.builder()
                 .androidModule(AndroidModule(this))
                 .dataModule(DataModule())
+                .networkModule(NetworkModule())
+                .apiModule(ApiModule())
                 .utilsModule(UtilsModule())
                 .build()
         mainRepositoryComponent = applicationComponent.plus(

@@ -12,6 +12,7 @@ import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
+import retrofit2.CallAdapter
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
@@ -39,25 +40,33 @@ class ApiModule {
 
     @Provides
     @ApplicationScope
+    fun provideRxJavaCallAdapterFactory(): CallAdapter.Factory = RxJavaCallAdapterFactory.create()
+
+    @Provides
+    @ApplicationScope
     @AppRestfulClient
-    fun provideRetrofitForApp(okHttpClient: OkHttpClient, @ScalarsConverter scalarsConverterFactory: Converter.Factory): Retrofit {
+    fun provideRetrofitForApp(okHttpClient: OkHttpClient,
+                              @ScalarsConverter scalarsConverterFactory: Converter.Factory,
+                              rxJavaCallAdapterFactory: CallAdapter.Factory): Retrofit {
         return Retrofit.Builder()
                 .baseUrl(BASE_ENDPOINT)
                 .client(okHttpClient)
                 .addConverterFactory(scalarsConverterFactory)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(rxJavaCallAdapterFactory)
                 .build()
     }
 
     @Provides
     @ApplicationScope
     @BmobRestfulClient
-    fun provideRetrofitForBmob(okHttpClient: OkHttpClient, @GsonConverter gsonConverterFactory: Converter.Factory): Retrofit {
+    fun provideRetrofitForBmob(okHttpClient: OkHttpClient,
+                               @GsonConverter gsonConverterFactory: Converter.Factory,
+                               rxJavaCallAdapterFactory: CallAdapter.Factory): Retrofit {
         return Retrofit.Builder()
                 .baseUrl(BMOB_BASE_ENDPOINT)
                 .client(okHttpClient)
                 .addConverterFactory(gsonConverterFactory)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(rxJavaCallAdapterFactory)
                 .build()
     }
 }

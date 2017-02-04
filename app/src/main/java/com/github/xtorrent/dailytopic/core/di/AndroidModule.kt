@@ -13,17 +13,13 @@ import dagger.Provides
  */
 @Module
 class AndroidModule(context: Context) {
-    private val _context: Context
-
-    init {
-        _context = checkNotNull(context, "Application context can't be null.")
-    }
+    private val _applicationContext: Context = checkNotNull(context, "Application context can't be null.")
 
     @Provides
     @ApplicationScope
     @ForApplication
     fun provideApplicationContext(): Context {
-        return _context
+        return _applicationContext
     }
 
     @ApplicationScope

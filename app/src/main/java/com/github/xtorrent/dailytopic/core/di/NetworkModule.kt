@@ -21,8 +21,8 @@ import java.util.concurrent.TimeUnit
  */
 @Module
 class NetworkModule {
-    private val OKHTTP_CLIENT_DISK_CACHE_NAME = "http-cache"
-    private val OKHTTP_CLIENT_DISK_CACHE_SIZE = 20 * 1024 * 1024L
+    private val HTTP_DISK_CACHE_NAME = "http-cache"
+    private val HTTP_DISK_CACHE_SIZE = 20 * 1024 * 1024L
 
     private fun createOkHttpClient(context: Context, apiHeaders: ApiHeaders): OkHttpClient {
         val builder = OkHttpClient.Builder()
@@ -46,9 +46,9 @@ class NetworkModule {
                                             context.externalCacheDir
                                         } else {
                                             context.cacheDir
-                                        }, OKHTTP_CLIENT_DISK_CACHE_NAME
+                                        }, HTTP_DISK_CACHE_NAME
                                 ),
-                                OKHTTP_CLIENT_DISK_CACHE_SIZE
+                                HTTP_DISK_CACHE_SIZE
                         )
                 )
         return builder.build()
