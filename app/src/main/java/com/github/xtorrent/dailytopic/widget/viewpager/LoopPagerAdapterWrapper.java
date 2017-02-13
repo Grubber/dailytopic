@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Created by zhihao.zeng on 16/12/26.
+ * Created by grubber on 16/12/26.
  */
 public class LoopPagerAdapterWrapper extends PagerAdapter {
     private PagerAdapter mAdapter;

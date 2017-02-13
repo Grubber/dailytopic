@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.github.xtorrent.dailytopic.R
 
 /**
- * Created by zhihao.zeng on 16/11/29.
+ * Created by grubber on 16/11/29.
  */
 abstract class PagingRecyclerViewAdapter<T, H> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {

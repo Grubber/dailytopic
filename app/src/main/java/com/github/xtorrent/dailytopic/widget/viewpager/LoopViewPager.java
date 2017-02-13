@@ -6,7 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 
 /**
- * Created by zhihao.zeng on 16/12/26.
+ * Created by grubber on 16/12/26.
  */
 public class LoopViewPager extends ViewPager {
     private static final boolean DEFAULT_BOUNDARY_CASHING = false;
