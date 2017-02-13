@@ -2,6 +2,7 @@ package com.github.xtorrent.dailytopic
 
 import android.content.Context
 import android.support.multidex.MultiDexApplication
+import com.bugtags.library.Bugtags
 import com.github.xtorrent.dailytopic.article.source.ArticleRepositoryModule
 import com.github.xtorrent.dailytopic.bookshelf.source.BookshelfRepositoryModule
 import com.github.xtorrent.dailytopic.core.di.*
@@ -66,6 +67,8 @@ class DTApplication : MultiDexApplication() {
     }
 
     private fun _setupAnalytics() {
+        Bugtags.start("13fe0ed23425315a98beb099233bcbf1", this, Bugtags.BTGInvocationEventNone)
+
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
