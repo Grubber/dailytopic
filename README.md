@@ -19,6 +19,8 @@
 - OkHttp 3
 - Picasso
 
+APP 下载地址：https://fir.im/ka3n
+
 ## Screenshots
 
 ![main](screenshots/Screenshot_2017-02-13-10-06-56.png)
