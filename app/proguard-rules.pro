@@ -59,8 +59,8 @@
 -keeppackagenames org.jsoup.nodes
 
 ### model
--keep class com.github.xtorrent.dailytopic.core.api.model.** { *; }
--keep class com.github.xtorrent.dailytopic.feedback.model.** { *; }
+-keep class com.github.grubber.dailytopic.core.api.model.** { *; }
+-keep class com.github.grubber.dailytopic.feedback.model.** { *; }
 
 ### bugtags
 -keepattributes LineNumberTable,SourceFile

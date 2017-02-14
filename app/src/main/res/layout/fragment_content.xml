@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.github.xtorrent.dailytopic.widget.BetterViewAnimator xmlns:android="http://schemas.android.com/apk/res/android"
+<com.github.grubber.dailytopic.widget.BetterViewAnimator xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -15,4 +15,4 @@
     <include
         android:id="@+id/errorView"
         layout="@layout/layout_error" />
-</com.github.xtorrent.dailytopic.widget.BetterViewAnimator>
+</com.github.grubber.dailytopic.widget.BetterViewAnimator>

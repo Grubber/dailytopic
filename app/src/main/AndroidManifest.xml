@@ -1,11 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.github.xtorrent.dailytopic">
+    package="com.github.grubber.dailytopic">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".DTApplication"
+        android:name="com.github.grubber.dailytopic.DTApplication"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".main.MainActivity"
+            android:name="com.github.grubber.dailytopic.main.MainActivity"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/MainTheme">
@@ -28,37 +28,37 @@
         </activity>
 
         <activity
-            android:name=".article.ArticleActivity"
+            android:name="com.github.grubber.dailytopic.article.ArticleActivity"
             android:hardwareAccelerated="true"
             android:process=":article"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".article.create.CreateArticleActivity"
+            android:name="com.github.grubber.dailytopic.article.create.CreateArticleActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".bookshelf.details.BookshelfDetailsActivity"
+            android:name="com.github.grubber.dailytopic.bookshelf.details.BookshelfDetailsActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".bookshelf.chapter.ChapterActivity"
+            android:name="com.github.grubber.dailytopic.bookshelf.chapter.ChapterActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".voice.details.VoiceDetailsActivity"
+            android:name="com.github.grubber.dailytopic.voice.details.VoiceDetailsActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".voice.joinus.JoinUsActivity"
+            android:name="com.github.grubber.dailytopic.voice.joinus.JoinUsActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".settings.SettingsActivity"
+            android:name="com.github.grubber.dailytopic.settings.SettingsActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".feedback.FeedbackActivity"
+            android:name="com.github.grubber.dailytopic.feedback.FeedbackActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
     </application>

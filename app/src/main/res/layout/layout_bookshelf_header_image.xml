@@ -6,7 +6,7 @@
     android:clipChildren="false"
     android:orientation="vertical">
 
-    <com.github.xtorrent.dailytopic.widget.viewpager.LoopViewPager
+    <com.github.grubber.dailytopic.widget.viewpager.LoopViewPager
         android:id="@+id/headerImageViewPager"
         android:layout_width="match_parent"
         android:layout_height="150dp"

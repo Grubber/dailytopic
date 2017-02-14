@@ -32,7 +32,7 @@ android {
     buildToolsVersion "25.0.2"
 
     defaultConfig {
-        applicationId "com.github.xtorrent.dailytopic"
+        applicationId "com.github.grubber.dailytopic"
         minSdkVersion 17
         targetSdkVersion 25
         versionCode getVersionCodeFromTag()
