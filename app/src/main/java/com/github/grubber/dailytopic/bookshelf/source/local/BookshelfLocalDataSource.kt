@@ -34,7 +34,7 @@ class BookshelfLocalDataSource(private val databaseManager: DatabaseManager) : B
                     }
                     if (pageNumber == 1) {
                         val headerImages = arrayListOf<BookshelfHeaderImage>()
-                        val headerImageCursor = _db.rawQuery(BookshelfHeaderImageModel.SELECT_ALL, arrayOfNulls(0))
+                        val headerImageCursor = _db.rawQuery(BookshelfHeaderImage.FACTORY.select_all().statement, arrayOfNulls(0))
                         headerImageCursor.use {
                             while (it.moveToNext()) {
                                 headerImages += BookshelfHeaderImage.FACTORY.select_allMapper().map(it)
