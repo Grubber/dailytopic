@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.bindView
+import com.github.grubber.dailytopic.BuildConfig
 import com.github.grubber.dailytopic.R
 import com.github.grubber.dailytopic.base.ContentFragment
 import com.github.grubber.dailytopic.voice.model.Voice
@@ -21,8 +22,13 @@ import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
 import com.google.android.exoplayer2.source.ExtractorMediaSource
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
+import com.google.android.exoplayer2.upstream.cache.CacheDataSource
+import com.google.android.exoplayer2.upstream.cache.CacheDataSourceFactory
+import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvictor
+import com.google.android.exoplayer2.upstream.cache.SimpleCache
 import com.google.android.exoplayer2.util.Util
 import com.squareup.picasso.MemoryPolicy
+import java.io.File
 
 /**
  * Created by grubber on 2017/1/23.
@@ -52,7 +58,7 @@ class VoiceDetailsFragment : ContentFragment(), VoiceDetailsContract.View {
 
     private val _backgroundView by bindView<ImageView>(R.id.backgroundView)
     private val _updateView by bindView<ImageView>(R.id.updateView)
-    private val _titleView  by bindView<TextView>(R.id.titleView)
+    private val _titleView by bindView<TextView>(R.id.titleView)
     private val _authorView by bindView<TextView>(R.id.authorView)
     private val _playerView by bindView<AudioExoPlayerView>(R.id.playerView)
 
@@ -95,7 +101,10 @@ class VoiceDetailsFragment : ContentFragment(), VoiceDetailsContract.View {
     }
 
     private fun _prepareMediaPlayer() {
-        val dataSourceFactory = DefaultHttpDataSourceFactory(Util.getUserAgent(context, "dailytopic"))
+        val evictor = LeastRecentlyUsedCacheEvictor(100 * 1024 * 1024)
+        val cache = SimpleCache(File(if (BuildConfig.DEBUG) context.externalCacheDir else context.cacheDir, "media_cache"), evictor)
+        val upstreamFactory = DefaultHttpDataSourceFactory(Util.getUserAgent(context, "dailytopic"))
+        val dataSourceFactory = CacheDataSourceFactory(cache, upstreamFactory, CacheDataSource.FLAG_BLOCK_ON_CACHE or CacheDataSource.FLAG_IGNORE_CACHE_ON_ERROR)
         val extractorsFactory = DefaultExtractorsFactory()
         val videoSource = ExtractorMediaSource(Uri.parse(_playUrl), dataSourceFactory, extractorsFactory, null, null)
         _exoPlayer!!.prepare(videoSource)

@@ -37,7 +37,7 @@ APP 下载地址：https://fir.im/ka3n
 ## TODOs
 
 - [ ] 夜间模式
-- [ ] 音乐文件本地缓存
+- [x] 音乐文件本地缓存
 
 ## License
 
