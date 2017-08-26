@@ -73,11 +73,11 @@ class ArticleFragment : ContentFragment(), ArticleContract.View {
     }
 
     private fun _initView() {
-        _backgroundView = _rootView.findViewById(R.id.backgroundView) as ImageView
-        _titleView = _rootView.findViewById(R.id.titleView) as TextView
-        _authorView = _rootView.findViewById(R.id.authorView) as TextView
-        _contentView = _rootView.findViewById(R.id.contentView) as TextView
-        _randomButton = _rootView.findViewById(R.id.randomButton) as TextView
+        _backgroundView = _rootView.findViewById<ImageView>(R.id.backgroundView) as ImageView
+        _titleView = _rootView.findViewById<TextView>(R.id.titleView) as TextView
+        _authorView = _rootView.findViewById<TextView>(R.id.authorView) as TextView
+        _contentView = _rootView.findViewById<TextView>(R.id.contentView) as TextView
+        _randomButton = _rootView.findViewById<TextView>(R.id.randomButton) as TextView
 
         bindSubscribe(_randomButton.clicks()) {
             _presenter.subscribe()

@@ -5,6 +5,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.FrameLayout
 import butterknife.bindView
 import com.github.grubber.dailytopic.R
@@ -30,7 +31,7 @@ abstract class ContentFragment : BaseFragment() {
 
         displayLoadingView()
         _addContentView()
-        _errorView.findViewById(R.id.retryButton).setOnClickListener {
+        _errorView.findViewById<Button>(R.id.retryButton).setOnClickListener {
             displayLoadingView()
             onRetry()
         }

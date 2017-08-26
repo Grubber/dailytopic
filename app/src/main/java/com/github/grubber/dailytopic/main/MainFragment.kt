@@ -74,7 +74,7 @@ class MainFragment : BaseFragment() {
     private val _voiceFragment by lazy {
         VoiceFragment.newInstance()
     }
-    private val _bookshelfFragment by  lazy {
+    private val _bookshelfFragment by lazy {
         BookshelfFragment.newInstance()
     }
     private val _favouriteFragment by lazy {
@@ -110,7 +110,7 @@ class MainFragment : BaseFragment() {
         _initFragments()
         _showContentFrame(0)
 
-        _versionView = _navigationView.getHeaderView(0).findViewById(R.id.versionView) as TextView
+        _versionView = _navigationView.getHeaderView(0).findViewById<TextView>(R.id.versionView) as TextView
         _versionView.text = getString(R.string.text_version, getVersionName(context))
     }
 

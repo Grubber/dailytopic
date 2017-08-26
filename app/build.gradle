@@ -28,13 +28,13 @@ def getVersionCodeFromTag = { ->
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.1"
 
     defaultConfig {
         applicationId "com.github.grubber.dailytopic"
         minSdkVersion 17
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode getVersionCodeFromTag()
         versionName getVersionNameFromTag()
 
@@ -45,7 +45,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
-            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
+            abiFilters 'armeabi', 'armeabi-v7a'
         }
     }
 
@@ -130,12 +130,12 @@ repositories {
 }
 
 buildscript {
-    ext.support_version = '25.3.1'
+    ext.support_version = '26.0.0-alpha1'
     ext.okhttp_version = '3.4.1'
     ext.retrofit_version = '2.1.0'
     ext.rxlifecycle_version = '0.6.1'
     ext.rxbinding_version = '0.4.0'
-    ext.kotlin_version = '1.1.1'
+    ext.kotlin_version = '1.1.4-2'
     ext.dagger_version = '2.2'
     ext.autovalue_version = '1.2'
     ext.autovalue_parcel_version = '0.2.5'
