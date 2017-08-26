@@ -62,9 +62,9 @@ class ChapterFragment : ContentFragment(), ChapterContract.View {
     }
 
     private fun _initView() {
-        _contentView = _rootView.findViewById(R.id.contentView) as TextView
-        _nextView = _rootView.findViewById(R.id.nextView) as TextView
-        _previousView = _rootView.findViewById(R.id.previousView) as TextView
+        _contentView = _rootView.findViewById<TextView>(R.id.contentView) as TextView
+        _nextView = _rootView.findViewById<TextView>(R.id.nextView) as TextView
+        _previousView = _rootView.findViewById<TextView>(R.id.previousView) as TextView
 
         bindSubscribe(_nextView.clicks()) {
             displayLoadingView()
